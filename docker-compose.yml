@@ -6,7 +6,7 @@ services:
     ports:
       - "2181:2181"
     volumes:
-      - ${DATA_DIR}/zookeeper:/data
+      - $PWD/data/zookeeper:/data
   kafka:
     image: wurstmeister/kafka:2.12-2.1.0
     container_name: kafka
@@ -19,9 +19,11 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 10
       KAFKA_OFFSETS_RETENTION_MINUTES: 20160
       KAFKA_HEAP_OPTS: "-Xmx256M -Xms256M"
+    depends_on:
+      - zookeeper
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${DATA_DIR}/kafka:/opt/kafka/logs
+      - $PWD/data/kafka:/opt/kafka/logs
   mongodb:
     image: mongo:4.0.5
     container_name: mongo
@@ -30,8 +32,8 @@ services:
     command: mongod --replSet rs0
     volumes:
       - ./initRS.js:/docker-entrypoint-initdb.d/initRS.js
-      - ${DATA_DIR}/mongo/configdb:/data/configdb
-      - ${DATA_DIR}/mongo/db:/data/db
+      - $PWD/data/mongo/configdb:/data/configdb
+      - $PWD/data/mongo/db:/data/db
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.5.3
     container_name: elastic
@@ -43,6 +45,29 @@ services:
       ES_JAVA_OPTS: -Xms384m -Xmx384m
     volumes:
       - esdata:/usr/share/elasticsearch/data
+  graphite:
+    build: graphite
+    image: mygraphite:latest
+    container_name: graphite
+    user: root
+    ports:
+      - "8000:80"
+      - "2003:2003"
+    volumes:
+      - $PWD/data/graphite:/opt/graphite/storage/whisper
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    user: root
+    ports:
+      - "3000:3000"
+    links:
+      - graphite
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+      - $PWD/data/grafana:/var/lib/grafana
   nuxeo:
     image: nuxeo:latest
     container_name: nuxeo
@@ -50,16 +75,20 @@ services:
       NUXEO_TEMPLATES: default, mongodb
       NUXEO_PACKAGES: "nuxeo-web-ui nuxeo-jsf-ui nuxeo-platform-importer"
       JAVA_OPTS: -Xdebug -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n
+    depends_on:
+      - kafka
+      - elasticsearch
+      - mongodb
     ports:
       - "8080:8080"
       - "8787:8787"
     volumes:
       - ./nuxeo.conf:/docker-entrypoint-initnuxeo.d/nuxeo.conf
-      - ${INSTANCE_CLID}:/docker-entrypoint-initnuxeo.d/instance.clid
-      - ${DATA_DIR}/nuxeo:/var/lib/nuxeo/data
+      - $PWD/instance.clid:/docker-entrypoint-initnuxeo.d/instance.clid
+      - $PWD/data/nuxeo:/var/lib/nuxeo/data
 volumes:
   esdata:
     driver_opts:
       type: none
-      device: ${DATA_DIR}/elastic
+      device: $PWD/data/elastic
       o: bind
