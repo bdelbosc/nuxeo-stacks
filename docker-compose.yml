@@ -1,0 +1,65 @@
+version: '3'
+services:
+  zookeeper:
+    image: zookeeper:3.4.13
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    volumes:
+      - ${DATA_DIR}/zookeeper:/data
+  kafka:
+    image: wurstmeister/kafka:2.12-2.1.0
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: "kafka"
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 10
+      KAFKA_OFFSETS_RETENTION_MINUTES: 20160
+      KAFKA_HEAP_OPTS: "-Xmx256M -Xms256M"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${DATA_DIR}/kafka:/opt/kafka/logs
+  mongodb:
+    image: mongo:4.0.5
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    command: mongod --replSet rs0
+    volumes:
+      - ./initRS.js:/docker-entrypoint-initdb.d/initRS.js
+      - ${DATA_DIR}/mongo/configdb:/data/configdb
+      - ${DATA_DIR}/mongo/db:/data/db
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.3
+    container_name: elastic
+    ports:
+      - "9200:9200"
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: -Xms384m -Xmx384m
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+  nuxeo:
+    image: nuxeo:latest
+    container_name: nuxeo
+    environment:
+      NUXEO_TEMPLATES: default, mongodb
+      NUXEO_PACKAGES: "nuxeo-web-ui nuxeo-jsf-ui nuxeo-platform-importer"
+      JAVA_OPTS: -Xdebug -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n
+    ports:
+      - "8080:8080"
+      - "8787:8787"
+    volumes:
+      - ./nuxeo.conf:/docker-entrypoint-initnuxeo.d/nuxeo.conf
+      - ${INSTANCE_CLID}:/docker-entrypoint-initnuxeo.d/instance.clid
+      - ${DATA_DIR}/nuxeo:/var/lib/nuxeo/data
+volumes:
+  esdata:
+    driver_opts:
+      type: none
+      device: ${DATA_DIR}/elastic
+      o: bind
