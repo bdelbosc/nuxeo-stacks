@@ -1,0 +1,19 @@
+# --------------------------------------------------
+# Options from nuxeoenv.sh
+data_path: "{{ env_data_path }}"
+instance_clid: "{{ env_instance_clid }}"
+nuxeo: "{{ env_nuxeo }}"
+mongo: "{{ env_mongo }}"
+postgres: "{{ env_postgres }}"
+elastic: "{{ env_elastic }}"
+redis: "{{ env_redis }}"
+graphite: "{{ env_graphite }}"
+grafana: "{{ env_grafana }}"
+kafka: "{{ env_kafka }}"
+zookeeper: "{{ env_zookeeper }}"
+kafkahq: "{{ env_kafkahq }}"
+netdata: "{{ env_netdata }}"
+stream: "{{ env_stream }}"
+swm: "{{ env_swm }}"
+
+# Variables

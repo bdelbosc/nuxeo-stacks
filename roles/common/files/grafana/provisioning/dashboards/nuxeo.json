@@ -18,7 +18,7 @@
   "links": [],
   "panels": [
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -26,442 +26,442 @@
         "y": 0
       },
       "id": 10,
-      "panels": [
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "#508642",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": "Graphite",
-          "editable": true,
-          "error": false,
-          "format": "short",
-          "gauge": {
-            "maxValue": 10,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 0,
-            "y": 1
-          },
-          "hideTimeOverride": true,
-          "id": 31,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": "10",
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "tableColumn": "",
-          "targets": [
-            {
-              "hide": false,
-              "refId": "A",
-              "target": "sumSeries(servers.*.nuxeo.nuxeo.instance-up.count)",
-              "textEditor": false
-            }
-          ],
-          "thresholds": "10,20",
-          "timeFrom": "1h",
-          "title": "Nuxeo nodes",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "",
-              "value": ""
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "#508642",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": "Graphite",
-          "editable": true,
-          "error": false,
-          "format": "short",
-          "gauge": {
-            "maxValue": 10,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 2,
-            "y": 1
-          },
-          "hideTimeOverride": true,
-          "id": 8,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": "10",
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "tableColumn": "",
-          "targets": [
-            {
-              "hide": false,
-              "refId": "A",
-              "target": "sumSeries(servers.*.nuxeo.org.apache.logging.log4j.core.Appender.{error,fatal}.count)",
-              "textEditor": false
-            }
-          ],
-          "thresholds": "1,10",
-          "timeFrom": "1h",
-          "title": "Errors",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "",
-              "value": ""
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": "Graphite",
-          "editable": true,
-          "error": false,
-          "format": "short",
-          "gauge": {
-            "maxValue": 10,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 4,
-            "y": 1
-          },
-          "hideTimeOverride": true,
-          "id": 11,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": "10",
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "tableColumn": "",
-          "targets": [
-            {
-              "hide": false,
-              "refId": "A",
-              "target": "sumSeries(servers.*.nuxeo.org.apache.logging.log4j.core.Appender.warn.count)",
-              "textEditor": false
-            }
-          ],
-          "thresholds": "10,50",
-          "timeFrom": "1h",
-          "title": "Warning",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "",
-              "value": ""
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": "Graphite",
-          "editable": true,
-          "error": false,
-          "format": "short",
-          "gauge": {
-            "maxValue": 10,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 6,
-            "y": 1
-          },
-          "hideTimeOverride": true,
-          "id": 14,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": "10",
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "tableColumn": "",
-          "targets": [
-            {
-              "hide": false,
-              "refId": "A",
-              "target": "sumSeries(servers.*.nuxeo.org.apache.logging.log4j.core.Appender.all.count)",
-              "textEditor": false
-            }
-          ],
-          "thresholds": "100000,1000000",
-          "timeFrom": "1h",
-          "title": "All",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "",
-              "value": ""
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "aliasColors": {
-            "error": "#bf1b00",
-            "fatal": "#890f02",
-            "warn": "#f9934e"
-          },
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Graphite",
-          "fill": 1,
-          "gridPos": {
-            "h": 4,
-            "w": 7,
-            "x": 8,
-            "y": 1
-          },
-          "id": 13,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refCount": 0,
-              "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.org.apache.logging.log4j.core.Appender.error.count, 9)"
-            },
-            {
-              "refCount": 0,
-              "refId": "B",
-              "target": "aliasByNode(servers.*.nuxeo.org.apache.logging.log4j.core.Appender.fatal.count, 9)"
-            },
-            {
-              "refCount": 0,
-              "refId": "C",
-              "target": "aliasByNode(servers.*.nuxeo.org.apache.logging.log4j.core.Appender.warn.count, 9)"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Errors and warnings",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        }
-      ],
+      "panels": [],
       "title": "Logs",
       "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#508642",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(245, 54, 54, 0.9)"
+      ],
+      "datasource": "Graphite",
+      "editable": true,
+      "error": false,
+      "format": "short",
+      "gauge": {
+        "maxValue": 10,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 0,
+        "y": 1
+      },
+      "hideTimeOverride": true,
+      "id": 31,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": "10",
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "hide": false,
+          "refId": "A",
+          "target": "sumSeries(servers.*.nuxeo.nuxeo.instance-up.count)",
+          "textEditor": false
+        }
+      ],
+      "thresholds": "10,20",
+      "timeFrom": "1h",
+      "title": "Nuxeo nodes",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "",
+          "value": ""
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#508642",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(245, 54, 54, 0.9)"
+      ],
+      "datasource": "Graphite",
+      "editable": true,
+      "error": false,
+      "format": "short",
+      "gauge": {
+        "maxValue": 10,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 2,
+        "y": 1
+      },
+      "hideTimeOverride": true,
+      "id": 8,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": "10",
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "hide": false,
+          "refId": "A",
+          "target": "sumSeries(servers.*.nuxeo.org.apache.logging.log4j.core.Appender.{error,fatal}.count)",
+          "textEditor": false
+        }
+      ],
+      "thresholds": "1,10",
+      "timeFrom": "1h",
+      "title": "Errors",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "",
+          "value": ""
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "rgba(50, 172, 45, 0.97)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(245, 54, 54, 0.9)"
+      ],
+      "datasource": "Graphite",
+      "editable": true,
+      "error": false,
+      "format": "short",
+      "gauge": {
+        "maxValue": 10,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 4,
+        "y": 1
+      },
+      "hideTimeOverride": true,
+      "id": 11,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": "10",
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "hide": false,
+          "refId": "A",
+          "target": "sumSeries(servers.*.nuxeo.org.apache.logging.log4j.core.Appender.warn.count)",
+          "textEditor": false
+        }
+      ],
+      "thresholds": "10,50",
+      "timeFrom": "1h",
+      "title": "Warning",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "",
+          "value": ""
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "rgba(50, 172, 45, 0.97)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(245, 54, 54, 0.9)"
+      ],
+      "datasource": "Graphite",
+      "editable": true,
+      "error": false,
+      "format": "short",
+      "gauge": {
+        "maxValue": 10,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 6,
+        "y": 1
+      },
+      "hideTimeOverride": true,
+      "id": 14,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": "10",
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "hide": false,
+          "refId": "A",
+          "target": "sumSeries(servers.*.nuxeo.org.apache.logging.log4j.core.Appender.all.count)",
+          "textEditor": false
+        }
+      ],
+      "thresholds": "100000,1000000",
+      "timeFrom": "1h",
+      "title": "All",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "",
+          "value": ""
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "aliasColors": {
+        "error": "#bf1b00",
+        "fatal": "#890f02",
+        "warn": "#f9934e"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Graphite",
+      "fill": 1,
+      "gridPos": {
+        "h": 4,
+        "w": 7,
+        "x": 8,
+        "y": 1
+      },
+      "id": 13,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(servers.*.nuxeo.org.apache.logging.log4j.core.Appender.error.count, 9)"
+        },
+        {
+          "refCount": 0,
+          "refId": "B",
+          "target": "aliasByNode(servers.*.nuxeo.org.apache.logging.log4j.core.Appender.fatal.count, 9)"
+        },
+        {
+          "refCount": 0,
+          "refId": "C",
+          "target": "aliasByNode(servers.*.nuxeo.org.apache.logging.log4j.core.Appender.warn.count, 9)"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Errors and warnings",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "collapsed": true,
@@ -469,7 +469,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 1
+        "y": 5
       },
       "id": 4,
       "panels": [
@@ -489,7 +489,7 @@
             "h": 7,
             "w": 9,
             "x": 0,
-            "y": 2
+            "y": 6
           },
           "id": 2,
           "legend": {
@@ -521,6 +521,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Threads",
           "tooltip": {
@@ -570,7 +571,7 @@
             "h": 7,
             "w": 9,
             "x": 9,
-            "y": 2
+            "y": 6
           },
           "id": 6,
           "legend": {
@@ -602,6 +603,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Threads per JVM",
           "tooltip": {
@@ -651,7 +653,7 @@
             "h": 7,
             "w": 9,
             "x": 0,
-            "y": 9
+            "y": 13
           },
           "id": 16,
           "legend": {
@@ -683,6 +685,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Heap",
           "tooltip": {
@@ -732,7 +735,7 @@
             "h": 7,
             "w": 9,
             "x": 9,
-            "y": 9
+            "y": 13
           },
           "id": 17,
           "legend": {
@@ -764,6 +767,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Memory",
           "tooltip": {
@@ -815,7 +819,7 @@
             "h": 7,
             "w": 9,
             "x": 0,
-            "y": 16
+            "y": 20
           },
           "id": 18,
           "legend": {
@@ -853,6 +857,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Garbage Collector",
           "tooltip": {
@@ -904,7 +909,7 @@
             "h": 7,
             "w": 9,
             "x": 9,
-            "y": 16
+            "y": 20
           },
           "id": 19,
           "legend": {
@@ -937,6 +942,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Buffers",
           "tooltip": {
@@ -985,7 +991,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 2
+        "y": 6
       },
       "id": 21,
       "panels": [
@@ -1005,7 +1011,7 @@
             "h": 7,
             "w": 9,
             "x": 0,
-            "y": 3
+            "y": 7
           },
           "id": 23,
           "legend": {
@@ -1043,6 +1049,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Network",
           "tooltip": {
@@ -1097,7 +1104,7 @@
             "h": 7,
             "w": 9,
             "x": 9,
-            "y": 3
+            "y": 7
           },
           "id": 24,
           "legend": {
@@ -1135,6 +1142,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Threads",
           "tooltip": {
@@ -1189,7 +1197,7 @@
             "h": 7,
             "w": 9,
             "x": 0,
-            "y": 10
+            "y": 14
           },
           "id": 25,
           "legend": {
@@ -1227,6 +1235,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "JDBC",
           "tooltip": {
@@ -1282,7 +1291,7 @@
             "h": 7,
             "w": 9,
             "x": 9,
-            "y": 10
+            "y": 14
           },
           "id": 26,
           "legend": {
@@ -1325,6 +1334,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Requests",
           "tooltip": {
@@ -1373,7 +1383,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 7
       },
       "id": 28,
       "panels": [
@@ -1388,7 +1398,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 4
+            "y": 8
           },
           "id": 30,
           "legend": {
@@ -1420,6 +1430,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Sessions",
           "tooltip": {
@@ -1469,7 +1480,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 4
+            "y": 8
           },
           "id": 32,
           "legend": {
@@ -1501,6 +1512,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Connections",
           "tooltip": {
@@ -1550,7 +1562,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 12
+            "y": 16
           },
           "id": 33,
           "legend": {
@@ -1582,6 +1594,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Documents",
           "tooltip": {
@@ -1632,7 +1645,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 12
+            "y": 16
           },
           "id": 34,
           "legend": {
@@ -1669,6 +1682,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Queries and Saves",
           "tooltip": {
@@ -1719,7 +1733,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 20
+            "y": 24
           },
           "id": 35,
           "legend": {
@@ -1762,6 +1776,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Transactions concurrency",
           "tooltip": {
@@ -1814,7 +1829,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 20
+            "y": 24
           },
           "id": 36,
           "legend": {
@@ -1862,6 +1877,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Transactions count and rollback",
           "tooltip": {
@@ -1910,7 +1926,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 8
       },
       "id": 40,
       "panels": [
@@ -1925,7 +1941,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 5
+            "y": 9
           },
           "id": 46,
           "legend": {
@@ -1957,6 +1973,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Elastic throughputs 1min",
           "tooltip": {
@@ -2006,7 +2023,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 5
+            "y": 9
           },
           "id": 48,
           "legend": {
@@ -2038,6 +2055,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Elastic counters",
           "tooltip": {
@@ -2087,7 +2105,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 13
+            "y": 17
           },
           "id": 47,
           "legend": {
@@ -2119,6 +2137,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Elastic timers p50",
           "tooltip": {
@@ -2168,7 +2187,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 13
+            "y": 17
           },
           "id": 49,
           "legend": {
@@ -2200,6 +2219,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Elastic timers p98",
           "tooltip": {
@@ -2248,7 +2268,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 9
       },
       "id": 42,
       "panels": [
@@ -2263,7 +2283,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 6
+            "y": 10
           },
           "id": 52,
           "legend": {
@@ -2301,6 +2321,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Works completed",
           "tooltip": {
@@ -2350,7 +2371,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 6
+            "y": 10
           },
           "id": 55,
           "legend": {
@@ -2388,6 +2409,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Works scheduled",
           "tooltip": {
@@ -2437,7 +2459,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 14
+            "y": 18
           },
           "id": 57,
           "legend": {
@@ -2475,6 +2497,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Work timers p50",
           "tooltip": {
@@ -2524,7 +2547,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 14
+            "y": 18
           },
           "id": 58,
           "legend": {
@@ -2562,6 +2585,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Work timers p98",
           "tooltip": {
@@ -2611,7 +2635,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 22
+            "y": 26
           },
           "id": 56,
           "legend": {
@@ -2649,6 +2673,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Works throuhgputs 1min",
           "tooltip": {
@@ -2692,30 +2717,20 @@
       "type": "row"
     },
     {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 6
-      },
-      "id": 44,
-      "panels": [],
-      "title": "Nuxeo Audit (TODO)",
-      "type": "row"
-    },
-    {
       "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 10
       },
-      "id": 38,
+      "id": 44,
       "panels": [
         {
-          "aliasColors": {},
+          "aliasColors": {
+            "end": "#82b5d8",
+            "lag": "#bf1b00"
+          },
           "bars": false,
           "dashLength": 10,
           "dashes": false,
@@ -2725,103 +2740,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 8
-          },
-          "id": 62,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "strix.requests",
-              "yaxis": 2
-            },
-            {
-              "alias": "latency",
-              "yaxis": 2
-            }
-          ],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refCount": 0,
-              "refId": "A",
-              "target": "alias(servers.*.nuxeo.streams.elasticSearchIndexing.elasticSearchIndexing.all.lag, 'lag')"
-            },
-            {
-              "refCount": 0,
-              "refId": "B",
-              "target": "alias(servers.*.nuxeo.streams.elasticSearchIndexing.elasticSearchIndexing.all.latency, 'latency')"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Indexing lag and latency",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "ms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Graphite",
-          "fill": 1,
-          "gridPos": {
-            "h": 8,
-            "w": 10,
-            "x": 10,
-            "y": 8
+            "y": 11
           },
           "id": 61,
           "legend": {
@@ -2836,7 +2755,7 @@
           "lines": true,
           "linewidth": 1,
           "links": [],
-          "nullPointMode": "null",
+          "nullPointMode": "connected",
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -2844,6 +2763,14 @@
           "seriesOverrides": [
             {
               "alias": "strix.requests",
+              "yaxis": 2
+            },
+            {
+              "alias": "lag",
+              "yaxis": 2
+            },
+            {
+              "alias": "latency",
               "yaxis": 2
             }
           ],
@@ -2854,18 +2781,19 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "alias(servers.*.nuxeo.streams.elasticSearchIndexing.elasticSearchIndexing.all.pos, 'position')"
+              "target": "alias(servers.*.nuxeo.streams.AuditLogWriter.audit.all.pos, 'current pos')"
             },
             {
               "refCount": 0,
               "refId": "B",
-              "target": "alias(servers.*.nuxeo.streams.elasticSearchIndexing.elasticSearchIndexing.all.end, 'end')"
+              "target": "alias(servers.*.nuxeo.streams.AuditLogWriter.audit.all.end, 'end')"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
-          "title": "Indexing position",
+          "title": "Audit Position",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -2903,7 +2831,128 @@
           }
         },
         {
-          "aliasColors": {},
+          "aliasColors": {
+            "end": "#82b5d8",
+            "lag": "#bf1b00"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 10,
+            "y": 11
+          },
+          "id": 65,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "strix.requests",
+              "yaxis": 2
+            },
+            {
+              "alias": "lag",
+              "yaxis": 1
+            },
+            {
+              "alias": "latency",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refCount": 0,
+              "refId": "C",
+              "target": "alias(servers.*.nuxeo.streams.AuditLogWriter.audit.all.lag, 'lag')"
+            },
+            {
+              "refCount": 0,
+              "refId": "D",
+              "target": "alias(servers.*.nuxeo.streams.AuditLogWriter.audit.all.latency, 'latency')"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Audit Lag and Latency",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "ms",
+              "label": "Latency",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Nuxeo Audit",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 38,
+      "panels": [
+        {
+          "aliasColors": {
+            "end": "#82b5d8",
+            "lag": "#bf1b00"
+          },
           "bars": false,
           "dashLength": 10,
           "dashes": false,
@@ -2913,7 +2962,225 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 16
+            "y": 12
+          },
+          "id": 66,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "strix.requests",
+              "yaxis": 2
+            },
+            {
+              "alias": "lag",
+              "yaxis": 2
+            },
+            {
+              "alias": "latency",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refCount": 0,
+              "refId": "A",
+              "target": "aliasByNode(servers.*.nuxeo.streams.*.*.all.{pos,end}, 5, 7)",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Streams Positions",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {
+            "end": "#82b5d8",
+            "lag": "#bf1b00"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 10,
+            "y": 12
+          },
+          "id": 67,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "strix.requests",
+              "yaxis": 2
+            },
+            {
+              "alias": "lag",
+              "yaxis": 1
+            },
+            {
+              "alias": "latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "audit.latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "default.latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "elasticSearchIndexing.latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "updateACEStatus.latency",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refCount": 0,
+              "refId": "C",
+              "target": "aliasByNode(servers.*.nuxeo.streams.*.*.all.lag, 5, 7)"
+            },
+            {
+              "refCount": 0,
+              "refId": "D",
+              "target": "aliasByNode(servers.*.nuxeo.streams.*.*.all.latency, 5, 7)"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Streams Lag and Latency",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "ms",
+              "label": "Latency",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "description": "The 5 most deviant lag per partition.",
+          "fill": 1,
+          "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 0,
+            "y": 20
           },
           "id": 63,
           "legend": {
@@ -2928,7 +3195,7 @@
           "lines": true,
           "linewidth": 1,
           "links": [],
-          "nullPointMode": "null",
+          "nullPointMode": "connected",
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -2946,13 +3213,14 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.streams.elasticSearchIndexing.elasticSearchIndexing.p*.lag, 6)"
+              "target": "aliasByNode(mostDeviant(servers.*.nuxeo.streams.*.*.p*.lag, 5), 5, 6)"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
-          "title": "Indexing Lag per partition",
+          "title": "Most deviant Partition Lag",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -2990,7 +3258,7 @@
           }
         }
       ],
-      "title": "Nuxeo Streams (TODO)",
+      "title": "Nuxeo Streams",
       "type": "row"
     },
     {
@@ -2999,7 +3267,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 12
       },
       "id": 54,
       "panels": [
@@ -3014,7 +3282,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 17
+            "y": 13
           },
           "id": 50,
           "legend": {
@@ -3057,6 +3325,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Web Auth",
           "tooltip": {
@@ -3106,7 +3375,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 17
+            "y": 13
           },
           "id": 51,
           "legend": {
@@ -3144,6 +3413,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Cache Hit ratio",
           "tooltip": {
@@ -3193,7 +3463,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 25
+            "y": 21
           },
           "id": 59,
           "legend": {
@@ -3248,6 +3518,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Directories sessions",
           "tooltip": {
@@ -3297,7 +3568,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 25
+            "y": 21
           },
           "id": 60,
           "legend": {
@@ -3347,6 +3618,7 @@
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Directories cache size",
           "tooltip": {
@@ -3390,7 +3662,7 @@
       "type": "row"
     }
   ],
-  "refresh": false,
+  "refresh": "1m",
   "schemaVersion": 16,
   "style": "dark",
   "tags": [],
@@ -3398,8 +3670,8 @@
     "list": []
   },
   "time": {
-    "from": "2018-11-27T12:03:58.310Z",
-    "to": "2018-11-27T12:04:42.438Z"
+    "from": "now-1h",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [

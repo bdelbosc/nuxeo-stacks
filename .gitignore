@@ -1,3 +1,5 @@
-.env
 data/*
+venv
 instance.clid
+*.iml
+*.retry

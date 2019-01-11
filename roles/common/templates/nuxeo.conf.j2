@@ -1,0 +1,40 @@
+nuxeo.vcs.fulltext.search.disabled=true
+elasticsearch.client=RestClient
+nuxeo.stream.work.log.codec=avro
+nuxeo.stream.audit.log.codec=avro
+nuxeo.stream.pubsub.log.codec=avro
+
+{% if mongo %}
+nuxeo.templates=default,mongodb
+nuxeo.mongodb.server=mongodb:27017
+{% elif postgres %}
+nuxeo.templates=default,postgresql
+nuxeo.db.host=postgres
+nuxeo.db.name=nuxeo
+nuxeo.db.password=nuxeo
+{% endif %}
+{% if kafka %}
+kafka.enabled=true
+kafka.bootstrap.servers=kafka:9092
+{% endif %}
+{% if kafka %}
+kafka.enabled=true
+kafka.bootstrap.servers=kafka:9092
+{% endif %}
+{% if elastic %}
+elasticsearch.indexNumberOfReplicas=0
+elasticsearch.indexNumberOfShards=1
+elasticsearch.addressList=http://elasticsearch:9200
+elasticsearch.httpReadOnly.baseUrl=http://elasticsearch:9200
+{% endif %}
+{% if swm %}
+nuxeo.stream.work.enabled=true
+{% endif %}
+{% if graphite %}
+metrics.graphite.enabled=true
+metrics.graphite.host=graphite
+metrics.graphite.port=2003
+metrics.graphite.period=30
+metrics.tomcat.enabled=true
+metrics.log4j.enabled=true
+{% endif %}

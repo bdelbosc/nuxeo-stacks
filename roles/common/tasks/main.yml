@@ -1,0 +1,90 @@
+---
+- name: Init Env directory
+  file:
+    path: "{{ data_path }}"
+    state: directory
+    mode: 0775
+    recurse: yes
+
+- name: Init Nuxeo directory
+  file:
+    path: "{{ data_path }}/volumes/nuxeo"
+    state: directory
+    mode: 0775
+    recurse: yes
+  when: "nuxeo"
+
+- name: Copy instance clid
+  copy:
+    src: "{{ instance_clid }}"
+    dest: "{{ data_path }}/volumes/nuxeo/instance.clid"
+    mode: 0644
+
+- name: Init Elastic directory
+  file:
+    path: "{{ data_path }}/volumes/elastic"
+    state: directory
+    mode: 0775
+    recurse: yes
+  when: "elastic"
+
+- name: Create the docker-compose file
+  template: src=docker-compose.yml.j2 dest="{{data_path}}/docker-compose.yml"
+
+- name: Create the nuxeo.conf file
+  template: src=nuxeo.conf.j2 dest="{{data_path}}/nuxeo.conf"
+  when: "nuxeo"
+
+- name: Copy the mongo init
+  copy:
+    src: mongo/initRS.js
+    dest: "{{ data_path }}/initRS.js"
+  when: "mongo"
+
+- name: Copy the postgres init
+  copy:
+    src: postgres/init-db.sh
+    dest: "{{ data_path }}/init-db.sh"
+  when: "postgres"
+
+- name: Copy the docker graphite config
+  copy:
+    src: graphite
+    dest: "{{ data_path }}/"
+  when: "graphite"
+
+- name: Copy the docker grafana config
+  copy:
+    src: grafana
+    dest: "{{ data_path }}/"
+  when: "grafana"
+
+- name: Copy the stream config
+  copy:
+    src: stream
+    dest: "{{ data_path }}/"
+    mode: 0755
+  when: "stream"
+
+- name: Copy kafka HQ conf
+  copy:
+    src: kafkahq/kafkahq.conf
+    dest: "{{ data_path }}/kafkahq.conf"
+  when: "kafkahq"
+
+- name: Copy Nuxeo scripts
+  copy:
+    src: bin
+    dest: "{{ data_path }}"
+
+- name: Nuxeo scripts perms
+  file:
+    dest: "{{ item }}"
+    mode: 0755
+  with_fileglob:
+    - '{{ data_path }}/bin/*.sh'
+
+- name: Create esync conf
+  template:
+    src: esync.conf.j2
+    dest: "{{data_path}}/bin/esync.conf"
