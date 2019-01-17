@@ -1,8 +1,9 @@
 # --------------------------------------------------
 # Options from nuxeoenv.sh
+nuxeo: "{{ env_nuxeo }}"
+nuxeo_version: "{{ env_nuxeo_version }}"
 data_path: "{{ env_data_path }}"
 instance_clid: "{{ env_instance_clid }}"
-nuxeo: "{{ env_nuxeo }}"
 mongo: "{{ env_mongo }}"
 postgres: "{{ env_postgres }}"
 elastic: "{{ env_elastic }}"
@@ -15,5 +16,3 @@ kafkahq: "{{ env_kafkahq }}"
 netdata: "{{ env_netdata }}"
 stream: "{{ env_stream }}"
 swm: "{{ env_swm }}"
-
-# Variables

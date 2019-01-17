@@ -12,7 +12,8 @@ get_input() {
   data_path=$(whiptail --title "Nuxeo stacks" --inputbox "Data path:" 10 60 "/tmp/my-nuxeo-env" 3>&1 1>&2 2>&3)
   stacks=$(whiptail --title "Nuxeo stacks" \
     --checklist "Choose your stack" 20 60 12 \
-    nuxeo    "Nuxeo" on \
+    nuxeolatest   "Nuxeo latest" on \
+    nuxeo910    "Nuxeo 9.10" off \
     mongo    "MongoDB" on \
     postgres "PostgreSQL" off \
     kafka    "Kafka and Zookeeper" on \
@@ -27,10 +28,15 @@ get_input() {
 }
 
 parse_input() {
-  if [[ ${stacks} == *"nuxeo"* ]]; then
+  if [[ ${stacks} == *"nuxeo910"* ]]; then
     nuxeo=True
+    nuxeo_version=9.10
+  elif [[ ${stacks} == *"nuxeolatest"* ]]; then
+    nuxeo=True
+    nuxeo_version=latest
   else
     nuxeo=False
+    nuxeo_version=latest
   fi
   if [[ ${stacks} == *"mongo"* ]]; then
     mongo=True
@@ -105,7 +111,8 @@ venv_activate() {
 generate_compose() {
   set -x
   ansible-playbook site.yml -i ./hosts -e "env_data_path=$data_path env_instance_clid=$instance_clid" \
-    -e "env_nuxeo=$nuxeo env_mongo=$mongo env_postgres=$postgres env_redis=$redis" \
+    -e "env_nuxeo=$nuxeo env_nuxeo_version=$nuxeo_version" \
+    -e "env_mongo=$mongo env_postgres=$postgres env_redis=$redis" \
     -e "env_elastic=$elastic" \
     -e "env_graphite=$graphite env_grafana=$grafana env_kafka=$kafka env_zookeeper=$zookeeper env_kafkahq=$kafkahq" \
     -e "env_stream=$stream env_netdata=$netdata env_swm=$swm"
@@ -115,8 +122,9 @@ generate_compose() {
 bye() {
   echo
   echo "---------------------------------------------------------------"
-  echo "# nuxeo stacks ready, next steps:"
-  echo "cd ${data_path}; docker-compose up"
+  echo "# Your Nuxeo stack is ready, next steps:"
+  echo "cd ${data_path}"
+  echo "docker-compose up"
   echo "http://localhost:8080/nuxeo -> Nuxeo Administrator/Administrator"
   if [[ ${stacks} == *"grafana"* ]]; then
     echo "http://localhost:3000/ -> Grafana admin/admin"

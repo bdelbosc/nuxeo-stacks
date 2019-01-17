@@ -2,7 +2,7 @@ version: '3'
 services:
 {% if zookeeper %}
   zookeeper:
-    image: zookeeper:3.4.13
+    image: zookeeper:{{ zookeeper_version }}
     container_name: zookeeper
     hostname: zookeeper
     ports:
@@ -13,7 +13,7 @@ services:
 {% endif %}
 {% if kafka %}
   kafka:
-    image: wurstmeister/kafka:2.12-2.1.0
+    image: wurstmeister/kafka:{{ kafka_version }}
     container_name: kafka
     hostname: kafka
     ports:
@@ -37,7 +37,7 @@ services:
 {% endif %}
 {% if mongo %}
   mongodb:
-    image: mongo:4.0.5
+    image: mongo:{{ mongo_version }}
     container_name: mongo
     hostname: mongo
     command: mongod --replSet rs0
@@ -49,7 +49,7 @@ services:
       - {{ data_path }}/data/mongo/db:/volumes/db
 {% elif postgres %}
   postgres:
-    image: postgres:11-alpine
+    image: postgres:{{ postgres_version }}
     container_name: postgres
     hostname: postgres
     environment:
@@ -64,7 +64,7 @@ services:
 {% endif %}
 {% if elastic %}
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.3
+    image: docker.elastic.co/elasticsearch/elasticsearch:{{ elastic_version }}
     container_name: elastic
     hostname: elastic
     ports:
@@ -119,7 +119,7 @@ services:
 {% endif %}
 {% if nuxeo %}
   nuxeo:
-    image: nuxeo:latest
+    image: nuxeo:{{ nuxeo_version }}
     container_name: nuxeo
     hostname: nuxeo
     environment:
@@ -144,9 +144,9 @@ services:
       - ./nuxeo/init-nuxeo.sh:/docker-entrypoint-initnuxeo.d/init-nuxeo.sh
       - {{ data_path }}/data/nuxeo:/var/lib/nuxeo/data
 {% endif %}
-{% if (stream and kafka) %}
+{% if (nuxeo and stream and kafka) %}
   stream:
-    image: nuxeo:latest
+    image: nuxeo:{{ nuxeo_version }}
     container_name: stream
     hostname: stream
     depends_on:
@@ -159,7 +159,7 @@ services:
 {% endif %}
 {% if redis %}
   redis:
-    image: redis:5.0-alpine
+    image: redis:{{ redis_version }}
     container_name: redis
     hostname: redis
     volumes:

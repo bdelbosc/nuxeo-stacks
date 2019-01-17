@@ -3,3 +3,5 @@
   gather_facts: no
   roles:
   - common
+  vars_files:
+    - [ "group_vars/all/nuxeo-{{ nuxeo_version }}.yml" ]
