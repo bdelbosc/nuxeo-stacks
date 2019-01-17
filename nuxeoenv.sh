@@ -5,7 +5,7 @@ set -e
 
 get_input() {
   instance_clid=$(whiptail --title "Nuxeo stacks" --inputbox "instance.clid path:" 10 60 "$PWD/instance.clid" 3>&1 1>&2 2>&3)
-  if [[ ! -r $instance_clid ]]; then
+  if [[ ! -r ${instance_clid} ]]; then
     >&2 echo "ABORT: instance.clid file not found: $instance_clid"
     exit 2
   fi
@@ -27,35 +27,35 @@ get_input() {
 }
 
 parse_input() {
-  if [[ $stacks == *"nuxeo"* ]]; then
+  if [[ ${stacks} == *"nuxeo"* ]]; then
     nuxeo=True
   else
     nuxeo=False
   fi
-  if [[ $stacks == *"mongo"* ]]; then
+  if [[ ${stacks} == *"mongo"* ]]; then
     mongo=True
   else
     mongo=False
   fi
-  if [[ $stacks == *"postgres"* ]]; then
+  if [[ ${stacks} == *"postgres"* ]]; then
     postgres=True
   else
     postgres=False
   fi
-  if [[ $stacks == *"elastic"* ]]; then
+  if [[ ${stacks} == *"elastic"* ]]; then
     elastic=True
   else
     elastic=False
   fi
-  if [[ $stacks == *"redis"* ]]; then
+  if [[ ${stacks} == *"redis"* ]]; then
     redis=True
   else
     redis=False
   fi
-  if [[ $stacks == *"kafka"* ]]; then
+  if [[ ${stacks} == *"kafka"* ]]; then
     kafka=True
     zookeeper=True
-    if [[ $stacks == *"kafkahq"* ]]; then
+    if [[ ${stacks} == *"kafkahq"* ]]; then
       kafkahq=True
     else
       kafkahq=False
@@ -65,24 +65,24 @@ parse_input() {
     zookeeper=False
     kafkahq=False
   fi
-  if [[ $stacks == *"stream"* ]]; then
+  if [[ ${stacks} == *"stream"* ]]; then
     stream=True
   else
     stream=False
   fi
-  if [[ $stacks == *"swm"* ]]; then
+  if [[ ${stacks} == *"swm"* ]]; then
     swm=True
   else
     swm=False
   fi
-  if [[ $stacks == *"monitor"* ]]; then
+  if [[ ${stacks} == *"monitor"* ]]; then
     graphite=True
     grafana=True
   else
     graphite=False
     grafana=False
   fi
-  if [[ $stacks == *"netdata"* ]]; then
+  if [[ ${stacks} == *"netdata"* ]]; then
     netdata=True
   else
     netdata=False
@@ -109,6 +109,21 @@ generate_compose() {
     -e "env_elastic=$elastic" \
     -e "env_graphite=$graphite env_grafana=$grafana env_kafka=$kafka env_zookeeper=$zookeeper env_kafkahq=$kafkahq" \
     -e "env_stream=$stream env_netdata=$netdata env_swm=$swm"
+  set +x
+}
+
+bye() {
+  echo
+  echo "---------------------------------------------------------------"
+  echo "# nuxeo stacks ready, next steps:"
+  echo "cd ${data_path}; docker-compose up"
+  echo "http://localhost:8080/nuxeo -> Nuxeo Administrator/Administrator"
+  if [[ ${stacks} == *"grafana"* ]]; then
+    echo "http://localhost:3000/ -> Grafana admin/admin"
+  fi
+  if [[ ${stacks} == *"kafkahq"* ]]; then
+    echo "http://localhost:3080/ -> KafkaHQ"
+  fi
 }
 
 # main
@@ -117,3 +132,4 @@ parse_input
 venv_init
 venv_activate
 generate_compose
+bye

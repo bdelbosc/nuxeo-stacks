@@ -4,16 +4,18 @@ services:
   zookeeper:
     image: zookeeper:3.4.13
     container_name: zookeeper
+    hostname: zookeeper
     ports:
       - "2181:2181"
     volumes:
-      - {{ data_path }}/volumes/zookeeper/data:/datalog
-      - {{ data_path }}/volumes/zookeeper/log:/data
+      - {{ data_path }}/data/zookeeper/data:/datalog
+      - {{ data_path }}/data/zookeeper/log:/data
 {% endif %}
 {% if kafka %}
   kafka:
     image: wurstmeister/kafka:2.12-2.1.0
     container_name: kafka
+    hostname: kafka
     ports:
       - "9092:9092"
     environment:
@@ -29,35 +31,42 @@ services:
       - zookeeper
 {% endif %}
     volumes:
-      - {{ data_path }}/volumes/kafka/data:/kafka
-      - {{ data_path }}/volumes/kafka/log:/opt/kafka/log
+      - {{ data_path }}/data/kafka/data:/kafka
+      - {{ data_path }}/data/kafka/log:/opt/kafka/log
       - /var/run/docker.sock:/var/run/docker.sock
 {% endif %}
 {% if mongo %}
   mongodb:
     image: mongo:4.0.5
     container_name: mongo
+    hostname: mongo
     command: mongod --replSet rs0
+    ports:
+      - "27017:27017"
     volumes:
-      - ./initRS.js:/docker-entrypoint-initdb.d/initRS.js
-      - {{ data_path }}/volumes/mongo/configdb:/volumes/configdb
-      - {{ data_path }}/volumes/mongo/db:/volumes/db
+      - ./mongo/initRS.js:/docker-entrypoint-initdb.d/initRS.js
+      - {{ data_path }}/data/mongo/configdb:/volumes/configdb
+      - {{ data_path }}/data/mongo/db:/volumes/db
 {% elif postgres %}
   postgres:
     image: postgres:11-alpine
     container_name: postgres
+    hostname: postgres
     environment:
       - POSTGRES_USER=nxadmin
       - POSTGRES_PASSWORD=nuxeo
     command: ["-c", "shared_buffers=256MB", "-c", "effective_cache_size=1GB", "-c", "work_mem=10MB", "-c", "wal_buffers=16MB", "-c", "full_page_writes=off"]
+    ports:
+      - "5432:5432"
     volumes:
-      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
-      - {{ data_path }}/volumes/postgres/data:/var/lib/postgresql/data
+      - ./postgres/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+      - {{ data_path }}/data/postgres/data:/var/lib/postgresql/data
 {% endif %}
 {% if elastic %}
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.5.3
     container_name: elastic
+    hostname: elastic
     ports:
       - "9200:9200"
     environment:
@@ -72,17 +81,19 @@ services:
     build: graphite
     image: mygraphite:latest
     container_name: graphite
+    hostname: graphite
     user: root
     ports:
       - "8000:80"
       - "2003:2003"
     volumes:
-      - {{ data_path }}/volumes/graphite:/opt/graphite/storage/whisper
+      - {{ data_path }}/data/graphite:/opt/graphite/storage/whisper
 {% endif %}
 {% if grafana %}
   grafana:
     image: grafana/grafana
     container_name: grafana
+    hostname: grafana
     user: root
     ports:
       - "3000:3000"
@@ -91,27 +102,27 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
-      - {{ data_path }}/grafana/provisioning/:/etc/grafana/provisioning/
-      - {{ data_path }}/volumes/grafana:/var/lib/grafana
+      - {{ data_path }}/data/grafana/provisioning/:/etc/grafana/provisioning/
+      - {{ data_path }}/data/grafana:/var/lib/grafana
 {% endif %}
 {% if (kafkahq and kafka) %}
   kafkahq:
     image: tchiotludo/kafkahq
     container_name: kafkahq
+    hostname: kafkahq
     ports:
       - "3080:8080"
     depends_on:
       - kafka
     volumes:
-      - ./kafkahq.conf:/app/application.conf
+      - ./kafkahq/kafkahq.conf:/app/application.conf
 {% endif %}
 {% if nuxeo %}
   nuxeo:
     image: nuxeo:latest
     container_name: nuxeo
+    hostname: nuxeo
     environment:
-      NUXEO_TEMPLATES: default, mongodb
-      NUXEO_PACKAGES: "nuxeo-web-ui nuxeo-jsf-ui nuxeo-platform-importer"
       JAVA_OPTS: -Xdebug -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n
     depends_on:
 {% if kafka %}
@@ -129,18 +140,20 @@ services:
       - "8080:8080"
       - "8787:8787"
     volumes:
-      - ./nuxeo.conf:/docker-entrypoint-initnuxeo.d/nuxeo.conf
-      - {{ data_path }}/volumes/nuxeo:/var/lib/nuxeo/data
+      - ./nuxeo/nuxeo.conf:/docker-entrypoint-initnuxeo.d/nuxeo.conf
+      - ./nuxeo/init-nuxeo.sh:/docker-entrypoint-initnuxeo.d/init-nuxeo.sh
+      - {{ data_path }}/data/nuxeo:/var/lib/nuxeo/data
 {% endif %}
 {% if (stream and kafka) %}
   stream:
     image: nuxeo:latest
     container_name: stream
+    hostname: stream
     depends_on:
       - "nuxeo"
-    command: /wait-for-nuxeo.sh /opt/nuxeo/server/bin/stream.sh monitor -k --codec avro -l ALL -i 60 --host graphite --port 2003
+    command: /wait-for-nuxeo.sh /opt/nuxeo/server/bin/stream.sh monitor -k --codec avro -l ALL -i 30 --host graphite --port 2003
     volumes:
-      - ./nuxeo.conf:/docker-entrypoint-initnuxeo.d/nuxeo.conf
+      - ./nuxeo/nuxeo.conf:/docker-entrypoint-initnuxeo.d/nuxeo.conf
       - ./stream/docker-entrypoint.sh:/docker-entrypoint.sh
       - ./stream/wait-for-nuxeo.sh:/wait-for-nuxeo.sh
 {% endif %}
@@ -148,13 +161,14 @@ services:
   redis:
     image: redis:5.0-alpine
     container_name: redis
+    hostname: redis
     volumes:
-      - {{ data_path }}/volumes/redis:/data
+      - {{ data_path }}/data/redis:/data
 {% endif %}
 {% if netdata %}
   netdata:
     image: netdata/netdata
-    hostname: nuxeo-stack
+    hostname: netdata
     ports:
       - 19999:19999
     environment:
@@ -174,6 +188,6 @@ volumes:
   esdata:
     driver_opts:
       type: none
-      device: {{ data_path }}/volumes/elastic
+      device: {{ data_path }}/data/elastic
       o: bind
 {% endif %}

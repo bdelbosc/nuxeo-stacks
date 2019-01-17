@@ -112,17 +112,14 @@ And scripts:
 
 # TODO
 
-
-
 - test script
   - import images (requires install dam) -> -d 10000 -t 10 /path/to/docs/
 - elastic head
-
 - flamegraph
-- multi env: add port offset to run multiple at the same time
+- multi env
+  - add port offset to run multiple at the same time
   - use traffaek no port exposition by default
 - nuxeo cluster mode
-
 - support 9.10
 
 # About Nuxeo

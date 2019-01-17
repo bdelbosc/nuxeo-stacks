@@ -5,8 +5,10 @@ nuxeo.mongodb.dbname=nuxeo
 nuxeo.mongodb.collection=default
 {% endif %}
 {% if postgres %}
-nuxeo.templates=default,postgres
-TODO
+nuxeo.db.user=nuxeo
+nuxeo.db.password=nuxeo
+nuxeo.db.driver=org.postgresql.Driver
+nuxeo.db.jdbc.url=jdbc:postgresql://localhost:5432/nuxeo
 {% endif %}
 elasticsearch.addressList=localhost:9200
 elasticsearch.indexName=nuxeo
