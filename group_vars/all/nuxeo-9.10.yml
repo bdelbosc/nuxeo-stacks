@@ -1,6 +1,7 @@
 ---
 # Nuxeo 9.10
 elastic_version: "elasticsearch:5.6.3"
+elastic5: true
 kibana_version: "kibana:5.6.3"
 mongo_version: 3.4
 postgres_version: 9.6-alpine

@@ -45,8 +45,8 @@ services:
       - "27017:27017"
     volumes:
       - ./mongo/initRS.js:/docker-entrypoint-initdb.d/initRS.js
-      - {{ data_path }}/data/mongo/configdb:/volumes/configdb
-      - {{ data_path }}/data/mongo/db:/volumes/db
+      - {{ data_path }}/data/mongo/configdb:/data/configdb
+      - {{ data_path }}/data/mongo/db:/data/db
 {% elif postgres %}
   postgres:
     image: postgres:{{ postgres_version }}
@@ -72,6 +72,9 @@ services:
     environment:
       discovery.type: single-node
       ES_JAVA_OPTS: -Xms384m -Xmx384m
+{% if elastic5 %}
+      xpack.security.enabled: "false"
+{% endif %}
     volumes:
       - esdata:/usr/share/elasticsearch/data
 {% if kibana %}
