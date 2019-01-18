@@ -64,17 +64,29 @@ services:
 {% endif %}
 {% if elastic %}
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:{{ elastic_version }}
+    image: docker.elastic.co/elasticsearch/{{ elastic_version }}
     container_name: elastic
     hostname: elastic
     ports:
       - "9200:9200"
     environment:
       discovery.type: single-node
-      xpack.security.enabled: "false"
       ES_JAVA_OPTS: -Xms384m -Xmx384m
     volumes:
       - esdata:/usr/share/elasticsearch/data
+{% if kibana %}
+  kibana:
+    image: docker.elastic.co/kibana/{{ kibana_version }}
+    container_name: kibana
+    hostname: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      SERVER_NAME: kibana
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+{% endif %}
 {% endif %}
 {% if graphite %}
   graphite:
@@ -102,7 +114,7 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
-      - {{ data_path }}/data/grafana/provisioning/:/etc/grafana/provisioning/
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
       - {{ data_path }}/data/grafana:/var/lib/grafana
 {% endif %}
 {% if (kafkahq and kafka) %}

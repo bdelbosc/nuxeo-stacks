@@ -1,6 +1,7 @@
 ---
 # Nuxeo 10.10
-elastic_version: 6.5.3
+elastic_version: "elasticsearch-oss:6.5.3"
+kibana_version: "kibana-oss:6.5.3"
 mongo_version: 4.0.5
 postgres_version: 11-alpine
 kafka_version: 2.12-2.1.0

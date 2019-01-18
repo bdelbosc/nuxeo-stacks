@@ -1,8 +1,9 @@
 ---
 # Nuxeo 9.10
-elastic_version: 5.6.3
-mongo_version: 4.0.5
-postgres_version: 11-alpine
+elastic_version: "elasticsearch:5.6.3"
+kibana_version: "kibana:5.6.3"
+mongo_version: 3.4
+postgres_version: 9.6-alpine
 kafka_version: 2.12-2.1.0
 zookeeper_version: 3.4.13
 redis_version: 5.0-alpine

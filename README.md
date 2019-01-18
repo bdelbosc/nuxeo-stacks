@@ -15,10 +15,10 @@ Available services in addition to Nuxeo:
 
 And monitoring tools:
 
-- Graphite
-- Grafana
-- KafkaHQ
-- netdata
+- Grafana (Graphite) Nuxeo dashboard 
+- KafkaHQ A Kafka GUI
+- Kibana An Elasticsearch GUI
+- Netdata OS monitoring
 
 # Installation
 
@@ -32,21 +32,37 @@ docker build -t nuxeo:latest .
 
 # Usage
 
-Run `nuxeoenv.sh` and choose:
-- your `instance.clid`
-- the target environment directory
-- the configuration of your stack
+Run `nuxeoenv.sh` and compose your stack:
+- Select a valid Nuxeo `instance.clid`
+- Select the target environment directory that will contains all your env (docker-compose and its data)
+- Select a Nuxeo distribution
+- Select a Backend
+- Select additional services (elastic, redis, kafka, grafana ...)
 
 This will generate a docker compose file in the target environment directory, 
-from there:
+from there, you can start stop your env like any docker-compose env.
 
 ```bash
-# start
-docker-compose up -d
+# Add a -d to run in background
+docker-compose up
+# List docker containers
+docker ps
+# Stops containers and removes containers and named volumes
+docker-compose down --volume
 ```
 
-You should have:
-- Nuxeo running on http://localhost:8080/nuxeo
+Note that you can use `stop` and `start` but you need to use `down --volume` before switching to another stack or you will have error like:
+```bash
+ERROR: for elastic  Cannot create container for service elasticsearch: Conflict. The container name "/elastic" is already in use by container "3a7a444f4a01e0286ea54edabde0549be8564fd538d72d88b58661f6e73c4c62". You have to remove (or rename) that container to be able to reuse that name.
+```
+All data are persisted into volume inside your env, so you can resume any env using a `docker-compose up`. 
+
+
+# Stack exposition
+
+Once the docker compose is up, you should have (depending on what you have selected in your stack)
+
+- Nuxeo running on http://localhost:8080/nuxeo with `nuxeo-web-ui`, `nuxeo-jsf-ui` and `nuxeo-platform-importer` marketplace packages.
 
   ```bash
   # Perform a thread dump
@@ -55,22 +71,27 @@ You should have:
   docker exec nuxeo /opt/nuxeo/server/bin/stream.sh lag -k
   ```
 
-
 - Elasticsearch on http://localhost:9200
 
   ```bash
-  # accessible via curl
   curl -XGET localhost:9200/_cat/indices?v
   ```
   
-- MongoDB on localhost:27017 (if selected in your stack)
+- MongoDB on localhost:27017
   
   ```bash
   docker exec mongo mongo localhost/nuxeo --eval "db.default.count();"
   > 26
   ```
   
-- PostgreSQL
+- PostgreSQL on localhost:5432
+
+  ```bash
+  $ docker exec  postgres psql postgresql://nuxeo:nuxeo@postgres:5432/nuxeo -c "SELECT COUNT(*) FROM hierarchy;"
+  count 
+  -------
+      92
+  ```
 
 - Kafka on localhost:9092
   
@@ -83,32 +104,40 @@ You should have:
   
 - Zookeeper on localhost:2181
 
+- Redis TODO
+
+- Kibana running on http://localhost:5601 (elastic/changeme)
+
 - Grafana running on http://localhost:3000 (admin/admin) with a provisioned Nuxeo dashboard
 
 - KafkaHQ running on http://localhost:3080 to introspect Kafka topics
 
-- Graphite running on http://localhost:8000 to look into nuxeo metrics 
+- Graphite running on http://localhost:8000 to look into nuxeo metrics
 
 - netdata running on http://localhost:1999 to monitor OS and containers
+  Note that it is much better to install netdata on the host instead as in container
 
 
-```bash
-# stop
-docker-compose down --volumes
-```
+## Battery included
 
 In the `./bin` directory of you env you have many useful shortcut:
-- `nuxeoctl.sh`
-- `stream.sh`
-- `esync.sh` To check the discrepency between repository and elastic
+- `nuxeoctl.sh` direct exposition of the nuxeoctl of your env
+- `stream.sh` direct exposition of the stream.sh of your env
+- `mongo.sh` Run the mongo client
+- `psql.sh` Run the PostgreSQL client
 
 
 And scripts:
-- `import.sh` Run a small import
+- `esync.sh` run the [esync](https://github.com/nuxeo/esync) tool to check the discrepancy between repository and elastic
+- `import.sh` Run a small import 1k docs
 - `reindex.sh` Re-index elastic using the WorkManger
-- `bulk-*` Run bulk command to reindex, export view bulk command or status
 - `tail-audit.sh` tail -f on the audit stream
-- and more
+- `threaddump.sh` Perform a thread dump of Nuxeo
+- `bulk-done.sh` List latest bulk command completed
+- `bulk-scheduled.sh` List latest bulk command scheduled
+- `bulk-reindex.sh` Run bulk command to re-index the repository
+- `bulk-export.sh` Run bulk CSV export of the repository
+- `bulk-status.sh` Get the status of the last submitted bulk command
 
 # TODO
 
@@ -116,11 +145,12 @@ And scripts:
   - import images (requires install dam) -> -d 10000 -t 10 /path/to/docs/
 - elastic head
 - flamegraph
+- support cluster mode
 - multi env
-  - add port offset to run multiple at the same time
-  - use traffaek no port exposition by default
-- nuxeo cluster mode
-- support 9.10
+  - do not expose any port but the choosen one
+  - use traefik to root all web /nuxeo/ /grafana /kafkahq ...
+
+
 
 # About Nuxeo
 
