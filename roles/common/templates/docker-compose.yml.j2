@@ -136,6 +136,9 @@ services:
     hostname: nuxeo
     environment:
       JAVA_OPTS: -Xdebug -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n
+{% if redis %}
+      NUXEO_REDIS_HOST: redis
+{% endif %}
     depends_on:
 {% if kafka %}
       - kafka
@@ -147,6 +150,9 @@ services:
       - mongodb
 {% elif postgres %}
       - postgres
+{% endif %}
+{% if redis %}
+      - redis
 {% endif %}
     ports:
       - "8080:8080"

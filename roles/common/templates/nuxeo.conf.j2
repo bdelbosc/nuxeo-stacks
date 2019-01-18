@@ -4,11 +4,11 @@ nuxeo.stream.work.log.codec=avro
 nuxeo.stream.audit.log.codec=avro
 nuxeo.stream.pubsub.log.codec=avro
 
+nuxeo.templates={{ nuxeo_templates|join(',') }}
+
 {% if mongo %}
-nuxeo.templates=default,mongodb
 nuxeo.mongodb.server=mongodb:27017
 {% elif postgres %}
-nuxeo.templates=default,postgresql
 nuxeo.db.host=postgres
 nuxeo.db.name=nuxeo
 nuxeo.db.password=nuxeo
@@ -17,9 +17,10 @@ nuxeo.db.password=nuxeo
 kafka.enabled=true
 kafka.bootstrap.servers=kafka:9092
 {% endif %}
-{% if kafka %}
-kafka.enabled=true
-kafka.bootstrap.servers=kafka:9092
+{% if redis %}
+nuxeo.redis.enabled=true
+nuxeo.redis.host=redis
+nuxeo.work.queuing=redis
 {% endif %}
 {% if elastic %}
 elasticsearch.indexNumberOfReplicas=0

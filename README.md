@@ -104,7 +104,7 @@ Once the docker compose is up, you should have (depending on what you have selec
   
 - Zookeeper on localhost:2181
 
-- Redis TODO
+- Redis
 
 - Kibana running on http://localhost:5601 (elastic/changeme)
 
@@ -125,6 +125,7 @@ In the `./bin` directory of you env you have many useful shortcut:
 - `stream.sh` direct exposition of the stream.sh of your env
 - `mongo.sh` Run the mongo client
 - `psql.sh` Run the PostgreSQL client
+- `redis-cli.sh` Run the redis client
 
 
 And scripts:
@@ -133,6 +134,8 @@ And scripts:
 - `reindex.sh` Re-index elastic using the WorkManger
 - `tail-audit.sh` tail -f on the audit stream
 - `threaddump.sh` Perform a thread dump of Nuxeo
+- `pg-info.sh` Perform the PosgreSQL reporting problem procedure
+- `es-info.sh` Perform the Elasticsearch eporting problem procedure
 - `bulk-done.sh` List latest bulk command completed
 - `bulk-scheduled.sh` List latest bulk command scheduled
 - `bulk-reindex.sh` Run bulk command to re-index the repository
@@ -142,14 +145,14 @@ And scripts:
 # TODO
 
 - test script
-  - import images (requires install dam) -> -d 10000 -t 10 /path/to/docs/
+  - import images (requires install dam)
 - elastic head
 - flamegraph
 - support cluster mode
 - multi env
-  - do not expose any port but the choosen one
-  - use traefik to root all web /nuxeo/ /grafana /kafkahq ...
-
+  - expose only one chosen port
+  - use traefik to root all web ui /nuxeo/ /grafana /kafkahq ...
+  - prefix env container and volume
 
 
 # About Nuxeo

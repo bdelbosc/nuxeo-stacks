@@ -1,7 +1,25 @@
 ---
 - hosts: all
   gather_facts: no
-  roles:
-  - common
+  connection: local
   vars_files:
     - [ "group_vars/all/nuxeo-{{ nuxeo_version }}.yml" ]
+  vars:
+    - nuxeo_templates: ['default']
+  pre_tasks:
+    - name: Mongo template
+      set_fact:
+        nuxeo_templates: "{{ nuxeo_templates }} + ['mongodb']"
+      when: "mongo"
+    - name: PostgreSQL template
+      set_fact:
+        nuxeo_templates: "{{ nuxeo_templates }} + ['postgresql']"
+      when: "postgres"
+    - name: Redis template
+      set_fact:
+        nuxeo_templates: "{{ nuxeo_templates }} + ['redis']"
+      when: "redis"
+    - name: Nuxeo template
+      debug: var=nuxeo_template
+  roles:
+    - common
