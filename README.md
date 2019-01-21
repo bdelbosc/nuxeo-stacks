@@ -1,10 +1,12 @@
-# Nuxeo stacks a docker compose generator
+# Nuxeo stacks: a docker compose generator
 
 The intend of nuxeo stacks is to create custom environment to test/debug Nuxeo stacks.
-This is NOT FOR PRODUCTION.
+
+This is **NOT FOR PRODUCTION.**
 
 You choose your stack and it creates a standalone environment with normal docker compose and volumes.
-Available services in addition to Nuxeo:
+
+Here is the supported stack for Nuxeo 10.10 and 9.10:
 
 - MongoDB
 - PostgreSQL
@@ -24,14 +26,16 @@ And monitoring tools:
 
 ## Requirements
 
-The generation of the docker-compose env is done using ansible and depends on:
+In addition to docker and [docker-compose](https://docs.docker.com/compose/install/) needed to run the stack.
 
-1. python and pip
+The generation of the docker compose stack is done using ansible which need:
+
+1. pip
 2. virtualenv
 3. whiptail
 
 
-For Mac OS:
+To install this requirement on Mac OS:
 ```bash
 brew install python
 pip3 install virtualenv
@@ -46,8 +50,8 @@ pip3 install virtualenv
 
 ## Nuxeo docker images
 
-When choosing a stack with "Nuxeo latest" it requires the `nuxeo:latest` image.
-This image can be built using the nuxeo docker scripts:
+When choosing a stack based on "Nuxeo latest", it requires the `nuxeo:latest` image.
+This image can be built using the `docker-nuxeo` scripts:
 ```
 git clone git@github.com:nuxeo/docker-nuxeo.git
 cd docker-nuxeo.git/master
@@ -64,7 +68,7 @@ Run `nuxeoenv.sh` and compose your stack:
 - Select additional services (elastic, redis, kafka, grafana ...)
 
 This will generate a docker compose file in the target environment directory, 
-from there, you can start stop your env like any docker-compose env.
+from there, you can up/stop your env like any docker compose env.
 
 ```bash
 # Add a -d to run in background
@@ -75,10 +79,11 @@ docker ps
 docker-compose down --volume
 ```
 
-Note that you can use `stop` and `start` but you need to use `down --volume` before switching to another stack or you will have error like:
+Note that you can use `stop` to stop an env but you need to use `down --volume` before switching to different stack or you will have error like:
 ```bash
 ERROR: for elastic  Cannot create container for service elasticsearch: Conflict. The container name "/elastic" is already in use by container "3a7a444f4a01e0286ea54edabde0549be8564fd538d72d88b58661f6e73c4c62". You have to remove (or rename) that container to be able to reuse that name.
 ```
+
 All data are persisted using docker volumes inside your env, you can resume any env using a `docker-compose up`.
 
 
@@ -138,18 +143,19 @@ And scripts:
 - `kafka-list-consumer-gropus.sh` List all consumer groups at Kafka level.
 - `kafka-list-consumer-positions.sh` List the a consumer group position at Kafka level.
 
+
 # TODO
 
-
-- test script
-  - import images (requires install dam)
-- elastic head
-- flamegraph
-- support cluster mode
-- multi env
-  - expose only one chosen port
-  - use traefik to root all web ui /nuxeo/ /grafana /kafkahq ...
-  - prefix env container and volume
+- Support 8.10 stack
+- Media importer using DAM
+- Elastic head plugin -> nginx ?
+- Flight recorder -> build Nuxeo image with Oracle or check latest OpenJDK
+- Java flamegraph
+- Support cluster mode, deploy multiple Nuxeo
+- Multi env
+  - Expose only one chosen port
+  - Use traefik to root all web ui /nuxeo/ /grafana /kafkahq ...
+  - Prefix name for container and volume
 
 
 # About Nuxeo
