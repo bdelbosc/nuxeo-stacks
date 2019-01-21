@@ -1,35 +1,77 @@
 #!/usr/bin/env bash
+
 # Nuxeo stacks
 #
 set -e
 
+usage() { echo "Usage: $0 [-i clid -d data -n nuxeo -b backend -s stack" 1>&2;
+  exit 1; }
+
+get_opts() {
+  while getopts ":i:d:n:b:s:" o; do
+    case "${o}" in
+      i)
+        instance_clid=${OPTARG}
+      ;;
+      d)
+        data_path=${OPTARG}
+      ;;
+      n)
+        nuxeo_dist=${OPTARG}
+      ;;
+      b)
+        backend=${OPTARG}
+      ;;
+      s)
+        stacks=${OPTARG}
+        echo "stacks: $stacks"
+      ;;
+      *)
+        usage
+      ;;
+    esac
+  done
+}
+
 get_input() {
-  instance_clid=$(whiptail --title "Nuxeo stacks" --inputbox "Enter path of a valid Nuxeo instance.clid file:" 10 60 "$PWD/instance.clid" 3>&1 1>&2 2>&3)
+  if [[ -z "${instance_clid}" ]]; then
+    instance_clid=$(whiptail --title "Nuxeo stacks" --inputbox "Enter path of a valid Nuxeo instance.clid file:" 10 60 "$PWD/instance.clid" 3>&1 1>&2 2>&3)
+  fi
   if [[ ! -r ${instance_clid} ]]; then
     >&2 echo "ABORT: instance.clid file not found: $instance_clid"
     exit 2
   fi
-  data_path=$(whiptail --title "Nuxeo stacks" --inputbox "Enter path to the Nuxeo environment to create:" 10 60 "/tmp/my-nuxeo-env" 3>&1 1>&2 2>&3)
-  nuxeo_dist=$(whiptail --title "Nuxeo stacks" --radiolist "Choose a Nuxeo distribution:" 10 60 3 \
-    nuxeolatest "Nuxeo latest                  " on \
-    nuxeo910    "Nuxeo 9.10" off \
-    none        "None" off \
-    3>&1 1>&2 2>&3)
-  backend=$(whiptail --title "Nuxeo stacks" --radiolist "Choose a Nuxeo backend:" 10 60 3 \
-    mongo    "MongoDB                          " on \
-    postgres "PostgreSQL" off \
-    3>&1 1>&2 2>&3)
-  stacks=$(whiptail --title "Nuxeo stacks" --checklist "Compose your stack:" 18 60 10 \
-    elastic  "Elasticsearch" on \
-    kafka    "Kafka and Zookeeper" on \
-    redis    "Redis" off \
-    swm      "Nuxeo Stream WorkManager" on \
-    monitor  "Nuxeo Grafana dashboard" on \
-    stream   "Nuxeo Stream monitoring" on \
-    kibana   "Elastic GUI" on \
-    kafkahq  "Kafka GUI" on \
-    netdata  "Netdata Real-time monitoring" off \
-    3>&1 1>&2 2>&3)
+  if [[ -z "${data_path}" ]]; then
+    data_path=$(whiptail --title "Nuxeo stacks" --inputbox "Enter path to the Nuxeo environment to create:" 10 60 "/tmp/my-nuxeo-env" 3>&1 1>&2 2>&3)
+  fi
+  data_path=`readlink -m ${data_path}`
+  if [[ -z "${nuxeo_dist}" ]]; then
+    nuxeo_dist=$(whiptail --title "Nuxeo stacks" --radiolist "Choose a Nuxeo distribution:" 10 60 3 \
+ nuxeolatest "Nuxeo latest                  " on \
+ nuxeo910 "Nuxeo 9.10" off \
+ none "None" off \
+ 3>&1 1>&2 2>&3)
+  fi
+  if [[ -z "${backend}" ]]; then
+    backend=$(whiptail --title "Nuxeo stacks" --radiolist "Choose a Nuxeo backend:" 10 60 3 \
+ mongo "MongoDB                          " on \
+ postgres "PostgreSQL" off \
+ 3>&1 1>&2 2>&3)
+  fi
+  if [[ -z "${stacks}" ]]; then
+    stacks=$(whiptail --title "Nuxeo stacks" --checklist "Compose your stack:" 18 60 10 \
+ elastic "Elasticsearch" on \
+ kafka "Kafka and Zookeeper" on \
+ redis "Redis" off \
+ swm "Nuxeo Stream WorkManager" on \
+ monitor "Nuxeo Grafana dashboard" on \
+ stream "Nuxeo Stream monitoring" on \
+ kibana "Elastic GUI" on \
+ kafkahq "Kafka GUI" on \
+ netdata "Netdata Real-time monitoring" off \
+ 3>&1 1>&2 2>&3)
+  fi
+  COMMAND="${0} -i \"${instance_clid}\" -d \"${data_path}\" -n ${nuxeo_dist} -b ${backend} -s "${stacks@Q}""
 }
 
 parse_input() {
@@ -107,37 +149,38 @@ parse_input() {
 }
 
 venv_init() {
-   if [[ ! -r ./venv/ ]]; then
-      virtualenv ./venv
-      venv_activate
-      pip install ansible
-   fi
+  if [[ ! -r ./venv/ ]]; then
+    virtualenv ./venv
+    venv_activate
+    pip install ansible
+  fi
 }
 
 venv_activate() {
   source ./venv/bin/activate
 }
 
-
 generate_compose() {
   set -x
   ansible-playbook site.yml -i ./hosts -e "env_data_path=$data_path env_instance_clid=$instance_clid" \
-    -e "env_nuxeo=$nuxeo env_nuxeo_version=$nuxeo_version" \
-    -e "env_mongo=$mongo env_postgres=$postgres env_redis=$redis" \
-    -e "env_elastic=$elastic env_kibana=$kibana" \
-    -e "env_graphite=$graphite env_grafana=$grafana env_kafka=$kafka env_zookeeper=$zookeeper env_kafkahq=$kafkahq" \
-    -e "env_stream=$stream env_netdata=$netdata env_swm=$swm"
+ -e "env_nuxeo=$nuxeo env_nuxeo_version=$nuxeo_version" \
+ -e "env_mongo=$mongo env_postgres=$postgres env_redis=$redis" \
+ -e "env_elastic=$elastic env_kibana=$kibana" \
+ -e "env_graphite=$graphite env_grafana=$grafana env_kafka=$kafka env_zookeeper=$zookeeper env_kafkahq=$kafkahq" \
+ -e "env_stream=$stream env_netdata=$netdata env_swm=$swm"
   set +x
 }
 
 bye() {
   echo
   echo "---------------------------------------------------------------"
-  echo "# Your Nuxeo stack is ready, next steps:"
+  echo "# Nuxeo Stack generated with:"
+  echo ${COMMAND}
+  echo "# Next steps:"
   echo "cd ${data_path}"
   echo "docker-compose up"
   echo "http://localhost:8080/nuxeo -> Nuxeo Administrator/Administrator"
-  if [[ ${stacks} == *"grafana"* ]]; then
+  if [[ ${stacks} == *"monitor"* ]]; then
     echo "http://localhost:3000/ -> Grafana admin/admin"
   fi
   if [[ ${stacks} == *"kafkahq"* ]]; then
@@ -146,6 +189,7 @@ bye() {
 }
 
 # main
+get_opts "$@"
 get_input
 parse_input
 venv_init

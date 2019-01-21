@@ -22,8 +22,32 @@ And monitoring tools:
 
 # Installation
 
-## Building nuxeo/latest docker image
+## Requirements
 
+The generation of the docker-compose env is done using ansible and depends on:
+
+1. python and pip
+2. virtualenv
+3. whiptail
+
+
+For Mac OS:
+```bash
+brew install python
+pip3 install virtualenv
+brew install newt
+```
+
+For Ubuntu:
+```yaml
+sudo apt install python3-pip
+pip3 install virtualenv
+```
+
+## Nuxeo docker images
+
+When choosing a stack with "Nuxeo latest" it requires the `nuxeo:latest` image.
+This image can be built using the nuxeo docker scripts:
 ```
 git clone git@github.com:nuxeo/docker-nuxeo.git
 cd docker-nuxeo.git/master
@@ -55,7 +79,7 @@ Note that you can use `stop` and `start` but you need to use `down --volume` bef
 ```bash
 ERROR: for elastic  Cannot create container for service elasticsearch: Conflict. The container name "/elastic" is already in use by container "3a7a444f4a01e0286ea54edabde0549be8564fd538d72d88b58661f6e73c4c62". You have to remove (or rename) that container to be able to reuse that name.
 ```
-All data are persisted into volume inside your env, so you can resume any env using a `docker-compose up`. 
+All data are persisted using docker volumes inside your env, you can resume any env using a `docker-compose up`.
 
 
 # Stack exposition
@@ -64,44 +88,14 @@ Once the docker compose is up, you should have (depending on what you have selec
 
 - Nuxeo running on http://localhost:8080/nuxeo with `nuxeo-web-ui`, `nuxeo-jsf-ui` and `nuxeo-platform-importer` marketplace packages.
 
-  ```bash
-  # Perform a thread dump
-  docker exec nuxeo jcmd Boot Thread.print
-  # Run stream.sh with Kafka
-  docker exec nuxeo /opt/nuxeo/server/bin/stream.sh lag -k
-  ```
-
 - Elasticsearch on http://localhost:9200
 
-  ```bash
-  curl -XGET localhost:9200/_cat/indices?v
-  ```
-  
 - MongoDB on localhost:27017
-  
-  ```bash
-  docker exec mongo mongo localhost/nuxeo --eval "db.default.count();"
-  > 26
-  ```
   
 - PostgreSQL on localhost:5432
 
-  ```bash
-  $ docker exec  postgres psql postgresql://nuxeo:nuxeo@postgres:5432/nuxeo -c "SELECT COUNT(*) FROM hierarchy;"
-  count 
-  -------
-      92
-  ```
-
 - Kafka on localhost:9092
-  
-  ```bash
-  # list consumers
-  docker exec kafka /opt/kafka/bin/kafka-consumer-groups.sh  --bootstrap-server localhost:9092 --list
-  # list positions for group nuxeo-default
-  docker exec kafka /opt/kafka/bin/kafka-consumer-groups.sh  --bootstrap-server localhost:9092  --describe --group nuxeo-default
-  ```
-  
+    
 - Zookeeper on localhost:2181
 
 - Redis
@@ -115,7 +109,7 @@ Once the docker compose is up, you should have (depending on what you have selec
 - Graphite running on http://localhost:8000 to look into nuxeo metrics
 
 - netdata running on http://localhost:1999 to monitor OS and containers
-  Note that it is much better to install netdata on the host instead as in container
+  Note that it is much better to install netdata directly on the host (not dockerised)
 
 
 ## Battery included
@@ -129,20 +123,23 @@ In the `./bin` directory of you env you have many useful shortcut:
 
 
 And scripts:
-- `esync.sh` run the [esync](https://github.com/nuxeo/esync) tool to check the discrepancy between repository and elastic
+- `esync.sh` Run the [esync](https://github.com/nuxeo/esync) tool to check the discrepancy between repository and elastic
 - `import.sh` Run a small import 1k docs
 - `reindex.sh` Re-index elastic using the WorkManger
 - `tail-audit.sh` tail -f on the audit stream
 - `threaddump.sh` Perform a thread dump of Nuxeo
 - `pg-info.sh` Perform the PosgreSQL reporting problem procedure
-- `es-info.sh` Perform the Elasticsearch eporting problem procedure
+- `elastic-info.sh` Perform the Elasticsearch reporting problem procedure
 - `bulk-done.sh` List latest bulk command completed
 - `bulk-scheduled.sh` List latest bulk command scheduled
 - `bulk-reindex.sh` Run bulk command to re-index the repository
 - `bulk-export.sh` Run bulk CSV export of the repository
 - `bulk-status.sh` Get the status of the last submitted bulk command
+- `kafka-list-consumer-gropus.sh` List all consumer groups at Kafka level.
+- `kafka-list-consumer-positions.sh` List the a consumer group position at Kafka level.
 
 # TODO
+
 
 - test script
   - import images (requires install dam)

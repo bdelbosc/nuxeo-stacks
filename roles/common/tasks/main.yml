@@ -83,13 +83,7 @@
   copy:
     src: bin
     dest: "{{ data_path }}"
-
-- name: Nuxeo scripts perms
-  file:
-    dest: "{{ item }}"
-    mode: 0755
-  with_fileglob:
-    - '{{ data_path }}/bin/*.sh'
+    mode: preserve
 
 - name: Generate the esync conf
   template:
