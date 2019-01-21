@@ -64,7 +64,7 @@ services:
 {% endif %}
 {% if elastic %}
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/{{ elastic_version }}
+    image: {{ elastic_image }}
     container_name: elastic
     hostname: elastic
     ports:

@@ -51,6 +51,7 @@ get_input() {
     nuxeo_dist=$(whiptail --title "Nuxeo stacks" --radiolist "Choose a Nuxeo distribution:" 10 60 3 \
  nuxeolatest "Nuxeo latest                  " on \
  nuxeo910 "Nuxeo 9.10" off \
+ nuxeo810 "Nuxeo 8.10" off \
  none "None" off \
  3>&1 1>&2 2>&3)
   fi
@@ -83,6 +84,9 @@ parse_input() {
   elif [[ ${nuxeo_dist} == *"nuxeo910"* ]]; then
     nuxeo=True
     nuxeo_version=9.10
+  elif [[ ${nuxeo_dist} == *"nuxeo810"* ]]; then
+    nuxeo=True
+    nuxeo_version=8.10
   else
     nuxeo=False
     nuxeo_version=latest
