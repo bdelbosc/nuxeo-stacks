@@ -1,7 +1,6 @@
 ---
 - hosts: all
   gather_facts: no
-  connection: local
   vars_files:
     - [ "group_vars/all/nuxeo-{{ nuxeo_version }}.yml" ]
   vars:
