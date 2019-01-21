@@ -44,7 +44,9 @@ get_input() {
   if [[ -z "${data_path}" ]]; then
     data_path=$(whiptail --title "Nuxeo stacks" --inputbox "Enter path to the Nuxeo environment to create:" 10 60 "/tmp/my-nuxeo-env" 3>&1 1>&2 2>&3)
   fi
-  data_path=`readlink -m ${data_path}`
+  if [[ -x "$(command -v realpath)" ]]; then
+    data_path=`realpath -m ${data_path}`
+  fi
   if [[ -z "${nuxeo_dist}" ]]; then
     nuxeo_dist=$(whiptail --title "Nuxeo stacks" --radiolist "Choose a Nuxeo distribution:" 10 60 3 \
  nuxeolatest "Nuxeo latest                  " on \

@@ -155,8 +155,7 @@ And scripts:
 - Multi env
   - Expose only one chosen port
   - Use traefik to root all web ui /nuxeo/ /grafana /kafkahq ...
-  - Prefix name for container and volume
-
+  - Prefix name for container and volume, using COMPOSE_PROJECT_NAME
 
 # About Nuxeo
 
