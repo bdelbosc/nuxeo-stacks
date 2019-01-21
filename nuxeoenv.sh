@@ -35,7 +35,7 @@ get_opts() {
 
 get_input() {
   if [[ -z "${instance_clid}" ]]; then
-    instance_clid=$(whiptail --title "Nuxeo stacks" --inputbox "Enter path of a valid Nuxeo instance.clid file:" 10 60 "$PWD/instance.clid" 3>&1 1>&2 2>&3)
+    instance_clid=$(whiptail --title "Nuxeo stacks" --inputbox "Enter the full path of a Nuxeo instance.clid file:" 10 60 "$PWD/instance.clid" 3>&1 1>&2 2>&3)
   fi
   if [[ ! -f ${instance_clid} ]]; then
     >&2 echo "ABORT: Invalid instance.clid file: $instance_clid"

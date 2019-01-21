@@ -18,7 +18,7 @@
     - name: Redis template
       set_fact:
         nuxeo_templates: "{{ nuxeo_templates }} + ['redis']"
-      when: "redis"
+      when: "redis and nuxeo_version != '9.10'"
     - name: Nuxeo template
       debug: var=nuxeo_template
   roles:
