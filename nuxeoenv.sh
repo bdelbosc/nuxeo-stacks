@@ -37,14 +37,15 @@ get_input() {
   if [[ -z "${instance_clid}" ]]; then
     instance_clid=$(whiptail --title "Nuxeo stacks" --inputbox "Enter path of a valid Nuxeo instance.clid file:" 10 60 "$PWD/instance.clid" 3>&1 1>&2 2>&3)
   fi
-  if [[ ! -r ${instance_clid} ]]; then
-    >&2 echo "ABORT: instance.clid file not found: $instance_clid"
+  if [[ ! -f ${instance_clid} ]]; then
+    >&2 echo "ABORT: Invalid instance.clid file: $instance_clid"
     exit 2
   fi
   if [[ -z "${data_path}" ]]; then
     data_path=$(whiptail --title "Nuxeo stacks" --inputbox "Enter path to the Nuxeo environment to create:" 10 60 "/tmp/my-nuxeo-env" 3>&1 1>&2 2>&3)
   fi
   if [[ -x "$(command -v realpath)" ]]; then
+    data_path="${data_path//\~/$HOME}"
     data_path=`realpath -m ${data_path}`
   fi
   if [[ -z "${nuxeo_dist}" ]]; then
