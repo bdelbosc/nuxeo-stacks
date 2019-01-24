@@ -5,6 +5,7 @@
     - [ "group_vars/all/nuxeo-{{ nuxeo_version }}.yml" ]
   vars:
     - nuxeo_templates: ['default']
+    - nuxeo_nodes: []
   pre_tasks:
     - name: Mongo template
       set_fact:
@@ -18,7 +19,27 @@
       set_fact:
         nuxeo_templates: "{{ nuxeo_templates }} + ['redis']"
       when: "redis and nuxeo_version != '9.10'"
+    - name: Nuxeo standalone
+      set_fact:
+        nuxeo_nodes: ['nuxeo']
+      when: "nuxeo_nb_nodes == '1'"
+      tags:
+        - test
+    - name: 2 Nuxeo nodes
+      set_fact:
+        nuxeo_nodes: ['nuxeo', 'nuxeo2']
+      when: "nuxeo_nb_nodes == '2'"
+      tags:
+        - test
+    - name: 3 Nuxeo nodes
+      set_fact:
+        nuxeo_nodes: ['nuxeo', 'nuxeo2', 'nuxeo3']
+      when: "nuxeo_nb_nodes == '3'"
+      tags:
+        - test
     - name: Nuxeo template
-      debug: var=nuxeo_template
+      debug: var=nuxeo_templates
+    - name: Nuxeo node names
+      debug: var=nuxeo_nodes
   roles:
     - common
