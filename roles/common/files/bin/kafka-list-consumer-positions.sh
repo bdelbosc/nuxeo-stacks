@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# List active consumer group of Kafka cluster
+# List kafka consumer position for a group
 set -x
-docker exec kafka /opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list
-
+group_name=${1:-nuxeo-default}
+docker exec kafka /opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group ${group_name}
