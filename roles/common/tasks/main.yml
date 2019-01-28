@@ -1,26 +1,35 @@
 ---
 - name: Init data directory
   file:
-    path: "{{ data_path }}"
+    path: "{{ root_path }}"
     state: directory
     recurse: yes
+  tags:
+    - test
 
 - name: Init data directory Nuxeo
   file:
-    path: "{{ data_path }}/data/nuxeo"
+    path: "{{ root_path }}/data/{{ item }}/data"
     state: directory
     recurse: yes
-  when: "nuxeo"
+  with_items: "{{ nuxeo_nodes }}"
+
+- name: Init binaries directory Nuxeo
+  file:
+    path: "{{ root_path }}/data/nuxeo-binaries"
+    state: directory
+    recurse: yes
 
 - name: Copy the nuxeo instance clid
   copy:
     src: "{{ instance_clid }}"
-    dest: "{{ data_path }}/data/nuxeo/instance.clid"
+    dest: "{{ root_path }}/data/{{ item }}/data/instance.clid"
     mode: 0644
+  with_items: "{{ nuxeo_nodes }}"
 
 - name: Init data directory Elastic
   file:
-    path: "{{ data_path }}/data/elastic"
+    path: "{{ root_path }}/data/elastic"
     state: directory
     recurse: yes
   when: "elastic"
@@ -28,64 +37,68 @@
 - name: Copy the nuxeo init
   copy:
     src: nuxeo
-    dest: "{{ data_path }}"
-  when: "nuxeo"
+    dest: "{{ root_path }}"
+  with_items: "{{ nuxeo_nodes }}"
 
 - name: Generate the nuxeo.conf file
   template:
     src: nuxeo.conf.j2
-    dest: "{{data_path}}/nuxeo/nuxeo.conf"
-  when: "nuxeo"
+    dest: "{{root_path}}/nuxeo/{{ item }}.conf"
+  with_items: "{{ nuxeo_nodes }}"
 
 - name: Copy the mongo init
   copy:
     src: mongo
-    dest: "{{ data_path }}"
+    dest: "{{ root_path }}"
   when: "mongo"
 
 - name: Copy the postgres init
   copy:
     src: postgres
-    dest: "{{ data_path }}"
+    dest: "{{ root_path }}"
   when: "postgres"
 
 - name: Copy the graphite init
   copy:
     src: graphite
-    dest: "{{ data_path }}"
+    dest: "{{ root_path }}"
   when: "graphite"
+  tags:
+    - test
 
 - name: Copy the grafana init
   copy:
     src: grafana
-    dest: "{{ data_path }}"
+    dest: "{{ root_path }}"
   when: "grafana"
 
 - name: Copy the stream init
   copy:
     src: stream
-    dest: "{{ data_path }}"
+    dest: "{{ root_path }}"
     mode: 0755
   when: "stream"
 
 - name: Copy kafkaHQ init
   copy:
     src: kafkahq
-    dest: "{{ data_path }}"
+    dest: "{{ root_path }}"
   when: "kafkahq"
 
 - name: Generate the docker-compose file
   template:
     src: docker-compose.yml.j2
-    dest: "{{data_path}}/docker-compose.yml"
+    dest: "{{root_path}}/docker-compose.yml"
+  tags:
+    - test
 
 - name: Copy scripts
   copy:
     src: bin
-    dest: "{{ data_path }}"
+    dest: "{{ root_path }}"
     mode: preserve
 
 - name: Generate the esync conf
   template:
     src: esync.conf.j2
-    dest: "{{data_path}}/bin/esync.conf"
+    dest: "{{root_path}}/bin/esync.conf"

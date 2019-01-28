@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # Report PostgreSQL information as in reporting problem documentation
 set -e
 set -x
