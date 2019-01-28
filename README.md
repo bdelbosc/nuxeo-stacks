@@ -15,7 +15,7 @@ The Nuxeo versions supported are:
 - Nuxeo 9.10
 - Nuxeo 8.10
 
-You can choose to run Nuxeo a cluster mode (up to 3 nodes).
+You can choose to run Nuxeo in cluster mode up to 3 nodes.
 
 The backend services supported are:
 - MongoDB
@@ -26,10 +26,10 @@ The backend services supported are:
 - Redis
 
 In addition of the Nuxeo stack you can add useful tooling:
-- Grafana/Graphite with a provisioned Nuxeo monitoring dashboard
-- Kibana An Elasticsearch GUI
-- KafkaHQ A Kafka GUI
-- Netdata OS monitoring (though it is much better to install netdata directly on the host)
+- Grafana/Graphite: a provisioned Nuxeo monitoring dashboard
+- Kibana: the Elasticsearch GUI
+- KafkaHQ: a Kafka GUI
+- Netdata: for OS monitoring, though it is much better to install netdata directly on the host
 
 # Installation
 
@@ -53,7 +53,7 @@ pip3 install virtualenv
 ```
 
 Also you need to be able to `ssh localhost` without being prompted for a password.
-If it is not teh case, try something like: 
+If it is not the case, try something like:
 ```bash
 ssh-copy-id localhost
 ```
@@ -91,6 +91,7 @@ docker-compose down --volume
 Note that you can use `stop` to stop an env but you need to use `down --volume` before switching to different stack or you will have error like:
 ```bash
 ERROR: for elastic  Cannot create container for service elasticsearch: Conflict. The container name "/elastic" is already in use by container "3a7a444f4a01e0286ea54edabde0549be8564fd538d72d88b58661f6e73c4c62". You have to remove (or rename) that container to be able to reuse that name.
+# To solve this use: docker rm <CONTAINER-ID>
 ```
 
 All data are persisted using docker volumes inside your env, you can resume any env using a `docker-compose up`.
@@ -98,7 +99,7 @@ All data are persisted using docker volumes inside your env, you can resume any 
 
 ## Stack exposition
 
-All HTTP service are exposed by [traefik](https://traefik.io/) with proper hostname:
+All HTTP services are exposed by [traefik](https://traefik.io/) with proper hostname:
 
 |URL | auth | description |
 | --- | --- | --- |
@@ -142,12 +143,12 @@ In the `./bin` directory of you environment there are useful shortcuts:
 
 
 And scripts:
-- `esync.sh` Run the [esync](https://github.com/nuxeo/esync) tool to check the discrepancy between repository and elastic
 - `import.sh` Run a small import 2k docs
 - `reindex.sh` Re-index the document repository (using the WorkManger)
 - `tail-audit.sh` tail -f on the audit stream
 - `threaddump.sh` Perform a thread dump of Nuxeo
 - `debug-nuxeo.sh` Expose the a Nuxeo node for remote debugging (localhost:8787)
+- `expose-port.sh` Expose any container port to localhost
 - `pg-info.sh` Perform the PosgreSQL reporting problem procedure
 - `elastic-info.sh` Perform the Elasticsearch reporting problem procedure
 - `bulk-done.sh` List latest bulk command completed
@@ -158,7 +159,15 @@ And scripts:
 - `kafka-list-consumer-gropus.sh` List all consumer groups at Kafka level
 - `kafka-list-consumer-positions.sh` List the a consumer group position at Kafka level
 - `kafka-list-topics.sh` List Kafka topics
-
+- `esync.sh` Run the [esync](https://github.com/nuxeo/esync) tool to check the discrepancy between repository and elastic
+  you need to expose the database port before running esync for instance:
+  ```bash
+  CONTAINER=mongo PORT=27017 ./bin/expose-port.sh
+  # or for PostgreSQL:
+  # CONTAINER=postgres PORT=5432 ./bin/expose-port.sh
+  # on another term
+  ./bin/esync.sh
+  ```
 ## Debugging
 
 To debug the third Nuxeo node of your cluster (nuxeo3):
