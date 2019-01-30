@@ -145,6 +145,10 @@ In the `./bin` directory of you environment there are useful shortcuts:
 And scripts:
 - `import.sh` Run a small import 2k docs
 - `reindex.sh` Re-index the document repository (using the WorkManger)
+- `nxql.sh` Run an NXQL query using the REST API, for instance:
+  ```bash
+  NXQL="SELECT * FROM Document" ./bin/nxql.sh
+  ```
 - `tail-audit.sh` tail -f on the audit stream
 - `threaddump.sh` Perform a thread dump of Nuxeo
 - `debug-nuxeo.sh` Expose the a Nuxeo node for remote debugging (localhost:8787)
@@ -179,6 +183,8 @@ Then attach your debugger to `localhost:8787`
 
 
 # TODO
+
+- Confluent and KSQL stack
 
 - Add script run webdriver tests
 
