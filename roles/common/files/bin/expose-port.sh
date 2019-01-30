@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Run a proxy to expose a container port
-PORT=27017
+PORT=${PORT:-27017}
 CONTAINER=${CONTAINER:-mongo}
 set -x
 CONTAINER_IP=$(docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $CONTAINER)
