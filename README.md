@@ -31,6 +31,14 @@ In addition of the Nuxeo stack you can add useful tooling:
 - KafkaHQ: a Kafka GUI
 - Netdata: for OS monitoring, though it is much better to install netdata directly on the host
 
+# Demo
+
+Click on the screenshot below for an animated gif demoing how to start a Nuxeo cluster with with 2 Nuxeo nodes, MongoDB, Elasticsearch, Kafka, Grafana and KafkaHQ in 2min:
+
+[![Nuxeo Stack demo](./screenshot1.png)](https://github.com/bdelbosc/nuxeo-stacks/releases/download/demo/nuxeo-stacks-demo.gif)
+
+(Of course it will take more than 2 min the first time because you will have to pull docker images)
+
 # Installation
 
 First you need to install [docker-compose](https://docs.docker.com/compose/install/) on the machine running the stack.
@@ -95,7 +103,6 @@ ERROR: for elastic  Cannot create container for service elasticsearch: Conflict.
 ```
 
 All data are persisted using docker volumes inside your env, you can resume any env using a `docker-compose up`.
-
 
 ## Stack exposition
 
@@ -183,6 +190,13 @@ Then attach your debugger to `localhost:8787`
 
 
 # TODO
+
+- Add Prometheus exporter with provisioned Grafana dashboard for each service:
+  - elasticsearch
+  - mongo
+  - redis
+  - postgresql
+  - kafka
 
 - Confluent and KSQL stack
 
