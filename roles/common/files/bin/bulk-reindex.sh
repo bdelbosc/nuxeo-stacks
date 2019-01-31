@@ -4,6 +4,6 @@
 SERVER_URL=${SERVER_URL:-http://nuxeo.docker.localhost}
 set -e
 SCRIPT_PATH="$(cd "$(dirname "$0")"; pwd -P)"
-curl -s -X POST '${SERVER_URL}/nuxeo/site/automation/Elasticsearch.BulkIndex' -u Administrator:Administrator -H 'content-type: application/json+nxrequest' -d '{"params":{},"context":{}}' | tee /tmp/bulk-command.txt | jq .
+curl -s -X POST "${SERVER_URL}/nuxeo/site/automation/Elasticsearch.BulkIndex" -u Administrator:Administrator -H 'content-type: application/json+nxrequest' -d '{"params":{},"context":{}}' | tee /tmp/bulk-command.txt | jq .
 ${SCRIPT_PATH}/bulk-status.sh
 
