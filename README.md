@@ -18,12 +18,14 @@ The Nuxeo versions supported are:
 You can choose to run Nuxeo in cluster mode up to 3 nodes.
 
 The backend services supported are:
-- MongoDB
+- MongoDB 
 - PostgreSQL
 - Elasticsearch
 - Kafka
 - Zookeeper
 - Redis
+
+The version of services are adapted depending on the Nuxeo version.
 
 In addition of the Nuxeo stack you can add useful tooling:
 - Grafana/Graphite: a provisioned Nuxeo monitoring dashboard
@@ -33,11 +35,11 @@ In addition of the Nuxeo stack you can add useful tooling:
 
 # Demo
 
-Click on the screenshot below for an animated gif demoing how to start a Nuxeo cluster with with 2 Nuxeo nodes, MongoDB, Elasticsearch, Kafka, Grafana and KafkaHQ in 2min:
+Click on the screenshot below for an animated gif demoing how to start a Nuxeo cluster of 2 nodes with MongoDB, Elasticsearch, Kafka, Grafana and KafkaHQ in 2min:
 
 [![Nuxeo Stack demo](./screenshot1.png)](https://github.com/bdelbosc/nuxeo-stacks/releases/download/demo/nuxeo-stacks-demo.gif)
 
-(Of course it will take more than 2 min the first time because you will have to pull docker images)
+Of course the first time you use nuxeo stacks it will take longer because you have to pull docker images.
 
 # Installation
 
@@ -45,7 +47,7 @@ First you need to install [docker-compose](https://docs.docker.com/compose/insta
 
 The generation of the Nuxeo stack is done using [ansible](https://www.ansible.com/) which will be automatically installed in a `virtualenv` when executing the `nuxeoenv.sh` script.
 
-The only requirement are: `pip`, `virtualenv`, `whiptail` and `jq`.
+The only requirements are: `pip`, `virtualenv`, `whiptail` and `jq`.
 To install theses requirements:
 
 On Mac OS:
@@ -60,7 +62,7 @@ sudo apt install python3-pip jq
 pip3 install virtualenv
 ```
 
-Also you need to be able to `ssh localhost` without being prompted for a password.
+You need to be able to `ssh localhost` without being prompted for a password.
 If it is not the case, try something like:
 ```bash
 ssh-copy-id localhost
