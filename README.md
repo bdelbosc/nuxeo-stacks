@@ -32,6 +32,8 @@ In addition of the Nuxeo stack you can add useful tooling:
 - Kibana: the Elasticsearch GUI
 - KafkaHQ: a Kafka GUI
 - Netdata: for OS monitoring, though it is much better to install netdata directly on the host
+- Prometheus: Monitoring solution
+- Jaeger: Tracer
 
 # Demo
 
@@ -122,6 +124,8 @@ All HTTP services are exposed by [traefik](https://traefik.io/) with proper host
 | http://graphite.docker.localhost |  | Graphite |
 | http://kafkahq.docker.localhost |  | Kafka GUI |
 | http://netdata.docker.localhost |  | Real time OS monitoring |
+| http://prometheus.docker.localhost |  | Monitoring solution |
+| http://jaeger.docker.localhost |  | Tracer for distributed tracing |
 |--- | --- | ---|
 | http://traefik.docker.localhost/ | | Traefik dashboard |
  
@@ -161,7 +165,7 @@ And scripts:
 - `tail-audit.sh` tail -f on the audit stream
 - `threaddump.sh` Perform a thread dump of Nuxeo
 - `debug-nuxeo.sh` Expose the a Nuxeo node for remote debugging (localhost:8787)
-- `expose-port.sh` Expose any container port to localhost
+- `expose-port.sh` Expose any container port to localhost without restarting container
 - `pg-info.sh` Perform the PosgreSQL reporting problem procedure
 - `elastic-info.sh` Perform the Elasticsearch reporting problem procedure
 - `bulk-done.sh` List latest bulk command completed

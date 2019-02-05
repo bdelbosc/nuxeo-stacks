@@ -201,6 +201,7 @@ services:
 {% if netdata %}
   netdata:
     image: netdata/netdata
+    container_name: netdata
     hostname: netdata
     labels:
       - "traefik.port=19999"
@@ -217,8 +218,34 @@ services:
       - /sys:/host/sys:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
 {% endif %}
+{% if prometheus %}
+  prometheus:
+    image: prom/prometheus:{{ prometheus_version }}
+    container_name: prometheus
+    user: root
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - {{ root_path }}/data/prometheus:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    labels:
+      - "traefik.port=9090"
+      - "traefik.frontend.rule=Host:prometheus.docker.localhost"
+{% endif %}
+{% if jaeger %}
+  jaeger:
+    # the all in one version is an in-memory version
+    image: jaegertracing/all-in-one:{{ jaeger_version }}
+    container_name: jaeger
+    labels:
+      - "traefik.port=16686"
+      - "traefik.frontend.rule=Host:jaeger.docker.localhost"
+{% endif %}
   traefik:
-    image: traefik
+    image: traefik:{{ traefik_version }}
     container_name: traefik
     command: --api --docker
     ports:

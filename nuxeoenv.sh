@@ -80,7 +80,7 @@ get_input() {
  3>&1 1>&2 2>&3)
   fi
   if [[ -z "${stacks}" ]]; then
-    stacks=$(whiptail --title "Nuxeo stacks" --checklist "Compose your stack:" 18 60 10 \
+    stacks=$(whiptail --title "Nuxeo stacks" --checklist "Compose your stack:" 18 60 12 \
  elastic "Elasticsearch" on \
  redis "Redis" on \
  kafka "Kafka and Zookeeper" off \
@@ -90,6 +90,8 @@ get_input() {
  kibana "Elastic GUI" off \
  kafkahq "Kafka GUI" off \
  netdata "Netdata monitoring" off \
+ prometheus "Prometheus monitoring" off \
+ jaeger "Distributed tracer" off \
  3>&1 1>&2 2>&3)
   fi
   COMMAND="${0} -i \"${instance_clid}\" -d \"${data_path}\" -c ${nuxeo_cluster} -n ${nuxeo_dist} -b ${backend} -s "${stacks@Q}""
@@ -173,6 +175,16 @@ parse_input() {
   else
     netdata=False
   fi
+  if [[ ${stacks} == *"prometheus"* ]]; then
+    prometheus=True
+  else
+    prometheus=False
+  fi
+  if [[ ${stacks} == *"jaeger"* ]]; then
+    jaeger=True
+  else
+    jaeger=False
+  fi
   if [[ ${nuxeo_cluster} == *"2"* ]]; then
     nuxeo_cluster_mode=True
     nuxeo_nb_nodes=2
@@ -205,7 +217,7 @@ generate_compose() {
  -e "env_mongo=$mongo env_postgres=$postgres env_redis=$redis" \
  -e "env_elastic=$elastic env_kibana=$kibana" \
  -e "env_graphite=$graphite env_grafana=$grafana env_kafka=$kafka env_zookeeper=$zookeeper env_kafkahq=$kafkahq" \
- -e "env_stream=$stream env_netdata=$netdata env_swm=$swm" \
+ -e "env_stream=$stream env_netdata=$netdata env_swm=$swm env_prometheus=$prometheus  env_jaeger=$jaeger" \
  ${PLAYBOOK_OPTS}
   set +x
 }
@@ -221,7 +233,7 @@ bye() {
   echo "http://nuxeo.docker.localhost/nuxeo -> Nuxeo Administrator/Administrator"
   if [[ ${stacks} == *"monitor"* ]]; then
     echo "http://grafana.docker.localhost/ -> Grafana admin/admin"
-    echo "http://graphite.docker.localhost/ -> Graphite admin/admin"
+    echo "http://graphite.docker.localhost/ -> Graphite root/root"
   fi
   if [[ ${stacks} == *"elastic"* ]]; then
     echo "http://elastic.docker.localhost/ -> Elasticsearch"
@@ -231,6 +243,12 @@ bye() {
   fi
   if [[ ${stacks} == *"kafkahq"* ]]; then
     echo "http://kafkahq.docker.localhost/ -> KafkaHQ"
+  fi
+  if [[ ${stacks} == *"prometheus"* ]]; then
+    echo "http://prometheus.docker.localhost/ -> Prometheus"
+  fi
+  if [[ ${stacks} == *"jaeger"* ]]; then
+    echo "http://jaeger.docker.localhost/ -> Jaeger"
   fi
 }
 

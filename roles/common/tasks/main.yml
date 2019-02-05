@@ -85,6 +85,12 @@
     dest: "{{ root_path }}"
   when: "kafkahq"
 
+- name: Copy Prometheus init
+  copy:
+    src: prometheus
+    dest: "{{ root_path }}"
+  when: "prometheus"
+
 - name: Generate the docker-compose file
   template:
     src: docker-compose.yml.j2
