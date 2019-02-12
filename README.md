@@ -4,7 +4,8 @@
 The intend of nuxeo stacks is to create custom environment to test and debug different Nuxeo configurations.
 
 Once you have selected the stack that you want to run, an isolated environment is created.
-The environment is a normal docker compose file configured with volumes, so everything fit into a directory.
+This environment is a repository, it uses a normal docker compose file configured with volumes.
+
 
 Again this is for testing and **NOT FOR PRODUCTION**.
 
@@ -25,15 +26,16 @@ The backend services supported are:
 - Zookeeper
 - Redis
 
-The version of services are adapted depending on the Nuxeo version.
+The version and configuration of services are adapted depending on the Nuxeo version
+(for instance Nuxeo 8.10 uses Elasticsearch 2.3).
 
 In addition of the Nuxeo stack you can add useful tooling:
-- Grafana/Graphite: a provisioned Nuxeo monitoring dashboard
+- Grafana/Graphite: a monitoring solution with a provisioned Nuxeo dashboard
 - Kibana: the Elasticsearch GUI
 - KafkaHQ: a Kafka GUI
 - Netdata: for OS monitoring, though it is much better to install netdata directly on the host
-- Prometheus: Monitoring solution
-- Jaeger: Tracer
+- Prometheus: an alternative to graphite monitoring
+- Jaeger: a Tracer for distributed tracing
 
 # Demo
 
@@ -197,6 +199,8 @@ Then attach your debugger to `localhost:8787`
 
 # TODO
 
+- Add support to Nuxeo 7.10 to ease migration testing
+
 - Add Prometheus exporter with provisioned Grafana dashboard for each service:
   - elasticsearch
   - mongo
@@ -204,13 +208,15 @@ Then attach your debugger to `localhost:8787`
   - postgresql
   - kafka
 
-- Confluent and KSQL stack
+- Add a Confluent Kafka with KSQL
 
-- Add script run webdriver tests
+- Add script to run webdriver tests
 
 - Add script to run gatling tests
 
-- Fix import-files, once DAM is installed
+- Fix import-files.sh script:
+  - install nuxeo-dam
+  - add volume to share data to import
 
 - Add option for multi env
   - Prefix all container, volume, route (using COMPOSE_PROJECT_NAME ?)
@@ -223,7 +229,7 @@ Then attach your debugger to `localhost:8787`
 
 - Java flamegraph
   - requires non official nuxeo image with Oracle (or check latest OpenJDK)
-  
+
 - Security check
   - no /var/run/docker.sock (not possible for traefik, kafka, netdata ?)
   - no  --privileged ()
