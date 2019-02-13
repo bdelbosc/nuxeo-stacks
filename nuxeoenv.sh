@@ -94,7 +94,7 @@ get_input() {
  jaeger "Distributed tracer" off \
  3>&1 1>&2 2>&3)
   fi
-  COMMAND="${0} -i \"${instance_clid}\" -d \"${data_path}\" -c ${nuxeo_cluster} -n ${nuxeo_dist} -b ${backend} -s "${stacks@Q}""
+  COMMAND="${0} -i \"${instance_clid}\" -d \"${data_path}\" -c ${nuxeo_cluster} -n ${nuxeo_dist} -b ${backend} -s '"${stacks}"'"
 }
 
 parse_input() {
