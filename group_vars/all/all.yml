@@ -21,8 +21,10 @@ stream: "{{ env_stream }}"
 swm: "{{ env_swm }}"
 prometheus: "{{ env_prometheus }}"
 jaeger: "{{ env_jaeger }}"
+zipkin: "{{ env_zipkin }}"
 
 # Common
 traefik_version: latest
 prometheus_version: latest
 jaeger_version: latest
+zipkin_version: latest

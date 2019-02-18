@@ -41,6 +41,13 @@ elasticsearch.httpReadOnly.baseUrl=http://elasticsearch:9200
 nuxeo.stream.work.enabled=true
 {% endif %}
 
+{% if jaeger %}
+opencensus.exporter.jaeger.url=http://jaeger:14268/api/traces
+{% elif zipkin %}
+opencensus.exporter.zipkin.url=http://zipkin:9411/api/v2/spans
+{% endif %}
+
+
 {% if graphite %}
 metrics.graphite.enabled=true
 metrics.graphite.host=graphite

@@ -244,6 +244,22 @@ services:
       - "traefik.port=16686"
       - "traefik.frontend.rule=Host:jaeger.docker.localhost"
 {% endif %}
+{% if zipkin %}
+  zipkin:
+    image: openzipkin/zipkin:{{ zipkin_version }}
+    container_name: zipkin
+    environment:
+      - STORAGE_TYPE=mem
+  zipkin-ui:
+    image: openzipkin/zipkin-ui:{{ zipkin_version }}
+    container_name: zipkin-ui
+    environment:
+      - ZIPKIN_BASE_URL=http://zipkin:9411
+    depends_on:
+      - zipkin
+    labels:
+      - "traefik.frontend.rule=Host:zipkin.docker.localhost"
+{% endif %}
   traefik:
     image: traefik:{{ traefik_version }}
     container_name: traefik

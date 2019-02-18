@@ -36,6 +36,7 @@ In addition of the Nuxeo stack you can add useful tooling:
 - Netdata: for OS monitoring, though it is much better to install netdata directly on the host
 - Prometheus: an alternative to graphite monitoring
 - Jaeger: a Tracer for distributed tracing
+- Zipkin: an alternative Tracer for distributed tracing
 
 # Demo
 
@@ -128,6 +129,7 @@ All HTTP services are exposed by [traefik](https://traefik.io/) with proper host
 | http://netdata.docker.localhost |  | Real time OS monitoring |
 | http://prometheus.docker.localhost |  | Monitoring solution |
 | http://jaeger.docker.localhost |  | Tracer for distributed tracing |
+| http://zipkin.docker.localhost |  | Tracer for distributed tracing |
 |--- | --- | ---|
 | http://traefik.docker.localhost/ | | Traefik dashboard |
  

@@ -92,6 +92,7 @@ get_input() {
  netdata "Netdata monitoring" off \
  prometheus "Prometheus monitoring" off \
  jaeger "Distributed tracer" off \
+ zipkin "Distributed tracer" off \
  3>&1 1>&2 2>&3)
   fi
   COMMAND="${0} -i \"${instance_clid}\" -d \"${data_path}\" -c ${nuxeo_cluster} -n ${nuxeo_dist} -b ${backend} -s '"${stacks}"'"
@@ -185,6 +186,11 @@ parse_input() {
   else
     jaeger=False
   fi
+  if [[ ${stacks} == *"zipkin"* ]]; then
+    zipkin=True
+  else
+    zipkin=False
+  fi
   if [[ ${nuxeo_cluster} == *"2"* ]]; then
     nuxeo_cluster_mode=True
     nuxeo_nb_nodes=2
@@ -217,7 +223,8 @@ generate_compose() {
  -e "env_mongo=$mongo env_postgres=$postgres env_redis=$redis" \
  -e "env_elastic=$elastic env_kibana=$kibana" \
  -e "env_graphite=$graphite env_grafana=$grafana env_kafka=$kafka env_zookeeper=$zookeeper env_kafkahq=$kafkahq" \
- -e "env_stream=$stream env_netdata=$netdata env_swm=$swm env_prometheus=$prometheus  env_jaeger=$jaeger" \
+ -e "env_stream=$stream env_netdata=$netdata env_swm=$swm" \
+ -e "env_prometheus=$prometheus  env_jaeger=$jaeger env_zipkin=$zipkin" \
  ${PLAYBOOK_OPTS}
   set +x
 }
@@ -249,6 +256,9 @@ bye() {
   fi
   if [[ ${stacks} == *"jaeger"* ]]; then
     echo "http://jaeger.docker.localhost/ -> Jaeger"
+  fi
+  if [[ ${stacks} == *"zipkin"* ]]; then
+    echo "http://zipkin.docker.localhost/ -> Zipkin"
   fi
 }
 
