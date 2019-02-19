@@ -43,7 +43,9 @@ nuxeo.stream.work.enabled=true
 
 {% if jaeger %}
 opencensus.exporter.jaeger.url=http://jaeger:14268/api/traces
-{% elif zipkin %}
+{% endif %}
+
+{% if zipkin %}
 opencensus.exporter.zipkin.url=http://zipkin:9411/api/v2/spans
 {% endif %}
 

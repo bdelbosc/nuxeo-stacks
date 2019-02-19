@@ -250,14 +250,8 @@ services:
     container_name: zipkin
     environment:
       - STORAGE_TYPE=mem
-  zipkin-ui:
-    image: openzipkin/zipkin-ui:{{ zipkin_version }}
-    container_name: zipkin-ui
-    environment:
-      - ZIPKIN_BASE_URL=http://zipkin:9411
-    depends_on:
-      - zipkin
     labels:
+      - "traefik.port=9411"
       - "traefik.frontend.rule=Host:zipkin.docker.localhost"
 {% endif %}
   traefik:
