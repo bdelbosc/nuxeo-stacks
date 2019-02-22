@@ -84,6 +84,7 @@ get_input() {
  elastic "Elasticsearch" on \
  redis "Redis" on \
  kafka "Kafka and Zookeeper" off \
+ kafkassl "Kafka in SSL and Zookeeper" off \
  swm "Use Nuxeo Stream WorkManager         " off \
  monitor "Nuxeo Grafana dashboard" off \
  stream "Monitor Nuxeo Stream" off \
@@ -142,14 +143,21 @@ parse_input() {
     redis=False
   fi
   if [[ ${stacks} == *"kafka"* ]]; then
+    kafkassl=False
     kafka=True
     zookeeper=True
+    if [[ ${stacks} == *"kafkassl"* ]]; then
+      kafkassl=True
+    else
+      kafkassl=False
+    fi
     if [[ ${stacks} == *"kafkahq"* ]]; then
       kafkahq=True
     else
       kafkahq=False
     fi
   else
+    kafkassl=False
     kafka=False
     zookeeper=False
     kafkahq=False
@@ -222,7 +230,8 @@ generate_compose() {
  -e "env_nuxeo_cluster=$nuxeo_cluster_mode env_nuxeo_nb_nodes=$nuxeo_nb_nodes" \
  -e "env_mongo=$mongo env_postgres=$postgres env_redis=$redis" \
  -e "env_elastic=$elastic env_kibana=$kibana" \
- -e "env_graphite=$graphite env_grafana=$grafana env_kafka=$kafka env_zookeeper=$zookeeper env_kafkahq=$kafkahq" \
+ -e "env_graphite=$graphite -e env_grafana=$grafana" \
+ -e "env_kafka=$kafka env_kafkassl=$kafkassl env_zookeeper=$zookeeper env_kafkahq=$kafkahq" \
  -e "env_stream=$stream env_netdata=$netdata env_swm=$swm" \
  -e "env_prometheus=$prometheus  env_jaeger=$jaeger env_zipkin=$zipkin" \
  ${PLAYBOOK_OPTS}

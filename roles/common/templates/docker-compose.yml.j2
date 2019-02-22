@@ -1,4 +1,4 @@
-version: '3'
+version: "3.5"
 services:
 {% if zookeeper %}
   zookeeper:
@@ -10,6 +10,12 @@ services:
     volumes:
       - {{ root_path }}/data/zookeeper/data:/datalog
       - {{ root_path }}/data/zookeeper/log:/data
+{% if kafkassl %}
+      - '{{ root_path }}/kafkassl/kafka-server-jaas.conf:/conf/kafka-server-jaas.conf:ro'
+      - '{{ root_path }}/kafkassl/zoo.cfg:/conf/zoo.cfg:ro'
+    environment:
+      SERVER_JVMFLAGS: "-Djava.security.auth.login.config=/conf/kafka-server-jaas.conf"
+{% endif %}
 {% endif %}
 {% if kafka %}
   kafka:
@@ -19,18 +25,53 @@ services:
 #    ports:
 #      - "9092:9092"
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: "kafka"
-      KAFKA_ADVERTISED_PORT: 9092
+      #KAFKA_BROKER_ID: 1
+      KAFKA_PORT: 9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 10
       KAFKA_OFFSETS_RETENTION_MINUTES: 20160
       KAFKA_HEAP_OPTS: "-Xmx256M -Xms256M"
       KAFKA_LOG_DIRS: /kafka/log
+{% if kafkassl %}
+      KAFKA_LISTENERS: "SASL_SSL://kafka:9092"
+      KAFKA_ADVERTISED_LISTENERS: "SASL_SSL://:9092"
+      KAFKA_SSL_CLIENT_AUTH: required
+      KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SASL_SSL
+      KAFKA_SASL_ENABLED_MECHANISMS: PLAIN
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: "PLAIN"
+      KAFKA_SSL_KEYSTORE_LOCATION: /certs/docker.kafka.server.keystore.jks
+      KAFKA_SSL_KEYSTORE_PASSWORD: {{ kafka_ssl_keystore_password }}
+      KAFKA_SSL_KEY_PASSWORD: {{ kafka_ssl_key_password }}
+      KAFKA_SSL_TRUSTSTORE_LOCATION: /certs/docker.kafka.server.truststore.jks
+      KAFKA_SSL_TRUSTSTORE_PASSWORD: {{ kafka_ssl_trustore_password }}
+      KAFKA_JMX_OPTS: "-Djava.security.auth.login.config=/opt/kafka/config/kafka-server-jaas.conf"
+      # This is needed to bypass SSL handcheck hostname verification
+      KAFKA_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM: ""
+      #KAFKA_JMX_OPTS: "-Djavax.net.debug=SSL -Djava.security.auth.login.config=/opt/kafka/config/kafka-server-jaas.conf"
+      # ssl debug options
+      #LOG4J_LOGGER_KAFKA_AUTHORIZER_LOGGER: DEBUG
+      #LOG4J_LOGGER_KAFKA: DEBUG
+      #LOG4J_LOGGER_ORG_APACHE_KAFKA: DEBUG
+    networks:
+      default:
+        ipv4_address: 192.168.192.50
+        aliases:
+          - kafka.docker.test
+    extra_hosts:
+      - "kafka.docker.test:192.168.192.50"
+{% else %}
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ADVERTISED_PORT: 9092
+{% endif %}
 {% if zookeeper %}
     depends_on:
       - zookeeper
 {% endif %}
     volumes:
+{% if kafkassl %}
+      - '{{ root_path }}/kafkassl/certs:/certs:ro'
+      - '{{ root_path }}/kafkassl/kafka-server-jaas.conf:/opt/kafka/config/kafka-server-jaas.conf:ro'
+{% endif %}
       - {{ root_path }}/data/kafka/data:/kafka
       - {{ root_path }}/data/kafka/log:/opt/kafka/log
       - /var/run/docker.sock:/var/run/docker.sock
@@ -176,6 +217,11 @@ services:
       - ./nuxeo/init-nuxeo.sh:/docker-entrypoint-initnuxeo.d/init-nuxeo.sh
       - {{ root_path }}/data/nuxeo-binaries:/var/lib/nuxeo/binaries
       - {{ root_path }}/data/{{ nuxeo_node }}/data:/var/lib/nuxeo/data
+{% if kafkassl %}
+      - {{ root_path }}/kafkassl/certs:/certs
+    extra_hosts:
+      - "kafka.docker.test:192.168.192.50"
+{% endif %}
 {% endfor %}
 {% if (nuxeo and stream and kafka) %}
   stream:
@@ -274,4 +320,15 @@ volumes:
       type: none
       device: {{ root_path }}/data/elastic
       o: bind
+{% endif %}
+{% if kafkassl %}
+# We need a static IP for Kafka and a /etc/hosts to pass the SSL handcheck from Nuxeo
+networks:
+  default:
+    name: docker.test
+    ipam:
+      driver: default
+      config:
+      - subnet: 192.168.192.0/24
+      - subnet: 2001:3984:3989::/64
 {% endif %}

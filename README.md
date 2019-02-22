@@ -22,7 +22,7 @@ The backend services supported are:
 - MongoDB 
 - PostgreSQL
 - Elasticsearch
-- Kafka
+- Kafka (with SSL/SASL)
 - Zookeeper
 - Redis
 

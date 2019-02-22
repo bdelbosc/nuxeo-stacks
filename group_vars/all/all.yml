@@ -1,4 +1,20 @@
 # --------------------------------------------------
+
+# Kafka SSL configuration
+kafka_ssl_key_password: kafkadocker
+kafka_ssl_keystore_password: kafkadocker
+kafka_ssl_trustore_password: kafkadocker
+# Kafka SASL/PLAIN client auth
+kafka_sasl_plain_user: nuxeo
+kafka_sasl_plain_password: nuxeo-secret
+
+
+# Common option for all Nuxeo version
+traefik_version: latest
+prometheus_version: latest
+jaeger_version: latest
+zipkin_version: latest
+
 # Options from nuxeoenv.sh
 nuxeo: "{{ env_nuxeo }}"
 nuxeo_version: "{{ env_nuxeo_version }}"
@@ -14,6 +30,7 @@ redis: "{{ env_redis }}"
 graphite: "{{ env_graphite }}"
 grafana: "{{ env_grafana }}"
 kafka: "{{ env_kafka }}"
+kafkassl: "{{ env_kafkassl }}"
 zookeeper: "{{ env_zookeeper }}"
 kafkahq: "{{ env_kafkahq }}"
 netdata: "{{ env_netdata }}"
@@ -23,8 +40,3 @@ prometheus: "{{ env_prometheus }}"
 jaeger: "{{ env_jaeger }}"
 zipkin: "{{ env_zipkin }}"
 
-# Common
-traefik_version: latest
-prometheus_version: latest
-jaeger_version: latest
-zipkin_version: latest

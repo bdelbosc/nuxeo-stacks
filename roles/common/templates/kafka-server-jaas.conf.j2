@@ -1,0 +1,18 @@
+KafkaServer {
+   org.apache.kafka.common.security.plain.PlainLoginModule required
+   username="kafkabroker"
+   password="kafkabroker-secret"
+   user_kafkabroker="kafkabroker-secret"
+   user_{{ kafka_sasl_plain_user }}="{{ kafka_sasl_plain_password }}";
+};
+Server {
+   org.apache.zookeeper.server.auth.DigestLoginModule required
+   user_kafkabroker="kafkabroker-secret";
+};
+Client {
+   org.apache.kafka.common.security.plain.PlainLoginModule required
+   username="kafkabroker"
+   password="kafkabroker-secret"
+   user_kafkabroker="kafkabroker-secret"
+   user_{{ kafka_sasl_plain_user }}="{{ kafka_sasl_plain_password }}";
+};

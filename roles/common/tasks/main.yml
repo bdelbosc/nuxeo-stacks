@@ -98,6 +98,20 @@
   tags:
     - test
 
+- name: Configure Kafka SSL
+  copy:
+    src: kafkassl
+    dest: "{{ root_path }}"
+  when: "kafkassl"
+
+- name: Add Kafka SASL JAAS conf
+  template:
+    src: kafka-server-jaas.conf.j2
+    dest: "{{root_path}}/kafkassl/kafka-server-jaas.conf"
+  tags:
+    - test
+  when: "kafkassl"
+
 - name: Copy scripts
   copy:
     src: bin
