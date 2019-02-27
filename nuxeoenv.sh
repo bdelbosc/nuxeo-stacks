@@ -62,6 +62,7 @@ get_input() {
  nuxeo1010 "Nuxeo 10.10" off \
  nuxeo910 "Nuxeo 9.10" off \
  nuxeo810 "Nuxeo 8.10" off \
+ nuxeo710 "Nuxeo 7.10" off \
  none "None" off \
  3>&1 1>&2 2>&3)
   fi
@@ -112,6 +113,9 @@ parse_input() {
   elif [[ ${nuxeo_dist} == *"nuxeo810"* ]]; then
     nuxeo=True
     nuxeo_version=8.10
+  elif [[ ${nuxeo_dist} == *"nuxeo710"* ]]; then
+    nuxeo=True
+    nuxeo_version=7.10
   else
     nuxeo=False
     nuxeo_version=latest

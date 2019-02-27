@@ -14,6 +14,12 @@
     recurse: yes
   with_items: "{{ nuxeo_nodes }}"
 
+- name: Init conf directory Nuxeo
+  file:
+    path: "{{ root_path }}/nuxeo"
+    state: directory
+    recurse: yes
+
 - name: Init binaries directory Nuxeo
   file:
     path: "{{ root_path }}/data/nuxeo-binaries"
@@ -34,17 +40,16 @@
     recurse: yes
   when: "elastic"
 
-- name: Copy the nuxeo init
-  copy:
-    src: nuxeo
-    dest: "{{ root_path }}"
-  with_items: "{{ nuxeo_nodes }}"
-
 - name: Generate the nuxeo.conf file
   template:
     src: nuxeo.conf.j2
     dest: "{{root_path}}/nuxeo/{{ item }}.conf"
   with_items: "{{ nuxeo_nodes }}"
+
+- name: Generate the nuxeo init script
+  template:
+    src: init-nuxeo.sh.j2
+    dest: "{{root_path}}/nuxeo/init-nuxeo.sh"
 
 - name: Copy the mongo init
   copy:

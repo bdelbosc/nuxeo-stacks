@@ -6,4 +6,4 @@ kibana_version: "kibana:2.3.5"
 mongo_version: 3.4
 postgres_version: 9.6-alpine
 redis_version: 4.0.12-alpine
-
+nuxeo_packages: "nuxeo-web-ui nuxeo-jsf-ui nuxeo-platform-importer"

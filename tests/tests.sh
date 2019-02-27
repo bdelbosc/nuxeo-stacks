@@ -12,6 +12,18 @@ mkdir -p "$TEST_PATH"
 ${SCRIPT_PATH}/nuxeoenv.sh -t ${TEST_MODE} -i "$SCRIPT_PATH/instance.clid" -d "$TEST_PATH/NL1" -c no -n nuxeolatest -b none -s none
 docker-compose -f "$TEST_PATH/NL1/docker-compose.yml" config
 
+${SCRIPT_PATH}/nuxeoenv.sh -t ${TEST_MODE} -i "$SCRIPT_PATH/instance.clid" -d "$TEST_PATH/N101" -c no -n nuxeo1010 -b none -s none
+docker-compose -f "$TEST_PATH/N101/docker-compose.yml" config
+
+${SCRIPT_PATH}/nuxeoenv.sh -t ${TEST_MODE} -i "$SCRIPT_PATH/instance.clid" -d "$TEST_PATH/N91" -c no -n nuxeo910 -b none -s none
+docker-compose -f "$TEST_PATH/N91/docker-compose.yml" config
+
+${SCRIPT_PATH}/nuxeoenv.sh -t ${TEST_MODE} -i "$SCRIPT_PATH/instance.clid" -d "$TEST_PATH/N81" -c no -n nuxeo810 -b none -s none
+docker-compose -f "$TEST_PATH/N81/docker-compose.yml" config
+
+${SCRIPT_PATH}/nuxeoenv.sh -t ${TEST_MODE} -i "$SCRIPT_PATH/instance.clid" -d "$TEST_PATH/N71" -c no -n nuxeo710 -b none -s none
+docker-compose -f "$TEST_PATH/N71/docker-compose.yml" config
+
 ${SCRIPT_PATH}/nuxeoenv.sh -t ${TEST_MODE} -i "$SCRIPT_PATH/instance.clid" -d "$TEST_PATH/NL1MER" -c no -n nuxeolatest -b mongo -s '"elastic" "redis"'
 docker-compose -f "$TEST_PATH/NL1MER/docker-compose.yml" config
 
@@ -20,3 +32,4 @@ docker-compose -f "$TEST_PATH/N91PEK/docker-compose.yml" config
 
 ${SCRIPT_PATH}/nuxeoenv.sh -t ${TEST_MODE} -i "$SCRIPT_PATH/instance.clid" -d "$TEST_PATH/NL3MEKRSMSKKN" -c 3 -n nuxeolatest -b mongo -s '"elastic" "kafka" "redis" "swm" "monitor" "stream" "kibana" "kafkahq" "netdata"'
 docker-compose -f "$TEST_PATH/NL3MEKRSMSKKN/docker-compose.yml" config
+

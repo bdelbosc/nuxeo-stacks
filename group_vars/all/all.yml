@@ -8,7 +8,6 @@ kafka_ssl_trustore_password: kafkadocker
 kafka_sasl_plain_user: nuxeo
 kafka_sasl_plain_password: nuxeo-secret
 
-
 # Common option for all Nuxeo version
 traefik_version: latest
 prometheus_version: latest

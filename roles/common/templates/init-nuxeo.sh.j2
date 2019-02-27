@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-NUX_PACKAGES="nuxeo-web-ui nuxeo-jsf-ui nuxeo-platform-importer"
+{% if nuxeo_packages is defined and nuxeo_packages|length %}
+NUX_PACKAGES="{{ nuxeo_packages }}"
 
 if [[ -e ${NUXEO_HOME}/configured-pkg ]]; then
   echo "# MP already installed"
@@ -11,5 +12,6 @@ else
   end=$(date --utc +%Y%m%d_%H%M%SZ)
   echo "# ${end}: MP installed"
 fi
+{% endif %}
 now=$(date --utc +%Y%m%d_%H%M%SZ)
 cp ${NUXEO_CONF} "${NUXEO_DATA}/nuxeo-${now}.conf"

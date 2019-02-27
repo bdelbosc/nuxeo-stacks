@@ -20,17 +20,17 @@ nuxeo.db.password=nuxeo
 {% if kafka %}
 kafka.enabled=true
 {% if kafkassl %}
-# Kafka is configured in SSL with SASL PLAIN
+# Kafka is configured in SASL PLAIN + SSL
 kafka.bootstrap.servers=kafka.docker.test:9092
 kafka.ssl=true
 kafka.security.protocol=SASL_SSL
-kafka.sasl.enabled=true
-kafka.sasl.mechanism=PLAIN
-kafka.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username="{{ kafka_sasl_plain_user }}" password="{{ kafka_sasl_plain_password }}";
 kafka.truststore.path=/certs/docker.kafka.client.truststore.jks
 kafka.truststore.password={{ kafka_ssl_trustore_password }}
 kafka.keystore.path=/certs/docker.kafka.server.keystore.jks
 kafka.keystore.password={{ kafka_ssl_keystore_password }}
+kafka.sasl.enabled=true
+kafka.sasl.mechanism=PLAIN
+kafka.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username="{{ kafka_sasl_plain_user }}" password="{{ kafka_sasl_plain_password }}";
 # Debug option SSL option
 #JAVA_OPTS=$JAVA_OPTS -Djavax.net.debug=SSL
 {% else %}

@@ -8,3 +8,4 @@ postgres_version: 9.6-alpine
 kafka_version: 2.12-2.1.0
 zookeeper_version: 3.4.13
 redis_version: 4.0.12-alpine
+nuxeo_packages: "nuxeo-web-ui nuxeo-jsf-ui nuxeo-platform-importer"

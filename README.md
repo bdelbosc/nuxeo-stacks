@@ -15,6 +15,7 @@ The Nuxeo versions supported are:
 - Nuxeo 10.10
 - Nuxeo 9.10
 - Nuxeo 8.10
+- Nuxeo 7.10
 
 You can choose to run Nuxeo in cluster mode up to 3 nodes.
 
@@ -22,7 +23,7 @@ The backend services supported are:
 - MongoDB 
 - PostgreSQL
 - Elasticsearch
-- Kafka (with SSL/SASL)
+- Kafka (with option for SSL/SASL)
 - Zookeeper
 - Redis
 
@@ -189,19 +190,39 @@ And scripts:
   # on another term
   ./bin/esync.sh
   ```
-## Debugging
+# FAQ
+## How to debug a specific Nuxeo node ?
 
 To debug the third Nuxeo node of your cluster (nuxeo3):
 ```bash
 NUXEO=nuxeo3 ./bin/debug-nuxeo.sh
 ```
 
-Then attach your debugger to `localhost:8787` 
+Then attach your debugger to `localhost:8787`
 
+## How can I expose locally a container port ?
+
+To expose redis:6379 to localhost:6379:
+```bash
+CONTAINER=redis PORT=6379 ./bin/expose-port.sh
+```
+
+## How to add a custom Nuxeo Package ?
+
+In your env just edit the `./nuxeo/init-nuxeo.sh` script and add your package.
+
+# Limitations
+
+Some stacks are not possible or not yet supported:
+
+- Nuxeo 7.10/8.10
+  - cluster mode not supported by nuxeo stacks
+  - No Kafka (Nuxeo Stream is supported on 9.10)
+- Grafana dashboard is for Nuxeo 10.10
+- KafkaHQ is not configured to support Kafka in SSL SASL
+- Jaeger/Zipkin and Prometheus will work with Nuxeo once [NXP-26799](https://jira.nuxeo.com/browse/NXP-26799) is merged
 
 # TODO
-
-- Add support to Nuxeo 7.10 to ease migration testing
 
 - Add Prometheus exporter with provisioned Grafana dashboard for each service:
   - elasticsearch
@@ -220,22 +241,23 @@ Then attach your debugger to `localhost:8787`
   - install nuxeo-dam
   - add volume to share data to import
 
-- Add option for multi env
+- Add option for multi env (or not ?)
   - Prefix all container, volume, route (using COMPOSE_PROJECT_NAME ?)
-  - set a domain name (http://nuxeo.my-env.localhost)    
+  - set a domain name (http://nuxeo.my-env.localhost)
 
 - Elastic head plugin -> nginx ?
 
 - Flight recorder 
   - requires non official nuxeo image with Oracle (or check latest OpenJDK)
 
-- Java flamegraph
+- Java flamegraph [NXBT-1417](https://jira.nuxeo.com/browse/NXBT-1417)
   - requires non official nuxeo image with Oracle (or check latest OpenJDK)
 
-- Security check
+- Security checks
   - no /var/run/docker.sock (not possible for traefik, kafka, netdata ?)
   - no  --privileged ()
   - no root user
+  - check base image used
 
 # About Nuxeo
 
