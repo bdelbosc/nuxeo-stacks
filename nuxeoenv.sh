@@ -46,7 +46,7 @@ get_input() {
     instance_clid=$(whiptail --title "Nuxeo stacks" --inputbox "Enter the full path of a Nuxeo instance.clid file:" 10 60 "$PWD/instance.clid" 3>&1 1>&2 2>&3)
   fi
   if [[ ! -f ${instance_clid} ]]; then
-    >&2 echo "ABORT: Invalid instance.clid file: $instance_clid"
+    >&2 echo "ABORT: Expecting a Nuxeo instance clid produced with nuxeoctl register, got: $instance_clid"
     exit 2
   fi
   if [[ -z "${data_path}" ]]; then
@@ -216,6 +216,9 @@ parse_input() {
 }
 
 venv_init() {
+  if [[ `command -v ansible-playbook` ]]; then
+    return
+  fi
   if [[ ! -r ./venv/ ]]; then
     virtualenv ./venv
     venv_activate
@@ -224,7 +227,7 @@ venv_init() {
 }
 
 venv_activate() {
-  source ./venv/bin/activate
+  [[ -f ./venv/bin/activate ]] && source ./venv/bin/activate
 }
 
 generate_compose() {

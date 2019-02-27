@@ -49,24 +49,20 @@ Of course the first time you use nuxeo stacks it will take longer because you ha
 
 # Installation
 
-First you need to install [docker-compose](https://docs.docker.com/compose/install/) on the machine running the stack.
+1. Obviously you need to [install docker-compose](https://docs.docker.com/compose/install/).
 
-The generation of the Nuxeo stack is done using [ansible](https://www.ansible.com/) which will be automatically installed in a `virtualenv` when executing the `nuxeoenv.sh` script.
-
-The only requirements are: `pip`, `virtualenv`, `whiptail` and `jq`.
-To install theses requirements:
-
-On Mac OS:
+2. Install other requirements to generate the env:
+  - On Mac OS
 ```bash
-brew install python newt jq
-pip3 install virtualenv
+brew install ansible newt jq
 ```
 
-On Ubuntu:
-```yaml
+  - On Ubuntu:
+```bash
 sudo apt install python3-pip jq
 pip3 install virtualenv
 ```
+Note that on Ubuntu, the first time `nuxeoenv.sh` is run it will install `ansible` locally.
 
 # Usage
 
@@ -174,6 +170,7 @@ And scripts:
 - `kafka-list-consumer-gropus.sh` List all consumer groups at Kafka level
 - `kafka-list-consumer-positions.sh` List the a consumer group position at Kafka level
 - `kafka-list-topics.sh` List Kafka topics
+- `reset-all-data.sh` Clean the data directory, to restart from crash
 - `esync.sh` Run the [esync](https://github.com/nuxeo/esync) tool to check the discrepancy between repository and elastic
   you need to expose the database port before running esync for instance:
   ```bash
@@ -184,6 +181,7 @@ And scripts:
   ./bin/esync.sh
   ```
 # FAQ
+
 ## How to debug a specific Nuxeo node ?
 
 To debug the third Nuxeo node of your cluster (nuxeo3):
@@ -202,7 +200,11 @@ CONTAINER=redis PORT=6379 ./bin/expose-port.sh
 
 ## How to add a custom Nuxeo Package ?
 
-In your env just edit the `./nuxeo/init-nuxeo.sh` script and add your package.
+Inside your env edit the `./nuxeo/init-nuxeo.sh` script and add your package.
+
+## How to customize nuxeo.conf ?
+
+Inside your env edit the `./nuxeo/nuxeo.conf` file.
 
 ## How can I deploy my env to a remote host ?
 
@@ -224,7 +226,9 @@ Some stacks are not possible or not yet supported:
 - KafkaHQ is not configured to support Kafka in SSL SASL
 - Jaeger/Zipkin and Prometheus will work with Nuxeo once [NXP-26799](https://jira.nuxeo.com/browse/NXP-26799) is merged
 
-# TODO
+# TODO maybe
+
+- Provide a nuxeo-stack docker image so there is nothing to install
 
 - Add Prometheus exporter with provisioned Grafana dashboard for each service:
   - elasticsearch
