@@ -228,8 +228,13 @@ venv_activate() {
 }
 
 generate_compose() {
+  target_host="`cat hosts`"
+  if [[ X"$target_host" == "Xlocalhost" ]]; then
+    # No need to ssh when the target is localhost
+    ANSIBLE_OPT="--connection=local"
+  fi
   set -x
-  ansible-playbook site.yml -i ./hosts -e "env_data_path=$data_path env_instance_clid=$instance_clid" \
+  ansible-playbook site.yml $ANSIBLE_OPT -i ./hosts -e "env_data_path=$data_path env_instance_clid=$instance_clid" \
  -e "env_nuxeo=$nuxeo env_nuxeo_version=$nuxeo_version" \
  -e "env_nuxeo_cluster=$nuxeo_cluster_mode env_nuxeo_nb_nodes=$nuxeo_nb_nodes" \
  -e "env_mongo=$mongo env_postgres=$postgres env_redis=$redis" \

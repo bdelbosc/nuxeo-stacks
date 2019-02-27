@@ -68,13 +68,6 @@ sudo apt install python3-pip jq
 pip3 install virtualenv
 ```
 
-You need to be able to `ssh localhost` without being prompted for a password.
-If it is not the case, try something like:
-```bash
-ssh-copy-id localhost
-```
-
-
 # Usage
 
 Simply run the `nuxeoenv.sh` script and compose interactively your stack by selecting what you need.
@@ -210,6 +203,15 @@ CONTAINER=redis PORT=6379 ./bin/expose-port.sh
 ## How to add a custom Nuxeo Package ?
 
 In your env just edit the `./nuxeo/init-nuxeo.sh` script and add your package.
+
+## How can I deploy my env to a remote host ?
+
+Edit the `hosts` file and add your target server. You need
+You need to be able to `ssh <your-target-server>` without being prompted for a password.
+If it is not the case, try something like:
+```bash
+ssh-copy-id <your-target-server>
+```
 
 # Limitations
 
