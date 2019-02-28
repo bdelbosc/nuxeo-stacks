@@ -175,13 +175,13 @@ And scripts:
 - `stack-whoami.sh` Return the path of the currently running env
 - `stack-down.sh` Run a `docker-compose down --volume` on the currently running env
 - `esync.sh` Run the [esync](https://github.com/nuxeo/esync) tool to check the discrepancy between repository and elastic, see FAQ below
-# FAQ
+## FAQ
 
-## Where can I learn to use docker?
+### Where can I learn to use docker?
 
 - [Docker Cheat Sheet](https://github.com/wsargent/docker-cheat-sheet)
 
-## I cannot start my env
+### I can't start my env
 
 When running `docker-compose up` I got the following errors:
 ```bash
@@ -198,11 +198,11 @@ ERROR: for nuxeo  Cannot create container for service nuxeo: Conflict. The conta
 ...
 ```
 
-This is because you another environment has been abruptly stopped. You can try to go to the previous env and 
-perform a `docker-compose down --volume` or you can simply remove each listed containers until it start
+This is because another environment has been abruptly stopped. You can try to go to the previous env and 
+perform a `docker-compose down --volume` or you can simply remove each listed containers in conflict 
 using `docker rm <CONTAINER ID>`
 
-## How to debug a specific Nuxeo node?
+### How to debug a specific Nuxeo node?
 
 To debug the third Nuxeo node of your cluster (nuxeo3):
 ```bash
@@ -211,55 +211,56 @@ NUXEO=nuxeo3 ./bin/debug-nuxeo.sh
 
 Then attach your debugger to `localhost:8787`
 
-## How can I expose locally a container port?
+### How can I expose locally a container port?
 
 To expose redis:6379 to localhost:6379:
 ```bash
 CONTAINER=redis PORT=6379 ./bin/expose-port.sh
 ```
 
-## How to add a custom Nuxeo Package?
+### How to add a custom Nuxeo Package?
 
 Inside your env edit the `./nuxeo/init-nuxeo.sh` script and add your package.
 
-## How to customize nuxeo.conf?
+### How to customize nuxeo.conf?
 
 Inside your env edit the `./nuxeo/nuxeo.conf` file.
 
-## I don't remember which env is running?
+### I don't remember which env is running?
 
 You run your env with `docker-compose up -d`, you have multiple env and don't remember which one is currently running ?
 
 From any env just run:
 ```bash
-./bin/stacks-whoami.sh
+./bin/stack-whoami.sh
 ```  
 
 Or if you want to stop the one which is running:
 ```bash
-./bin/stacks-down.sh
+./bin/stack-down.sh
 ```  
 
-## How can I deploy my env to a remote host?
+### How can I deploy my env to a remote host?
 
-Edit the `hosts` file and add your target server. You need
+Edit the `hosts` file and add your target server.
 You need to be able to `ssh <your-target-server>` without being prompted for a password.
 If it is not the case, try something like:
 ```bash
 ssh-copy-id <your-target-server>
 ```
 
-## How can I add/remove a service to my existing env?
+### How can I add/remove a service to my existing env?
 
 Just re run `nuxeoenv.sh` with the same target directory, an existing env can be overridden. 
 
-## How can I run the esync tool?
+### How can I run the esync tool?
 
-[esync](https://github.com/nuxeo/esync) need to access both Elasticsearch and the repository backend.
-so you need to expose the database port before running esync, for instance:
+[esync](https://github.com/nuxeo/esync) needs to access both Elasticsearch and the repository backend.
+Elasticsearch is accessible via REST on `elastic.docker.localhost:80` but the database port have to be exposed before running esync, for instance:
   ```bash
+  # For MongoDB:
   CONTAINER=mongo PORT=27017 ./bin/expose-port.sh
-  # or for PostgreSQL:
+  # Or for PostgreSQL:
   # CONTAINER=postgres PORT=5432 ./bin/expose-port.sh
   ```
   ```    

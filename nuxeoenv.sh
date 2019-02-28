@@ -57,18 +57,17 @@ get_input() {
     data_path=`realpath -m ${data_path}`
   fi
   if [[ -z "${nuxeo_dist}" ]]; then
-    nuxeo_dist=$(whiptail --title "Nuxeo stacks" --radiolist "Choose a Nuxeo distribution:" 10 60 5 \
+    nuxeo_dist=$(whiptail --title "Nuxeo stacks" --radiolist "Choose a Nuxeo distribution:" 14 60 6 \
  nuxeolatest "Nuxeo latest                  " on \
  nuxeo1010 "Nuxeo 10.10" off \
  nuxeo910 "Nuxeo 9.10" off \
  nuxeo810 "Nuxeo 8.10" off \
  nuxeo710 "Nuxeo 7.10" off \
- none "None" off \
  3>&1 1>&2 2>&3)
   fi
   if [[ -z "${nuxeo_cluster}" ]]; then
     nuxeo_cluster=$(whiptail --title "Nuxeo stacks" --radiolist "Choose a Nuxeo cluster mode:" 10 60 3 \
- no "No cluster                    " on \
+ no "Standalone instance           " on \
  2 "Cluster 2 nodes" off \
  3 "Cluster 3 nodes" off \
  3>&1 1>&2 2>&3)
@@ -81,20 +80,20 @@ get_input() {
  3>&1 1>&2 2>&3)
   fi
   if [[ -z "${stacks}" ]]; then
-    stacks=$(whiptail --title "Nuxeo stacks" --checklist "Compose your stack:" 18 60 12 \
- elastic "Elasticsearch" on \
+    stacks=$(whiptail --title "Nuxeo stacks" --checklist "Compose your stack:" 22 72 14 \
+ elastic "Elasticsearch (non embedded)" on \
  redis "Redis" on \
- kafka "Kafka and Zookeeper" off \
- kafkassl "Kafka in SSL and Zookeeper" off \
- swm "Use Nuxeo Stream WorkManager         " off \
- monitor "Nuxeo Grafana dashboard" off \
- stream "Monitor Nuxeo Stream" off \
- kibana "Elastic GUI" off \
- kafkahq "Kafka GUI" off \
- netdata "Netdata monitoring" off \
+ kafka "Kafka (and Zookeeper)" off \
+ swm "Use the Nuxeo Stream WorkManager impl.    " off \
+ monitor "Nuxeo monitoring with Grafana" off \
+ stream "Nuxeo Stream monitoring" off \
+ kibana "Elasticsearch Kibana" off \
+ kafkahq "KafkaHQ a Kafka GUI" off \
  prometheus "Prometheus monitoring" off \
- jaeger "Distributed tracer" off \
- zipkin "Distributed tracer" off \
+ jaeger "Jaeger distributed tracer" off \
+ zipkin "Zipkin distributed tracer" off \
+ kafkassl "Kafka in SASL_SSL" off \
+ netdata "Netdata monitoring" off \
  3>&1 1>&2 2>&3)
   fi
   COMMAND="${0} -i \"${instance_clid}\" -d \"${data_path}\" -c ${nuxeo_cluster} -n ${nuxeo_dist} -b ${backend} -s '"${stacks}"'"
