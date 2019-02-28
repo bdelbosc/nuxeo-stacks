@@ -217,6 +217,7 @@ services:
       - ./nuxeo/init-nuxeo.sh:/docker-entrypoint-initnuxeo.d/init-nuxeo.sh
       - {{ root_path }}/data/nuxeo-binaries:/var/lib/nuxeo/binaries
       - {{ root_path }}/data/{{ nuxeo_node }}/data:/var/lib/nuxeo/data
+      - {{ root_path }}/data/{{ nuxeo_node }}/packages:/opt/nuxeo/server/packages
 {% if kafkassl %}
       - {{ root_path }}/kafkassl/certs:/certs
     extra_hosts:

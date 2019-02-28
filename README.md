@@ -4,7 +4,8 @@
 The intend of nuxeo stacks is to create custom environment to test and debug different Nuxeo configurations.
 
 Once you have selected the stack that you want to run, an isolated environment is created.
-This environment is a repository, it uses a normal docker compose file configured with volumes.
+This environment is a simple directory with: services' configurations, a docker compose file and a data sub directory 
+containing all services' volumes.
 
 
 Again this is for testing and **NOT FOR PRODUCTION**.
@@ -28,16 +29,16 @@ The backend services supported are:
 - Redis
 
 The version and configuration of services are adapted depending on the Nuxeo version
-(for instance Nuxeo 8.10 uses Elasticsearch 2.3).
+(for instance Nuxeo 8.10 uses Elasticsearch 2.3, Nuxeo 9.10 uses Elasticsearch 5.6 ...).
 
 In addition of the Nuxeo stack you can add useful tooling:
-- Grafana/Graphite: a monitoring solution with a provisioned Nuxeo dashboard
-- Kibana: the Elasticsearch GUI
-- KafkaHQ: a Kafka GUI
-- Netdata: for OS monitoring, though it is much better to install netdata directly on the host
-- Prometheus: an alternative to graphite monitoring
-- Jaeger: a Tracer for distributed tracing
-- Zipkin: an alternative Tracer for distributed tracing
+- [Grafana](https://grafana.com/)/[Graphite](https://graphiteapp.org/): a monitoring solution with a provisioned Nuxeo dashboard
+- [KafkaHQ](https://github.com/tchiotludo/kafkahq): a Kafka GUI
+- [Kibana](https://www.elastic.co/products/kibana): the K of ELK (Elasticsearch GUI)
+- [Netdata](https://github.com/netdata/netdata): realtime OS monitoring, though it is much better to install netdata directly on the host
+- [Prometheus](https://prometheus.io/): an alternative to graphite monitoring
+- [Jaeger](https://www.jaegertracing.io/): a Tracer for distributed tracing
+- [Zipkin](https://zipkin.io/): an alternative Tracer for distributed tracing
 
 # Demo
 
@@ -51,7 +52,7 @@ Of course the first time you use nuxeo stacks it will take longer because you ha
 
 1. Obviously you need to [install docker-compose](https://docs.docker.com/compose/install/).
 
-2. Install other requirements to generate the env:
+2. Install other dependencies to generate the env or used by scripts:
   - On Mac OS
 ```bash
 brew install ansible newt jq
@@ -168,21 +169,40 @@ And scripts:
 - `bulk-export.sh` Run bulk CSV export of the repository
 - `bulk-status.sh` Get the status of the last submitted bulk command
 - `kafka-list-consumer-gropus.sh` List all consumer groups at Kafka level
-- `kafka-list-consumer-positions.sh` List the a consumer group position at Kafka level
+- `kafka-list-consumer-positions.sh` List consumer group positions at Kafka level
 - `kafka-list-topics.sh` List Kafka topics
-- `reset-all-data.sh` Clean the data directory, to restart from crash
-- `esync.sh` Run the [esync](https://github.com/nuxeo/esync) tool to check the discrepancy between repository and elastic
-  you need to expose the database port before running esync for instance:
-  ```bash
-  CONTAINER=mongo PORT=27017 ./bin/expose-port.sh
-  # or for PostgreSQL:
-  # CONTAINER=postgres PORT=5432 ./bin/expose-port.sh
-  # on another term
-  ./bin/esync.sh
-  ```
+- `stack-reset-all-data.sh` Clean the env data directory, to restart from crash
+- `stack-whoami.sh` Return the path of the currently running env
+- `stack-down.sh` Run a `docker-compose down --volume` on the currently running env
+- `esync.sh` Run the [esync](https://github.com/nuxeo/esync) tool to check the discrepancy between repository and elastic, see FAQ below
 # FAQ
 
-## How to debug a specific Nuxeo node ?
+## Where can I learn to use docker?
+
+- [Docker Cheat Sheet](https://github.com/wsargent/docker-cheat-sheet)
+
+## I cannot start my env
+
+When running `docker-compose up` I got the following errors:
+```bash
+Creating network "my-nuxeo-env_default" with the default driver
+Creating volume "my-nuxeo-env_esdata" with default driver
+Creating elastic ... error
+
+ERROR: for elastic  Cannot create container for service elasticsearch: Conflict. The container name "/elastic" is already in use by container "0e44510e51487dce9bb872f6f460b2dfe71b55fbab7b229063fb4768914fbc35". You have to remove (or rename) that container to be able to reuse that name.
+
+ERROR: for elasticsearch  Cannot create container for service elasticsearch: Conflict. The container name "/elastic" is already in use by container "0e44510e51487dce9bb872f6f460b2dfe71b55fbab7b229063fb4768914fbc35". You have to remove (or rename) that container to be able to reuse that name.
+ERROR: Encountered errors while bringing up the project.
+
+ERROR: for nuxeo  Cannot create container for service nuxeo: Conflict. The container name "/nuxeo" is already in use by container "6f06a1c9b1e24b5145cdc5328448b1689b9abd0d7cd5948e0d6f86bfa1ebdbbc". You have to remove (or rename) that container to be able to reuse that name.
+...
+```
+
+This is because you another environment has been abruptly stopped. You can try to go to the previous env and 
+perform a `docker-compose down --volume` or you can simply remove each listed containers until it start
+using `docker rm <CONTAINER ID>`
+
+## How to debug a specific Nuxeo node?
 
 To debug the third Nuxeo node of your cluster (nuxeo3):
 ```bash
@@ -191,22 +211,36 @@ NUXEO=nuxeo3 ./bin/debug-nuxeo.sh
 
 Then attach your debugger to `localhost:8787`
 
-## How can I expose locally a container port ?
+## How can I expose locally a container port?
 
 To expose redis:6379 to localhost:6379:
 ```bash
 CONTAINER=redis PORT=6379 ./bin/expose-port.sh
 ```
 
-## How to add a custom Nuxeo Package ?
+## How to add a custom Nuxeo Package?
 
 Inside your env edit the `./nuxeo/init-nuxeo.sh` script and add your package.
 
-## How to customize nuxeo.conf ?
+## How to customize nuxeo.conf?
 
 Inside your env edit the `./nuxeo/nuxeo.conf` file.
 
-## How can I deploy my env to a remote host ?
+## I don't remember which env is running?
+
+You run your env with `docker-compose up -d`, you have multiple env and don't remember which one is currently running ?
+
+From any env just run:
+```bash
+./bin/stacks-whoami.sh
+```  
+
+Or if you want to stop the one which is running:
+```bash
+./bin/stacks-down.sh
+```  
+
+## How can I deploy my env to a remote host?
 
 Edit the `hosts` file and add your target server. You need
 You need to be able to `ssh <your-target-server>` without being prompted for a password.
@@ -214,6 +248,24 @@ If it is not the case, try something like:
 ```bash
 ssh-copy-id <your-target-server>
 ```
+
+## How can I add/remove a service to my existing env?
+
+Just re run `nuxeoenv.sh` with the same target directory, an existing env can be overridden. 
+
+## How can I run the esync tool?
+
+[esync](https://github.com/nuxeo/esync) need to access both Elasticsearch and the repository backend.
+so you need to expose the database port before running esync, for instance:
+  ```bash
+  CONTAINER=mongo PORT=27017 ./bin/expose-port.sh
+  # or for PostgreSQL:
+  # CONTAINER=postgres PORT=5432 ./bin/expose-port.sh
+  ```
+  ```    
+  # On another term
+  ./bin/esync.sh
+  ```
 
 # Limitations
 
@@ -247,11 +299,11 @@ Some stacks are not possible or not yet supported:
   - install nuxeo-dam
   - add volume to share data to import
 
-- Add option for multi env (or not ?)
-  - Prefix all container, volume, route (using COMPOSE_PROJECT_NAME ?)
+- Add option for multi env (or not?)
+  - Prefix all container, volume, route (using COMPOSE_PROJECT_NAME?)
   - set a domain name (http://nuxeo.my-env.localhost)
 
-- Elastic head plugin -> nginx ?
+- Elastic head plugin -> nginx?
 
 - Flight recorder 
   - requires non official nuxeo image with Oracle (or check latest OpenJDK)
@@ -260,7 +312,7 @@ Some stacks are not possible or not yet supported:
   - requires non official nuxeo image with Oracle (or check latest OpenJDK)
 
 - Security checks
-  - no /var/run/docker.sock (not possible for traefik, kafka, netdata ?)
+  - no /var/run/docker.sock (not possible for traefik, kafka, netdata?)
   - no  --privileged ()
   - no root user
   - check base image used

@@ -2,13 +2,13 @@
 {% if nuxeo_packages is defined and nuxeo_packages|length %}
 NUX_PACKAGES="{{ nuxeo_packages }}"
 
-if [[ -e ${NUXEO_HOME}/configured-pkg ]]; then
+if [[ -e ${NUXEO_HOME}/packages/configured-pkg ]]; then
   echo "# MP already installed"
 else
   start=$(date --utc +%Y%m%d_%H%M%SZ)
   echo "# ${start}: Installing MP ${NUX_PACKAGES} ..."
   nuxeoctl mp-install ${NUX_PACKAGES} --relax=false --accept=true
-  touch ${NUXEO_HOME}/configured-pkg
+  touch ${NUXEO_HOME}/packages/configured-pkg
   end=$(date --utc +%Y%m%d_%H%M%SZ)
   echo "# ${end}: MP installed"
 fi
