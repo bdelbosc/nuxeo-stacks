@@ -281,6 +281,16 @@ Some stacks are not possible or not yet supported:
 
 # TODO maybe
 
+- Add log4j2 correlation traceid
+
+- Add a Confluent Kafka with KSQL
+
+- Add minio.io server with binarystore s3 like
+
+- snapshot env: docker commit nuxeo images, tag them with a date + generate a docker-compose
+
+- export/import env: docker save/load on nuxeo + tag
+
 - Provide a nuxeo-stack docker image so there is nothing to install
 
 - Add Prometheus exporter with provisioned Grafana dashboard for each service:
@@ -289,8 +299,6 @@ Some stacks are not possible or not yet supported:
   - redis
   - postgresql
   - kafka
-
-- Add a Confluent Kafka with KSQL
 
 - Add script to run webdriver tests
 
