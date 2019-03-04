@@ -27,6 +27,7 @@ The backend services supported are:
 - Kafka (with option for SSL/SASL)
 - Zookeeper
 - Redis
+- [Minio](http://minio.io/) A binary storage compatible with Amazon S3
 
 The version and configuration of services are adapted depending on the Nuxeo version
 (for instance Nuxeo 8.10 uses Elasticsearch 2.3, Nuxeo 9.10 uses Elasticsearch 5.6 ...).
@@ -113,6 +114,7 @@ All HTTP services are exposed by [traefik](https://traefik.io/) with proper host
 | http://nuxeo2-node.docker.localhost/ | Administrator/Administrator | Nuxeo second node |
 | http://nuxeo3-node.docker.localhost/ | Administrator/Administrator | Nuxeo third node |
 | http://elastic.docker.localhost | | Elasticsearch listening on port 80 (and not 9200) |
+| http://minio.docker.localhost | minio/minio-secret | S3 storage |
 | http://kibana.docker.localhost | elastic/changeme | Kibana |
 | http://grafana.docker.localhost | admin/admin | Grafana with a provisioned Nuxeo dashboard |
 | http://graphite.docker.localhost |  | Graphite |
@@ -181,7 +183,7 @@ And scripts:
 
 - [Docker Cheat Sheet](https://github.com/wsargent/docker-cheat-sheet)
 
-### I can't start my env
+### I can't start my env!
 
 When running `docker-compose up` I got the following errors:
 ```bash
@@ -222,9 +224,18 @@ CONTAINER=redis PORT=6379 ./bin/expose-port.sh
 
 Inside your env edit the `./nuxeo/init-nuxeo.sh` script and add your package.
 
+Then flush the packages cache:
+```bash
+rm data/nuxeo/packages/*
+```
+
+Note that Nuxeo stacks is using a packages cache to avoid downloading packages on each start.
+
 ### How to customize nuxeo.conf?
 
 Inside your env edit the `./nuxeo/nuxeo.conf` file.
+
+The new `nuxeo.conf` will be generated after a `docker-compose down --volume; docker-compose up`
 
 ### I don't remember which env is running?
 

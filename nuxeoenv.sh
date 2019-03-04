@@ -54,7 +54,7 @@ get_input() {
   fi
   if [[ -x "$(command -v realpath)" ]]; then
     data_path="${data_path//\~/$HOME}"
-    data_path=`realpath -m ${data_path}`
+  data_path=`realpath -m ${data_path}`
   fi
   if [[ -z "${nuxeo_dist}" ]]; then
     nuxeo_dist=$(whiptail --title "Nuxeo stacks" --radiolist "Choose a Nuxeo distribution:" 14 60 6 \
@@ -85,6 +85,7 @@ get_input() {
  redis "Redis" on \
  kafka "Kafka (and Zookeeper)" off \
  swm "Use the Nuxeo Stream WorkManager impl.    " off \
+ minio "Use a Minio S3 like binarystore" off \
  monitor "Nuxeo monitoring with Grafana" off \
  stream "Nuxeo Stream monitoring" off \
  kibana "Elasticsearch Kibana" off \
@@ -202,6 +203,11 @@ parse_input() {
   else
     zipkin=False
   fi
+  if [[ ${stacks} == *"minio"* ]]; then
+    minio=True
+  else
+    minio=False
+  fi
   if [[ ${nuxeo_cluster} == *"2"* ]]; then
     nuxeo_cluster_mode=True
     nuxeo_nb_nodes=2
@@ -239,7 +245,7 @@ generate_compose() {
   ansible-playbook site.yml $ANSIBLE_OPT -i ./hosts -e "env_data_path=$data_path env_instance_clid=$instance_clid" \
  -e "env_nuxeo=$nuxeo env_nuxeo_version=$nuxeo_version" \
  -e "env_nuxeo_cluster=$nuxeo_cluster_mode env_nuxeo_nb_nodes=$nuxeo_nb_nodes" \
- -e "env_mongo=$mongo env_postgres=$postgres env_redis=$redis" \
+ -e "env_mongo=$mongo env_postgres=$postgres env_redis=$redis env_minio=$minio" \
  -e "env_elastic=$elastic env_kibana=$kibana" \
  -e "env_graphite=$graphite -e env_grafana=$grafana" \
  -e "env_kafka=$kafka env_kafkassl=$kafkassl env_zookeeper=$zookeeper env_kafkahq=$kafkahq" \
@@ -267,6 +273,9 @@ bye() {
   fi
   if [[ ${stacks} == *"kibana"* ]]; then
     echo "http://kibana.docker.localhost/ -> Kibana"
+  fi
+  if [[ ${stacks} == *"minio"* ]]; then
+    echo "http://minio.docker.localhost/ -> Minio S3 like"
   fi
   if [[ ${stacks} == *"kafkahq"* ]]; then
     echo "http://kafkahq.docker.localhost/ -> KafkaHQ"

@@ -8,11 +8,17 @@ kafka_ssl_trustore_password: kafkadocker
 kafka_sasl_plain_user: nuxeo
 kafka_sasl_plain_password: nuxeo-secret
 
+# Minio
+minio_bucket: nuxeo-binary-store
+minio_access_key: minio
+minio_secret_key: minio-secret
+
 # Common option for all Nuxeo version
 traefik_version: latest
 prometheus_version: latest
 jaeger_version: latest
 zipkin_version: latest
+minio_version: latest
 
 # Options from nuxeoenv.sh
 nuxeo: "{{ env_nuxeo }}"
@@ -38,4 +44,5 @@ swm: "{{ env_swm }}"
 prometheus: "{{ env_prometheus }}"
 jaeger: "{{ env_jaeger }}"
 zipkin: "{{ env_zipkin }}"
+minio: "{{ env_minio }}"
 

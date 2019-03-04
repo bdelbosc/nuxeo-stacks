@@ -53,6 +53,11 @@
     dest: "{{root_path}}/nuxeo/{{ item }}.conf"
   with_items: "{{ nuxeo_nodes }}"
 
+- name: Add S3 MP
+  set_fact:
+    nuxeo_packages: "{{ nuxeo_packages }} amazon-s3-online-storage"
+  when: minio
+
 - name: Generate the nuxeo init script
   template:
     src: init-nuxeo.sh.j2

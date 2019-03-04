@@ -198,6 +198,9 @@ services:
 {% if redis %}
       - redis
 {% endif %}
+{% if minio %}
+      - minio
+{% endif %}
     labels:
       - "traefik.http.port=8080"
       - "traefik.http.frontend.rule=Host:nuxeo.docker.localhost"
@@ -238,6 +241,22 @@ services:
     hostname: redis
     volumes:
       - {{ root_path }}/data/redis:/data:rw
+{% endif %}
+{% if minio %}
+  minio:
+    image: minio/minio:{{ minio_version }}
+    container_name: minio
+    hostname: minio
+    environment:
+      MINIO_ACCESS_KEY: {{ minio_access_key }}
+      MINIO_SECRET_KEY: {{ minio_secret_key }}
+    volumes:
+      - {{ root_path }}/data/minio/data:/data:rw
+      - {{ root_path }}/data/minio/config:/data:rw
+    command: server /data
+    labels:
+      - "traefik.port=9000"
+      - "traefik.frontend.rule=Host:minio.docker.localhost"
 {% endif %}
 {% if netdata %}
   netdata:
