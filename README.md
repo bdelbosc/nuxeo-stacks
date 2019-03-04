@@ -270,22 +270,25 @@ Elasticsearch is accessible via REST on `elastic.docker.localhost:80` but the da
 
 # Limitations
 
-Some stacks are not possible or not yet supported:
+Some stacks combination are invalid:
+- Nuxeo 7.10/8.10 with Kafka (Kafka is supported since Nuxeo 9.10)
+- ...
 
-- Nuxeo 7.10/8.10
-  - cluster mode not supported by nuxeo stacks
-  - No Kafka (Nuxeo Stream is supported on 9.10)
-- Grafana dashboard is for Nuxeo 10.10
-- KafkaHQ is not configured to support Kafka in SSL SASL
-- Jaeger/Zipkin and Prometheus will work with Nuxeo once [NXP-26799](https://jira.nuxeo.com/browse/NXP-26799) is merged
+Some stacks are not yet supported by Nuxeo stacks:
+
+- Nuxeo 7.10/8.10 in cluster mode
+- Grafana dashboard is only for Nuxeo 10.10
+- stream monitoring on Chronicle Queue (without Kafka)
+- KafkaHQ with Kafka in SASL SSL
+- Jaeger/Zipkin and Prometheus will work with Nuxeo latest once [NXP-26799](https://jira.nuxeo.com/browse/NXP-26799) is merged
 
 # TODO maybe
 
-- Add log4j2 correlation traceid
+- Add minio.io server with binarystore s3 like
+
+- Add OpenCensus log4j2 correlation traceid
 
 - Add a Confluent Kafka with KSQL
-
-- Add minio.io server with binarystore s3 like
 
 - snapshot env: docker commit nuxeo images, tag them with a date + generate a docker-compose
 

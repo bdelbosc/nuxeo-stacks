@@ -11,7 +11,7 @@ nuxeo_status() {
 }
 
 until nuxeo_status; do
-  >&2 echo "Nuxeo is unavailable - sleeping"
+  >&2 echo "Waiting for Nuxeo to be up ..."
   sleep 5
 done
 

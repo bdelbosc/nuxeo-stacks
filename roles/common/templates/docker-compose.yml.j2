@@ -5,8 +5,6 @@ services:
     image: zookeeper:{{ zookeeper_version }}
     container_name: zookeeper
     hostname: zookeeper
-#    ports:
-#      - "2181:2181"
     volumes:
       - {{ root_path }}/data/zookeeper/data:/datalog
       - {{ root_path }}/data/zookeeper/log:/data
@@ -22,8 +20,6 @@ services:
     image: wurstmeister/kafka:{{ kafka_version }}
     container_name: kafka
     hostname: kafka
-#    ports:
-#      - "9092:9092"
     environment:
       #KAFKA_BROKER_ID: 1
       KAFKA_PORT: 9092
@@ -72,9 +68,9 @@ services:
       - '{{ root_path }}/kafkassl/certs:/certs:ro'
       - '{{ root_path }}/kafkassl/kafka-server-jaas.conf:/opt/kafka/config/kafka-server-jaas.conf:ro'
 {% endif %}
-      - {{ root_path }}/data/kafka/data:/kafka
-      - {{ root_path }}/data/kafka/log:/opt/kafka/log
-      - /var/run/docker.sock:/var/run/docker.sock
+      - {{ root_path }}/data/kafka/data:/kafka:rw
+      - {{ root_path }}/data/kafka/log:/opt/kafka/log:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 {% endif %}
 {% if mongo %}
   mongodb:
@@ -82,12 +78,10 @@ services:
     container_name: mongo
     hostname: mongo
     command: mongod --replSet rs0
- #   ports:
- #     - "27017:27017"
     volumes:
-      - ./mongo/initRS.js:/docker-entrypoint-initdb.d/initRS.js
-      - {{ root_path }}/data/mongo/configdb:/data/configdb
-      - {{ root_path }}/data/mongo/db:/data/db
+      - ./mongo/initRS.js:/docker-entrypoint-initdb.d/initRS.js:ro
+      - {{ root_path }}/data/mongo/configdb:/data/configdb:rw
+      - {{ root_path }}/data/mongo/db:/data/db:rw
 {% elif postgres %}
   postgres:
     image: postgres:{{ postgres_version }}
@@ -100,8 +94,8 @@ services:
 #    ports:
 #      - "5432:5432"
     volumes:
-      - ./postgres/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
-      - {{ root_path }}/data/postgres/data:/var/lib/postgresql/data
+      - ./postgres/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
+      - {{ root_path }}/data/postgres/data:/var/lib/postgresql/data:rw
 {% endif %}
 {% if elastic %}
   elasticsearch:
@@ -118,7 +112,7 @@ services:
       xpack.security.enabled: "false"
 {% endif %}
     volumes:
-      - esdata:/usr/share/elasticsearch/data
+      - esdata:/usr/share/elasticsearch/data:rw
 {% if kibana %}
   kibana:
     image: docker.elastic.co/kibana/{{ kibana_version }}
@@ -145,7 +139,7 @@ services:
       - "traefik.port=80"
       - "traefik.frontend.rule=Host:graphite.docker.localhost"
     volumes:
-      - {{ root_path }}/data/graphite:/opt/graphite/storage/whisper
+      - {{ root_path }}/data/graphite:/opt/graphite/storage/whisper:rw
 {% endif %}
 {% if grafana %}
   grafana:
@@ -161,8 +155,8 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
-      - ./grafana/provisioning/:/etc/grafana/provisioning/
-      - {{ root_path }}/data/grafana:/var/lib/grafana
+      - ./grafana/provisioning/:/etc/grafana/provisioning/:rw
+      - {{ root_path }}/data/grafana:/var/lib/grafana:rw
 {% endif %}
 {% if (kafkahq and kafka) %}
   kafkahq:
@@ -175,7 +169,7 @@ services:
     depends_on:
       - kafka
     volumes:
-      - ./kafkahq/kafkahq.conf:/app/application.conf
+      - ./kafkahq/kafkahq.conf:/app/application.conf:ro
 {% endif %}
 {% for nuxeo_node in nuxeo_nodes %}
   {{ nuxeo_node }}:
@@ -213,29 +207,29 @@ services:
       - "traefik.backend.healthcheck.port=8080"
       - "traefik.backend.healthcheck.interval=10s"
     volumes:
-      - ./nuxeo/{{ nuxeo_node }}.conf:/docker-entrypoint-initnuxeo.d/nuxeo.conf
-      - ./nuxeo/init-nuxeo.sh:/docker-entrypoint-initnuxeo.d/init-nuxeo.sh
-      - {{ root_path }}/data/nuxeo-binaries:/var/lib/nuxeo/binaries
-      - {{ root_path }}/data/{{ nuxeo_node }}/data:/var/lib/nuxeo/data
-      - {{ root_path }}/data/{{ nuxeo_node }}/packages:/opt/nuxeo/server/packages
+      - ./nuxeo/{{ nuxeo_node }}.conf:/docker-entrypoint-initnuxeo.d/nuxeo.conf:ro
+      - ./nuxeo/init-nuxeo.sh:/docker-entrypoint-initnuxeo.d/init-nuxeo.sh:ro
+      - {{ root_path }}/data/nuxeo-binaries:/var/lib/nuxeo/binaries:rw
+      - {{ root_path }}/data/{{ nuxeo_node }}/data:/var/lib/nuxeo/data:rw
+      - {{ root_path }}/data/{{ nuxeo_node }}/packages:/opt/nuxeo/server/packages:rw
 {% if kafkassl %}
-      - {{ root_path }}/kafkassl/certs:/certs
+      - {{ root_path }}/kafkassl/certs:/certs:ro
     extra_hosts:
       - "kafka.docker.test:192.168.192.50"
 {% endif %}
 {% endfor %}
-{% if (nuxeo and stream and kafka) %}
+{% if stream and kafka %}
   stream:
     image: nuxeo:{{ nuxeo_version }}
     container_name: stream
     hostname: stream
     depends_on:
       - nuxeo
-    command: /wait-for-nuxeo.sh /opt/nuxeo/server/bin/stream.sh monitor -k --codec avro -l ALL -i 30 --host graphite --port 2003
     volumes:
-      - ./nuxeo/nuxeo.conf:/docker-entrypoint-initnuxeo.d/nuxeo.conf
-      - ./stream/docker-entrypoint.sh:/docker-entrypoint.sh
-      - ./stream/wait-for-nuxeo.sh:/wait-for-nuxeo.sh
+      - ./nuxeo/nuxeo.conf:/docker-entrypoint-initnuxeo.d/nuxeo.conf:ro
+      - ./stream/docker-entrypoint.sh:/docker-entrypoint.sh:ro
+      - ./stream/wait-for-nuxeo.sh:/wait-for-nuxeo.sh:ro
+    command: /wait-for-nuxeo.sh /opt/nuxeo/server/bin/stream.sh monitor -k --codec avro -l ALL -i 30 --host graphite --port 2003
 {% endif %}
 {% if redis %}
   redis:
@@ -243,7 +237,7 @@ services:
     container_name: redis
     hostname: redis
     volumes:
-      - {{ root_path }}/data/redis:/data
+      - {{ root_path }}/data/redis:/data:rw
 {% endif %}
 {% if netdata %}
   netdata:
@@ -271,8 +265,8 @@ services:
     container_name: prometheus
     user: root
     volumes:
-      - ./prometheus/:/etc/prometheus/
-      - {{ root_path }}/data/prometheus:/prometheus
+      - ./prometheus/:/etc/prometheus/:ro
+      - {{ root_path }}/data/prometheus:/prometheus:rw
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
@@ -313,7 +307,7 @@ services:
     depends_on:
       - nuxeo
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 {% if elastic %}
 volumes:
   esdata:

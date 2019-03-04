@@ -40,7 +40,9 @@ kafka.bootstrap.servers=kafka:9092
 {% if redis %}
 nuxeo.redis.enabled=true
 nuxeo.redis.host=redis
+{% if not swm %}
 nuxeo.work.queuing=redis
+{% endif %}
 {% endif %}
 {% if elastic %}
 elasticsearch.indexNumberOfReplicas=0
@@ -50,6 +52,15 @@ elasticsearch.httpReadOnly.baseUrl=http://elasticsearch:9200
 {% endif %}
 {% if swm %}
 nuxeo.stream.work.enabled=true
+{% endif %}
+{% if prometheus or jaeger or zipkin %}
+opencensus.enabled=true
+opencensus.zpages.port=8887
+# trace everything
+opencensus.sampler.probability=1.0
+{% endif %}
+{% if prometheus %}
+opencensus.prometheus.port=8888
 {% endif %}
 {% if jaeger %}
 opencensus.exporter.jaeger.url=http://jaeger:14268/api/traces

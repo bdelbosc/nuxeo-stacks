@@ -20,6 +20,7 @@ sudo rm -rf "$DATA_PATH/zookeeper/data/"*
 sudo rm -rf "$DATA_PATH/zookeeper/log/"*
 sudo rm -rf "$DATA_PATH/elastic/"*
 # keep instance.clid remove only directories
+sudo rm -rf "$DATA_PATH/nuxeo"*"/packages/"*
 sudo rm -rf "$DATA_PATH/nuxeo"*"/data/"*/
 sudo rm -rf "$DATA_PATH/nuxeo"*"/data/"*.conf
 sudo rm -rf "$DATA_PATH/nuxeo"*"/data/bundles.ids"
