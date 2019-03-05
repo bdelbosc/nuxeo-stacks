@@ -217,8 +217,11 @@ services:
       - {{ root_path }}/data/{{ nuxeo_node }}/packages:/opt/nuxeo/server/packages:rw
 {% if kafkassl %}
       - {{ root_path }}/kafkassl/certs:/certs:ro
+{% endif %}
+{% if kafkassl or minio %}
     extra_hosts:
       - "kafka.docker.test:192.168.192.50"
+      - "minio.docker.localhost:192.168.192.60"
 {% endif %}
 {% endfor %}
 {% if stream and kafka %}
@@ -252,11 +255,18 @@ services:
       MINIO_SECRET_KEY: {{ minio_secret_key }}
     volumes:
       - {{ root_path }}/data/minio/data:/data:rw
-      - {{ root_path }}/data/minio/config:/data:rw
-    command: server /data
+      - {{ root_path }}/data/minio/config:/root/.minio:rw
+    command: server --address ":80" /data
     labels:
-      - "traefik.port=9000"
+      - "traefik.port=80"
       - "traefik.frontend.rule=Host:minio.docker.localhost"
+    networks:
+      default:
+        ipv4_address: 192.168.192.60
+        aliases:
+          - minio.docker.localhost
+    extra_hosts:
+      - "minio.docker.localhost:192.168.192.60"
 {% endif %}
 {% if netdata %}
   netdata:
@@ -335,8 +345,10 @@ volumes:
       device: {{ root_path }}/data/elastic
       o: bind
 {% endif %}
-{% if kafkassl %}
-# We need a static IP for Kafka and a /etc/hosts to pass the SSL handcheck from Nuxeo
+{% if kafkassl or minio %}
+# We need to define FQDN that works within the stack, this can be done with static IP used in /etc/hosts
+# - Kafka need to resolve from nuxeo for SSL handcheck and FQDN must not be on localhost domain
+# - Minio for direct download need to resolve from within nuxeo container
 networks:
   default:
     name: docker.test

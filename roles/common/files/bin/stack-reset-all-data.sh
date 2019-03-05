@@ -26,6 +26,7 @@ sudo rm -rf "$DATA_PATH/nuxeo"*"/data/"*.conf
 sudo rm -rf "$DATA_PATH/nuxeo"*"/data/bundles.ids"
 sudo rm -rf "$DATA_PATH/nuxeo-binaries/"*
 sudo rm -rf "$DATA_PATH/mongo/"*
+sudo rm -rf "$DATA_PATH/minio/"*
 sudo rm -rf "$DATA_PATH/postgres/"*
 sudo rm -rf "$DATA_PATH/graphite/"*
 sudo rm -rf "$DATA_PATH/grafana/"*

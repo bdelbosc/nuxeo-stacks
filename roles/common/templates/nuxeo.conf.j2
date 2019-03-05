@@ -81,9 +81,9 @@ metrics.log4j.enabled=true
 nuxeo.aws.accessKeyId={{ minio_access_key }}
 nuxeo.aws.secretKey={{ minio_secret_key }}
 nuxeo.s3storage.bucket={{ minio_bucket }}
-nuxeo.s3storage.endpoint=http://minio:9000
+nuxeo.s3storage.endpoint=http://minio.docker.localhost
 nuxeo.s3storage.pathstyleaccess=true
-# direct download don't work because returning http://minio:9000 instead of minio.docker.localhost
-nuxeo.s3storage.directdownload=false
+nuxeo.s3storage.directdownload=true
+nuxeo.s3storage.directdownload.expire=3600
 {% endif %}
 # nuxeo.vcs.fulltext.search.disabled=true
