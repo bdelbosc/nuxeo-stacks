@@ -22,7 +22,7 @@ minio_version: latest
 
 # Options from nuxeoenv.sh
 nuxeo: "{{ env_nuxeo }}"
-nuxeo_version: "{{ env_nuxeo_version }}"
+nuxeo_select_version: "{{ env_nuxeo_version }}"
 nuxeo_cluster: "{{ env_nuxeo_cluster }}"
 nuxeo_nb_nodes: "{{ env_nuxeo_nb_nodes }}"
 root_path: "{{ env_data_path }}"

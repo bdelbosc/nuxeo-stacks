@@ -173,7 +173,7 @@ services:
 {% endif %}
 {% for nuxeo_node in nuxeo_nodes %}
   {{ nuxeo_node }}:
-    image: nuxeo:{{ nuxeo_version }}
+    image: {{ nuxeo_image }}
     container_name: {{ nuxeo_node }}
     hostname: {{ nuxeo_node }}
     environment:

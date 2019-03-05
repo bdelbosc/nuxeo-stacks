@@ -1,5 +1,6 @@
 ---
-# Nuxeo 7.10
+nuxeo_version: 7.10
+nuxeo_image: "nuxeo:7.10"
 elastic_image: "elasticsearch:1.7.6"
 elastic5: true
 kibana_version: "kibana:1.7.6"
@@ -8,4 +9,3 @@ postgres_version: 9.4-alpine
 redis_version: 4.0.12-alpine
 # no package to install
 nuxeo_packages: "nuxeo-platform-importer"
-

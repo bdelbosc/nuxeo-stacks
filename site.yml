@@ -2,7 +2,7 @@
 - hosts: all
   gather_facts: no
   vars_files:
-    - [ "group_vars/all/nuxeo-{{ nuxeo_version }}.yml" ]
+    - [ "group_vars/all/nuxeo-{{ nuxeo_select_version }}.yml" ]
   vars:
     - nuxeo_templates: ['default']
     - nuxeo_nodes: []
@@ -18,7 +18,7 @@
     - name: Redis template
       set_fact:
         nuxeo_templates: "{{ nuxeo_templates }} + ['redis']"
-      when: "redis and nuxeo_version != '9.10'"
+      when: "redis and (nuxeo_version is version_compare('9.10', '>'))"
     - name: Nuxeo standalone
       set_fact:
         nuxeo_nodes: ['nuxeo']
