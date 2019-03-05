@@ -292,6 +292,9 @@ Some stacks are not yet supported by Nuxeo stacks:
 - stream monitoring on Chronicle Queue (without Kafka)
 - KafkaHQ with Kafka in SASL SSL
 - Jaeger/Zipkin and Prometheus will work with Nuxeo latest once [NXP-26799](https://jira.nuxeo.com/browse/NXP-26799) is merged
+- Minio with direct download enabled (default) doesnt work from pdf js viewer because of browser CORS policy (The value
+  of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request's credentials mode is 'include'.)
+- Minio in cluster mode.
 
 # TODO maybe
 

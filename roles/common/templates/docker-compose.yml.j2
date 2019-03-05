@@ -255,8 +255,7 @@ services:
       MINIO_SECRET_KEY: {{ minio_secret_key }}
     volumes:
       - {{ root_path }}/data/minio/data:/data:rw
-      - {{ root_path }}/data/minio/config:/root/.minio:rw
-    command: server --address ":80" /data
+    command: server --address "192.168.192.60:80" /data
     labels:
       - "traefik.port=80"
       - "traefik.frontend.rule=Host:minio.docker.localhost"
