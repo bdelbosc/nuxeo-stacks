@@ -8,7 +8,7 @@ This environment is a simple directory with: services' configurations, a docker 
 containing all services' volumes.
 
 
-Again this is for testing and **NOT FOR PRODUCTION**.
+Again this is for testing a stack, not to do performance testing and **NOT FOR PRODUCTION**.
 
 The Nuxeo versions supported are:
 
@@ -33,10 +33,10 @@ The version and configuration of services are adapted depending on the Nuxeo ver
 (for instance Nuxeo 8.10 uses Elasticsearch 2.3, Nuxeo 9.10 uses Elasticsearch 5.6 ...).
 
 In addition of the Nuxeo stack you can add useful tooling:
-- [Grafana](https://grafana.com/)/[Graphite](https://graphiteapp.org/): a monitoring solution with a provisioned Nuxeo dashboard
+- [Grafana](https://grafana.com/) / [Graphite](https://graphiteapp.org/): a monitoring solution with a provisioned Nuxeo dashboard
 - [KafkaHQ](https://github.com/tchiotludo/kafkahq): a Kafka GUI
 - [Kibana](https://www.elastic.co/products/kibana): the K of ELK (Elasticsearch GUI)
-- [Netdata](https://github.com/netdata/netdata): realtime OS monitoring, though it is much better to install netdata directly on the host
+- [Netdata](https://github.com/netdata/netdata): realtime OS monitoring, though it is much better to install netdata directly on your host
 - [Prometheus](https://prometheus.io/): an alternative to graphite monitoring
 - [Jaeger](https://www.jaegertracing.io/): a Tracer for distributed tracing
 - [Zipkin](https://zipkin.io/): an alternative Tracer for distributed tracing
