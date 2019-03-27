@@ -296,6 +296,5 @@ get_opts "$@"
 get_input
 parse_input
 venv_init
-venv_activate
 generate_compose
 bye
