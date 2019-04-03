@@ -1,5 +1,5 @@
 ---
-nuxeo_version: 7.10
+nuxeo_version: "7.10"
 nuxeo_image: "nuxeo:7.10"
 elastic_image: "elasticsearch:1.7.6"
 elastic5: true

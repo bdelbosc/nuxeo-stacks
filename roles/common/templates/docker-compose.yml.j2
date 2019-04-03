@@ -212,6 +212,7 @@ services:
     volumes:
       - ./nuxeo/{{ nuxeo_node }}.conf:/docker-entrypoint-initnuxeo.d/nuxeo.conf:ro
       - ./nuxeo/init-nuxeo.sh:/docker-entrypoint-initnuxeo.d/init-nuxeo.sh:ro
+      - ./nuxeo/docker-entrypoint-initnuxeo.d:/docker-entrypoint-initnuxeo.d:rw
       - {{ root_path }}/data/nuxeo-binaries:/var/lib/nuxeo/binaries:rw
       - {{ root_path }}/data/{{ nuxeo_node }}/data:/var/lib/nuxeo/data:rw
       - {{ root_path }}/data/{{ nuxeo_node }}/packages:/opt/nuxeo/server/packages:rw
@@ -226,7 +227,7 @@ services:
 {% endfor %}
 {% if stream and kafka %}
   stream:
-    image: nuxeo:{{ nuxeo_version }}
+    image: {{ nuxeo_image }}
     container_name: stream
     hostname: stream
     depends_on:
