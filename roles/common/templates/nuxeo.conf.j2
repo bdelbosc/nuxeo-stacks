@@ -53,21 +53,29 @@ nuxeo.redis.host=redis
 {% if not swm %}
 nuxeo.work.queuing=redis
 {% endif %}
+{% else %}
+nuxeo.redis.enabled=false
 {% endif %}
-{% if nuxeo_version is version_compare('9.10', '<=') %}
+{% if nuxeo_version is version_compare('9.10', '<') %}
 elasticsearch.client=TransportClient
 elasticsearch.clusterName=docker-cluster
+{% if elastic %}
+elasticsearch.indexNumberOfReplicas=0
+elasticsearch.indexNumberOfShards=1
+#elasticsearch.addressList=elasticsearch:9300
+{% endif %}
 {% else %}
 elasticsearch.client=RestClient
-{% endif %}
 {% if elastic %}
 elasticsearch.indexNumberOfReplicas=0
 elasticsearch.indexNumberOfShards=1
 elasticsearch.addressList=http://elasticsearch:9200
 elasticsearch.httpReadOnly.baseUrl=http://elasticsearch:9200
 {% endif %}
+{% endif %}
 {% if swm %}
 nuxeo.stream.work.enabled=true
+nuxeo.pubsub.provider=stream
 {% endif %}
 {% if prometheus or jaeger or zipkin %}
 opencensus.enabled=true

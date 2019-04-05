@@ -3,3 +3,4 @@ venv
 instance.clid
 *.iml
 *.retry
+.idea
