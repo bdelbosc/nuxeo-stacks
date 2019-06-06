@@ -15,6 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -40,6 +41,7 @@
         "rgba(245, 54, 54, 0.9)"
       ],
       "datasource": "Graphite",
+      "description": "The number of Nuxeo nodes in the cluster.",
       "editable": true,
       "error": false,
       "format": "short",
@@ -101,7 +103,7 @@
         }
       ],
       "thresholds": "10,20",
-      "timeFrom": "1h",
+      "timeFrom": "5m",
       "title": "Nuxeo nodes",
       "type": "singlestat",
       "valueFontSize": "80%",
@@ -124,6 +126,7 @@
         "rgba(245, 54, 54, 0.9)"
       ],
       "datasource": "Graphite",
+      "description": "The number of errors in the Nuxeo's log for the running instances.",
       "editable": true,
       "error": false,
       "format": "short",
@@ -185,7 +188,7 @@
         }
       ],
       "thresholds": "1,10",
-      "timeFrom": "1h",
+      "timeFrom": "2m",
       "title": "Errors",
       "type": "singlestat",
       "valueFontSize": "80%",
@@ -208,6 +211,7 @@
         "rgba(245, 54, 54, 0.9)"
       ],
       "datasource": "Graphite",
+      "description": "The number of warnings in the Nuxeo's log for the running instances.",
       "editable": true,
       "error": false,
       "format": "short",
@@ -269,7 +273,7 @@
         }
       ],
       "thresholds": "10,50",
-      "timeFrom": "1h",
+      "timeFrom": "5m",
       "title": "Warning",
       "type": "singlestat",
       "valueFontSize": "80%",
@@ -292,6 +296,7 @@
         "rgba(245, 54, 54, 0.9)"
       ],
       "datasource": "Graphite",
+      "description": "The Nuxeo's log activity for the running instances.",
       "editable": true,
       "error": false,
       "format": "short",
@@ -353,7 +358,7 @@
         }
       ],
       "thresholds": "100000,1000000",
-      "timeFrom": "1h",
+      "timeFrom": "5m",
       "title": "All",
       "type": "singlestat",
       "valueFontSize": "80%",
@@ -462,6 +467,91 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "rgba(50, 172, 45, 0.97)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(245, 54, 54, 0.9)"
+      ],
+      "datasource": "Graphite",
+      "description": "The number of Stream processing computation terminated due to failure after applying the retry policy. A manual restart of Nuxeo is required to continue the processing, this must be done within the stream retention policy (7 days by default when using Kafka).",
+      "editable": true,
+      "error": false,
+      "format": "short",
+      "gauge": {
+        "maxValue": 10,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 15,
+        "y": 1
+      },
+      "hideTimeOverride": true,
+      "id": 68,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": "10",
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "hide": false,
+          "refId": "A",
+          "target": "sumSeries(servers.*.nuxeo.nuxeo.stream.failure.count)",
+          "textEditor": false
+        }
+      ],
+      "thresholds": "1,4",
+      "timeFrom": "2m",
+      "title": "Stream Failure",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "",
+          "value": ""
+        }
+      ],
+      "valueName": "current"
     },
     {
       "collapsed": true,
@@ -2283,7 +2373,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 10
+            "y": 26
           },
           "id": 52,
           "legend": {
@@ -2371,7 +2461,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 10
+            "y": 26
           },
           "id": 55,
           "legend": {
@@ -2459,7 +2549,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 18
+            "y": 34
           },
           "id": 57,
           "legend": {
@@ -2547,7 +2637,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 18
+            "y": 34
           },
           "id": 58,
           "legend": {
@@ -2635,7 +2725,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 26
+            "y": 42
           },
           "id": 56,
           "legend": {
@@ -2949,14 +3039,12 @@
       "id": 38,
       "panels": [
         {
-          "aliasColors": {
-            "end": "#82b5d8",
-            "lag": "#bf1b00"
-          },
+          "aliasColors": {},
           "bars": false,
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
+          "description": "Nuxeo node with failure needs to be restarted.",
           "fill": 1,
           "gridPos": {
             "h": 8,
@@ -2964,7 +3052,7 @@
             "x": 0,
             "y": 12
           },
-          "id": 66,
+          "id": 63,
           "legend": {
             "avg": false,
             "current": false,
@@ -2986,14 +3074,6 @@
             {
               "alias": "strix.requests",
               "yaxis": 2
-            },
-            {
-              "alias": "lag",
-              "yaxis": 2
-            },
-            {
-              "alias": "latency",
-              "yaxis": 2
             }
           ],
           "spaceLength": 10,
@@ -3003,15 +3083,14 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.streams.*.*.all.{pos,end}, 5, 7)",
-              "textEditor": false
+              "target": "aliasByNode(currentAbove(servers.*.nuxeo.nuxeo.stream.computation.*.failure.count, 0), 2, 6)"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Streams Positions",
+          "title": "Stream processor in failure",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -3031,7 +3110,96 @@
               "label": null,
               "logBase": 1,
               "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
               "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "description": "This count the number of records skipped because the computation policy is configured to continue on failure. This requires some attention to understand why these records have been skipped.",
+          "fill": 1,
+          "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 10,
+            "y": 12
+          },
+          "id": 70,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "strix.requests",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refCount": 0,
+              "refId": "A",
+              "target": "aliasByNode(currentAbove(servers.*.nuxeo.nuxeo.stream.computation.*.skippedRecord.count, 0), 2, 6)"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Records skipped due to failure",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "records",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
               "show": true
             },
             {
@@ -3061,8 +3229,8 @@
           "gridPos": {
             "h": 8,
             "w": 10,
-            "x": 10,
-            "y": 12
+            "x": 0,
+            "y": 20
           },
           "id": 67,
           "legend": {
@@ -3169,6 +3337,106 @@
           }
         },
         {
+          "aliasColors": {
+            "end": "#82b5d8",
+            "lag": "#bf1b00"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 10,
+            "y": 20
+          },
+          "id": 66,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "strix.requests",
+              "yaxis": 2
+            },
+            {
+              "alias": "lag",
+              "yaxis": 2
+            },
+            {
+              "alias": "latency",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refCount": 0,
+              "refId": "A",
+              "target": "aliasByNode(servers.*.nuxeo.streams.*.*.all.{pos,end}, 5, 7)",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Streams Positions",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
           "aliasColors": {},
           "bars": false,
           "dashLength": 10,
@@ -3180,9 +3448,9 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 20
+            "y": 28
           },
-          "id": 63,
+          "id": 69,
           "legend": {
             "avg": false,
             "current": false,
@@ -3241,6 +3509,273 @@
               "logBase": 1,
               "max": null,
               "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "description": "The 5 computations that process the most record per minute.",
+          "fill": 1,
+          "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 10,
+            "y": 28
+          },
+          "id": 71,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "strix.requests",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refCount": 0,
+              "refId": "A",
+              "target": "aliasByNode(highestAverage(servers.*.nuxeo.nuxeo.stream.computation.*.processRecord.m1_rate, 5), 2, 6)"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Top throughput records/min",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "opm",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "description": "The 5 slowest computations when processing record (mean).",
+          "fill": 1,
+          "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 0,
+            "y": 36
+          },
+          "id": 73,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "strix.requests",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refCount": 0,
+              "refId": "A",
+              "target": "aliasByNode(highestAverage(servers.*.nuxeo.nuxeo.stream.computation.*.processRecord.mean, 5), 2, 6)"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Slowest record processing",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "µs",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "description": "The 5 slowest computations when processing their timer (mean).",
+          "fill": 1,
+          "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 10,
+            "y": 36
+          },
+          "id": 72,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "strix.requests",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refCount": 0,
+              "refId": "A",
+              "target": "aliasByNode(highestAverage(servers.*.nuxeo.nuxeo.stream.computation.*.processTimer.mean, 5), 2, 6)"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Slowest timer processing",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "µs",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
               "show": true
             },
             {
@@ -3670,7 +4205,7 @@
     "list": []
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {
