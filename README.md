@@ -298,7 +298,7 @@ Some stacks are not yet supported by Nuxeo stacks:
 
 # TODO maybe
 
-- Add minio.io server with binarystore s3 like
+- Add nginx front with cache
 
 - Add OpenCensus log4j2 correlation traceid
 

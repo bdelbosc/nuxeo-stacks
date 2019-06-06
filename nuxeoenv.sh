@@ -232,6 +232,9 @@ venv_init() {
 }
 
 venv_activate() {
+  if [[ `command -v ansible-playbook` ]]; then
+    return
+  fi
   [[ -f ./venv/bin/activate ]] && source ./venv/bin/activate
 }
 
@@ -296,5 +299,6 @@ get_opts "$@"
 get_input
 parse_input
 venv_init
+venv_activate
 generate_compose
 bye

@@ -4,6 +4,7 @@ NUX_PACKAGES="{{ nuxeo_packages }}"
 
 if [[ -e ${NUXEO_HOME}/packages/configured-pkg ]]; then
   echo "# Refresh MP from cache"
+  rm -rf /opt/nuxeo/server/packages/.packages
   nuxeoctl mp-install --relax=false --accept=true  /opt/nuxeo/server/packages/cache/*
 else
   start=$(date --utc +%Y%m%d_%H%M%SZ)
