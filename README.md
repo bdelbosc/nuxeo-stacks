@@ -105,6 +105,9 @@ All data are persisted using docker volumes inside your env, you can resume any 
 
 ## Stack exposition
 
+Unfortunately on MacOS the [`.localhost`](https://en.wikipedia.org/wiki/.localhost) top level domain (TLD) doesn't resolve to loop back address `127.0.0.1`.
+So scripts need to be adapted to use IP address instead of `.localhost` names. Note that Chrome supports the `.localhost` TLD even on MacOS.
+
 All HTTP services are exposed by [traefik](https://traefik.io/) with proper hostname:
 
 |URL | auth | description |
