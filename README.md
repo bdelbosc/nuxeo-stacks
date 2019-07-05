@@ -55,16 +55,39 @@ Of course the first time you use nuxeo stacks it will take longer because you ha
 
 2. Install other dependencies to generate the env or used by scripts:
   - On Mac OS
-```bash
-brew install ansible newt jq
-```
+  ```bash
+  brew install ansible newt jq
+  ```
 
   - On Ubuntu:
-```bash
-sudo apt install python3-pip jq
-pip3 install virtualenv
+  ```bash
+  sudo apt install python3-pip jq
+  pip3 install virtualenv
+  ```
+  Note that on Ubuntu, the first time `nuxeoenv.sh` is run it will install `ansible` locally.
+
+3. **Only for MacOs** fix the unsupported [`.localhost`](https://en.wikipedia.org/wiki/.localhost) top level domain (TLD) 
+(even if it works with Chrome, scripts require .localhost to resolve to loop back address `127.0.0.1`)
+
+Add theses lines to your `/etc/hosts` 
 ```
-Note that on Ubuntu, the first time `nuxeoenv.sh` is run it will install `ansible` locally.
+127.0.0.1 nuxeo.docker.localhost
+127.0.0.1 nuxeo-node.docker.localhost
+127.0.0.1 nuxeo2-node.docker.localhost
+127.0.0.1 nuxeo3-node.docker.localhost
+127.0.0.1 elastic.docker.localhost
+127.0.0.1 minio.docker.localhost
+127.0.0.1 kibana.docker.localhost
+127.0.0.1 grafana.docker.localhost
+127.0.0.1 graphite.docker.localhost
+127.0.0.1 kafkahq.docker.localhost
+127.0.0.1 netdata.docker.localhost
+127.0.0.1 prometheus.docker.localhost
+127.0.0.1 jaeger.docker.localhost
+127.0.0.1 zipkin.docker.localhost
+127.0.0.1 traefik.docker.localhost
+```
+
 
 # Usage
 
@@ -104,9 +127,6 @@ ERROR: for elastic  Cannot create container for service elasticsearch: Conflict.
 All data are persisted using docker volumes inside your env, you can resume any env using a `docker-compose up`.
 
 ## Stack exposition
-
-Unfortunately on MacOS the [`.localhost`](https://en.wikipedia.org/wiki/.localhost) top level domain (TLD) doesn't resolve to loop back address `127.0.0.1`.
-So scripts need to be adapted to use IP address instead of `.localhost` names. Note that Chrome supports the `.localhost` TLD even on MacOS.
 
 All HTTP services are exposed by [traefik](https://traefik.io/) with proper hostname:
 
