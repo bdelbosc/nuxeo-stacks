@@ -19,6 +19,10 @@
       set_fact:
         nuxeo_templates: "{{ nuxeo_templates }} + ['redis']"
       when: "redis and (nuxeo_version is version_compare('9.10', '>'))"
+    - name: Kafka Confluent template
+      set_fact:
+        nuxeo_templates: "{{ nuxeo_templates }} + ['/templates/confluent']"
+      when: "kafkaconfluent"
     - name: Nuxeo standalone
       set_fact:
         nuxeo_nodes: ['nuxeo']

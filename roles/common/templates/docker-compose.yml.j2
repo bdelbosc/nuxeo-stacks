@@ -181,11 +181,14 @@ services:
 {% if redis %}
       NUXEO_REDIS_HOST: redis
 {% endif %}
-{% if kafka or elastic or mongo or postgres or redis %}
+{% if kafka or elastic or mongo or postgres or redis or kafkaconfluent %}
     depends_on:
 {% endif %}
 {% if kafka %}
       - kafka
+{% endif %}
+{% if kafkaconfluent %}
+      - broker
 {% endif %}
 {% if elastic %}
       - elasticsearch
@@ -212,6 +215,7 @@ services:
     volumes:
       - ./nuxeo/{{ nuxeo_node }}.conf:/docker-entrypoint-initnuxeo.d/nuxeo.conf:ro
       - ./nuxeo/init-nuxeo.sh:/docker-entrypoint-initnuxeo.d/init-nuxeo.sh:ro
+      - ./nuxeo/templates:/templates:ro
       - ./nuxeo/docker-entrypoint-initnuxeo.d:/docker-entrypoint-initnuxeo.d:rw
       - {{ root_path }}/data/nuxeo-binaries:/var/lib/nuxeo/binaries:rw
       - {{ root_path }}/data/{{ nuxeo_node }}/data:/var/lib/nuxeo/data:rw
@@ -338,6 +342,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 {% if elastic %}
+{% if kafkaconfluent %}
+{% include 'confluent-stack.yml.j2' %}
+
+{% endif %}
 volumes:
   esdata:
     driver_opts:

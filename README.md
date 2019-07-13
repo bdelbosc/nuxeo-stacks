@@ -24,7 +24,10 @@ The backend services supported are:
 - MongoDB 
 - PostgreSQL
 - Elasticsearch
-- Kafka (with option for SSL/SASL)
+- Kafka with different options:
+  - Basic install
+  - Secure with SSL/SASL
+  - Confluent stack with a [Schema registry](https://www.confluent.io/confluent-schema-registry/) and [KSQL](https://www.confluent.io/product/ksql/)
 - Zookeeper
 - Redis
 - [Minio](http://minio.io/) A binary storage compatible with Amazon S3
@@ -86,6 +89,8 @@ Add theses lines to your `/etc/hosts`
 127.0.0.1 jaeger.docker.localhost
 127.0.0.1 zipkin.docker.localhost
 127.0.0.1 traefik.docker.localhost
+127.0.0.1 schema.docker.localhost
+127.0.0.1 ksql.docker.localhost
 ```
 
 
@@ -146,6 +151,8 @@ All HTTP services are exposed by [traefik](https://traefik.io/) with proper host
 | http://prometheus.docker.localhost |  | Monitoring solution |
 | http://jaeger.docker.localhost |  | Tracer for distributed tracing |
 | http://zipkin.docker.localhost |  | Tracer for distributed tracing |
+| http://schema.docker.localhost |  | The Confluent Avro Schema registry |
+| http://ksql.docker.localhost |  | The Confluent KSQL server |
 |--- | --- | ---|
 | http://traefik.docker.localhost/ | | Traefik dashboard |
  
@@ -173,6 +180,7 @@ In the `./bin` directory of you environment there are useful shortcuts:
 - `mongo.sh` Run the mongo client
 - `psql.sh` Run the PostgreSQL client
 - `redis-cli.sh` Run the redis client
+- `ksql.sh` Run Confluent KSQL client
 
 
 And scripts:

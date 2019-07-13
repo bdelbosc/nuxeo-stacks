@@ -21,11 +21,10 @@
     recurse: yes
   with_items: "{{ nuxeo_nodes }}"
 
-- name: Init conf directory Nuxeo
-  file:
-    path: "{{ root_path }}/nuxeo"
-    state: directory
-    recurse: yes
+- name: Copy the nuxeo init
+  copy:
+    src: nuxeo
+    dest: "{{ root_path }}"
 
 - name: Init binaries directory Nuxeo
   file:

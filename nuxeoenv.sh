@@ -84,6 +84,7 @@ get_input() {
  elastic "Elasticsearch (non embedded)" on \
  redis "Redis" on \
  kafka "Kafka (and Zookeeper)" off \
+ kafkaconfluent "Confluent Kafka stack with KSQL" off \
  swm "Use the Nuxeo Stream WorkManager impl.    " off \
  minio "Use a Minio S3 like binarystore" off \
  monitor "Nuxeo monitoring with Grafana" off \
@@ -165,6 +166,15 @@ parse_input() {
     kafka=False
     zookeeper=False
     kafkahq=False
+  fi
+  if [[ ${stacks} == *"kafkaconfluent"* ]]; then
+    kafkaconfluent=True
+    kafkassl=False
+    kafka=False
+    zookeeper=False
+    kafkahq=False
+  else
+    kafkaconfluent=False
   fi
   if [[ ${stacks} == *"stream"* ]]; then
     stream=True
@@ -251,7 +261,7 @@ generate_compose() {
  -e "env_mongo=$mongo env_postgres=$postgres env_redis=$redis env_minio=$minio" \
  -e "env_elastic=$elastic env_kibana=$kibana" \
  -e "env_graphite=$graphite -e env_grafana=$grafana" \
- -e "env_kafka=$kafka env_kafkassl=$kafkassl env_zookeeper=$zookeeper env_kafkahq=$kafkahq" \
+ -e "env_kafka=$kafka env_kafkassl=$kafkassl env_zookeeper=$zookeeper env_kafkahq=$kafkahq env_kafkaconfluent=$kafkaconfluent"\
  -e "env_stream=$stream env_netdata=$netdata env_swm=$swm" \
  -e "env_prometheus=$prometheus  env_jaeger=$jaeger env_zipkin=$zipkin" \
  ${PLAYBOOK_OPTS}
@@ -291,6 +301,10 @@ bye() {
   fi
   if [[ ${stacks} == *"zipkin"* ]]; then
     echo "http://zipkin.docker.localhost/ -> Zipkin"
+  fi
+  if [[ ${stacks} == *"kafkaconfluent"* ]]; then
+    echo "http://schema.docker.localhost/ -> Confluent Avro Schema Registry"
+    echo "http://ksql.docker.localhost/ -> Confluent KSQL Server"
   fi
 }
 
