@@ -13,7 +13,11 @@ nuxeo.stream.pubsub.log.codec=avro
 {% endif %}
 {% endif %}
 {% if nuxeo_cluster %}
+{% if nuxeo_version is version_compare('11.0', '>') %}
+nuxeo.cluster.enabled=true
+{% else %}
 repository.clustering.enabled=true
+{% endif %}
 repository.binary.store=/var/lib/nuxeo/binaries/binaries
 {% endif %}
 {% if mongo %}
