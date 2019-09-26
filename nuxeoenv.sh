@@ -59,6 +59,7 @@ get_input() {
   if [[ -z "${nuxeo_dist}" ]]; then
     nuxeo_dist=$(whiptail --title "Nuxeo stacks" --radiolist "Choose a Nuxeo distribution:" 14 60 6 \
  nuxeolatest "Nuxeo latest                  " on \
+ nuxeolatestjx "Nuxeo latest JX               " off \
  nuxeo1010 "Nuxeo 10.10" off \
  nuxeo910 "Nuxeo 9.10" off \
  nuxeo810 "Nuxeo 8.10" off \
@@ -102,7 +103,10 @@ get_input() {
 }
 
 parse_input() {
-  if [[ ${nuxeo_dist} == *"nuxeolatest"* ]]; then
+  if [[ ${nuxeo_dist} == *"nuxeolatestjx"* ]]; then
+    nuxeo=True
+    nuxeo_version=latestjx
+  elif [[ ${nuxeo_dist} == *"nuxeolatest"* ]]; then
     nuxeo=True
     nuxeo_version=latest
   elif [[ ${nuxeo_dist} == *"nuxeo1010"* ]]; then
@@ -119,7 +123,7 @@ parse_input() {
     nuxeo_version=7.10
   else
     nuxeo=False
-    nuxeo_version=latest
+    nuxeo_version=latestjx
   fi
   if [[ ${backend} == *"mongo"* ]]; then
     mongo=True
