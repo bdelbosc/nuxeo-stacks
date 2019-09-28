@@ -14,7 +14,7 @@ minio_access_key: minio
 minio_secret_key: minio-secret
 
 # Common option for all Nuxeo version
-traefik_version: latest
+traefik_version: maroilles-alpine
 prometheus_version: latest
 jaeger_version: latest
 zipkin_version: latest
