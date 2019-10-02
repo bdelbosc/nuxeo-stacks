@@ -143,7 +143,7 @@ services:
 {% endif %}
 {% if grafana %}
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:{{ grafana_version }}
     container_name: grafana
     hostname: grafana
     user: root
@@ -160,7 +160,7 @@ services:
 {% endif %}
 {% if (kafkahq and kafka) %}
   kafkahq:
-    image: tchiotludo/kafkahq
+    image: tchiotludo/kafkahq:{{ kafkahq_version }}
     container_name: kafkahq
     hostname: kafkahq
     labels:
@@ -169,7 +169,7 @@ services:
     depends_on:
       - kafka
     volumes:
-      - ./kafkahq/kafkahq.conf:/app/application.conf:ro
+      - ./kafkahq/kafkahq.yml:/app/application.yml:ro
 {% endif %}
 {% for nuxeo_node in nuxeo_nodes %}
   {{ nuxeo_node }}:

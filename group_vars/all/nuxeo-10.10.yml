@@ -4,7 +4,7 @@ nuxeo_image: "nuxeo:10.10"
 elastic_image: "docker.elastic.co/elasticsearch/elasticsearch-oss:6.5.3"
 elastic5: false
 kibana_version: "kibana-oss:6.5.3"
-mongo_version: 4.0.5
+mongo_version: 4.0.12
 postgres_version: 11-alpine
 kafka_version: 2.12-2.1.0
 zookeeper_version: 3.4.13

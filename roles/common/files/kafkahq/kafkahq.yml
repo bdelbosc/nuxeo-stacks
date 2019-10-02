@@ -1,0 +1,25 @@
+kafkahq:
+
+  # list of kafka cluster available for kafkahq
+  connections:
+    my-cluster: # url friendly name for the cluster (letter, number, _, -, ... dot are not allowed here)
+      properties: # standard kafka properties (optional)
+        bootstrap.servers: "kafka:9092"
+
+  # Topic list display options (optional)
+  topic:
+    default-view: ALL # default list view (ALL, HIDE_INTERNAL, HIDE_INTERNAL_STREAM, HIDE_STREAM)
+
+  # Topic display data options (optional)
+  topic-data:
+    sort: OLDEST # default sort order (OLDEST, NEWEST) (default: OLDEST)
+    size: 50 # max record per page (default: 50)
+    poll-timeout: 1000 # The time, in milliseconds, spent waiting in poll if data is not available in the buffer.
+
+  # Schema list display options (optional)
+  schema:
+    page-size: 25 # number of schemas per page (default : 25)
+
+  # Consumer groups list display options (optional)
+  consumer-groups:
+    page-size: 25 # number of consumer groups per page (default : 25)
