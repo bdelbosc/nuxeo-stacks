@@ -13,7 +13,7 @@ Again this is for testing a stack, not to do performance testing and **NOT FOR P
 The Nuxeo versions supported are:
 
 - Nuxeo latest
-- Nuxeo latest JX build by Jenkins X pipeline
+- (Nuxeo latest JX build by Jenkins X pipeline) broken for now
 - Nuxeo 10.10
 - Nuxeo 9.10
 - Nuxeo 8.10
