@@ -9,8 +9,8 @@ services:
       - {{ root_path }}/data/zookeeper/data:/datalog
       - {{ root_path }}/data/zookeeper/log:/data
 {% if kafkassl %}
-      - '{{ root_path }}/kafkassl/kafka-server-jaas.conf:/conf/kafka-server-jaas.conf:ro'
-      - '{{ root_path }}/kafkassl/zoo.cfg:/conf/zoo.cfg:ro'
+      - '{{ root_path }}/kafkassl/kafka-server-jaas.conf:/conf/kafka-server-jaas.conf:rw'
+      - '{{ root_path }}/kafkassl/zoo.cfg:/conf/zoo.cfg:rw'
     environment:
       SERVER_JVMFLAGS: "-Djava.security.auth.login.config=/conf/kafka-server-jaas.conf"
 {% endif %}
