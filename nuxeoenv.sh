@@ -2,6 +2,7 @@
 
 # Nuxeo stacks
 #
+export LC_ALL=C
 set -e
 PLAYBOOK_OPTS=""
 
