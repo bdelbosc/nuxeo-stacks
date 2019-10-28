@@ -100,11 +100,11 @@ Add theses lines to your `/etc/hosts`
 Simply run the `nuxeoenv.sh` script and compose interactively your stack by selecting what you need.
 
 ```bash
-LC_ALL=C ./nuxeoenv.sh
+./nuxeoenv.sh
 ...
 ---------------------------------------------------------------
 # This Nuxeo Stack can be rebuilt with the following command:
-LC_ALL=C ./nuxeoenv.sh -i "/home/ben/dev/envs/nuxeo-stacks/instance.clid" -d "/tmp/my-nuxeo-env" -c no -n nuxeolatest -b mongo -s '"elastic" "redis"'
+./nuxeoenv.sh -i "/home/ben/dev/envs/nuxeo-stacks/instance.clid" -d "/tmp/my-nuxeo-env" -c no -n nuxeolatest -b mongo -s '"elastic" "redis"'
 # Next steps:
 cd /tmp/my-nuxeo-env
 docker-compose up
