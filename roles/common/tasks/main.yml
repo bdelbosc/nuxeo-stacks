@@ -55,7 +55,7 @@
 - name: Add S3 MP
   set_fact:
     nuxeo_packages: "{{ nuxeo_packages }} amazon-s3-online-storage"
-  when: minio
+  when: "minio"
 
 - name: Generate the nuxeo init script
   template:
@@ -87,6 +87,12 @@
     src: grafana
     dest: "{{ root_path }}"
   when: "grafana"
+
+- name: Override grafana for 9.10
+  copy:
+    src: "grafana-9.10/provisioning"
+    dest: "{{ root_path }}/grafana"
+  when: "grafana and nuxeo_version == '9.10'"
 
 - name: Copy the stream init
   copy:
