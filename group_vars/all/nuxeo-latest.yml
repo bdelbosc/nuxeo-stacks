@@ -6,7 +6,7 @@ elastic5: false
 kibana_version: "kibana-oss:6.5.3"
 mongo_version: 4.0.12
 postgres_version: 11-alpine
-kafka_version: 2.12-2.3.0
-zookeeper_version: 3.5.5
+kafka_version: 2.12-2.3.1
+zookeeper_version: 3.5.6
 redis_version: 5.0-alpine
 nuxeo_packages: "nuxeo-web-ui nuxeo-jsf-ui nuxeo-platform-importer"
