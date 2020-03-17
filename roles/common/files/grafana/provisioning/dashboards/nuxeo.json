@@ -20,6 +20,7 @@
   "panels": [
     {
       "collapsed": false,
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -76,6 +77,7 @@
       "maxDataPoints": "10",
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -161,6 +163,7 @@
       "maxDataPoints": "10",
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -246,6 +249,7 @@
       "maxDataPoints": "10",
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -331,6 +335,7 @@
       "maxDataPoints": "10",
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -382,6 +387,7 @@
       "dashes": false,
       "datasource": "Graphite",
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 4,
         "w": 7,
@@ -402,6 +408,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -513,6 +522,7 @@
       "maxDataPoints": "10",
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -555,6 +565,7 @@
     },
     {
       "collapsed": true,
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -575,6 +586,7 @@
           "datasource": "Graphite",
           "description": "",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 9,
@@ -595,6 +607,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -657,6 +672,7 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 9,
@@ -677,6 +693,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -739,6 +758,7 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 9,
@@ -759,6 +779,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -821,6 +844,7 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 9,
@@ -841,6 +865,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -905,6 +932,7 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 9,
@@ -925,6 +953,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -937,12 +968,12 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.jvm.garbage.PS-MarkSweep.time, 1, 5)"
+              "target": "aliasByNode(servers.*.nuxeo.jvm.garbage.G1-Young-Generation.time, 1, 5)"
             },
             {
               "refCount": 0,
               "refId": "B",
-              "target": "aliasByNode(servers.*.nuxeo.jvm.garbage.PS-Scavenge.time, 1, 5)"
+              "target": "aliasByNode(servers.*.nuxeo.jvm.garbage.G1-Old-Generation.time, 1, 5)"
             }
           ],
           "thresholds": [],
@@ -995,6 +1026,7 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 9,
@@ -1015,6 +1047,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -1077,6 +1112,7 @@
     },
     {
       "collapsed": true,
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1097,6 +1133,7 @@
           "datasource": "Graphite",
           "description": "",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 9,
@@ -1117,6 +1154,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -1190,6 +1230,7 @@
           "datasource": "Graphite",
           "description": "",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 9,
@@ -1210,6 +1251,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -1283,6 +1327,7 @@
           "datasource": "Graphite",
           "description": "",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 9,
@@ -1303,6 +1348,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -1377,6 +1425,7 @@
           "datasource": "Graphite",
           "description": "",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 9,
@@ -1397,6 +1446,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -1469,6 +1521,7 @@
     },
     {
       "collapsed": true,
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1484,11 +1537,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 8
+            "y": 43
           },
           "id": 30,
           "legend": {
@@ -1504,6 +1558,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -1566,11 +1623,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 8
+            "y": 43
           },
           "id": 32,
           "legend": {
@@ -1586,6 +1644,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -1597,14 +1658,14 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.repositories.repository.default.connections.*, 1, 7, 8)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.repositories.repository.jdbc.nuxeo.connection.*, 1, 9)"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Connections",
+          "title": "Connections JDBC",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1642,17 +1703,21 @@
           }
         },
         {
-          "aliasColors": {},
+          "aliasColors": {
+            "nuxeo.delete": "red",
+            "nuxeo.update": "yellow"
+          },
           "bars": false,
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 16
+            "y": 51
           },
           "id": 33,
           "legend": {
@@ -1668,6 +1733,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -1679,7 +1747,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.repositories.default.documents.*.count, 1, 7)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.repositories.repository.default.documents.*.count, 1, 8)"
             }
           ],
           "thresholds": [],
@@ -1731,11 +1799,12 @@
           "datasource": "Graphite",
           "description": "",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 16
+            "y": 51
           },
           "id": 34,
           "legend": {
@@ -1751,6 +1820,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -1767,7 +1839,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.repositories.default.*.count, 1, 6)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.repositories.repository.default.{query,save}.count, 1, 7)"
             }
           ],
           "thresholds": [],
@@ -1819,11 +1891,12 @@
           "datasource": "Graphite",
           "description": "",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 24
+            "y": 59
           },
           "id": 35,
           "legend": {
@@ -1839,6 +1912,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -1856,12 +1932,12 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.transactions.concurrents.count.count, 1, 6)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.transactions.concurrency.count, 1, 5)"
             },
             {
               "refCount": 0,
               "refId": "B",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.transactions.concurrents.max.count, 1, 6)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.transactions.concurrency.max.count, 1, 5, 6)"
             }
           ],
           "thresholds": [],
@@ -1907,6 +1983,8 @@
         },
         {
           "aliasColors": {
+            "nuxeo.count": "green",
+            "nuxeo.rollbacks": "red",
             "strix.rollbacks": "#bf1b00"
           },
           "bars": false,
@@ -1915,11 +1993,12 @@
           "datasource": "Graphite",
           "description": "",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 24
+            "y": 59
           },
           "id": 36,
           "legend": {
@@ -1935,6 +2014,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -1946,6 +2028,10 @@
             },
             {
               "alias": "strix.rollbacks",
+              "yaxis": 2
+            },
+            {
+              "alias": "nuxeo.rollbacks",
               "yaxis": 2
             }
           ],
@@ -1962,7 +2048,7 @@
               "hide": false,
               "refCount": 0,
               "refId": "B",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.transactions.duration.count, 1, 6)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.transactions.timer.count, 1, 6)"
             }
           ],
           "thresholds": [],
@@ -2012,6 +2098,7 @@
     },
     {
       "collapsed": true,
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2027,11 +2114,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 9
+            "y": 68
           },
           "id": 46,
           "legend": {
@@ -2047,6 +2135,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -2058,7 +2149,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.elasticsearch.service.*.m1_rate, 1, 6)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.elasticsearch.service.*.timer.m1_rate, 1, 6)"
             }
           ],
           "thresholds": [],
@@ -2109,11 +2200,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 9
+            "y": 68
           },
           "id": 48,
           "legend": {
@@ -2129,6 +2221,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -2140,7 +2235,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.elasticsearch.service.*.count, 1, 6)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.elasticsearch.service.*.timer.count, 1, 6)"
             }
           ],
           "thresholds": [],
@@ -2191,11 +2286,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 17
+            "y": 76
           },
           "id": 47,
           "legend": {
@@ -2211,6 +2307,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -2222,7 +2321,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.elasticsearch.service.*.p50, 1, 6, 7)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.elasticsearch.service.*.timer.p50, 1, 6)"
             }
           ],
           "thresholds": [],
@@ -2273,11 +2372,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 17
+            "y": 76
           },
           "id": 49,
           "legend": {
@@ -2293,6 +2393,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -2304,7 +2407,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.elasticsearch.service.*.p98, 1, 6, 7)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.elasticsearch.service.*.timer.p98, 1, 6)"
             }
           ],
           "thresholds": [],
@@ -2354,6 +2457,7 @@
     },
     {
       "collapsed": true,
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2369,11 +2473,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 26
+            "y": 85
           },
           "id": 52,
           "legend": {
@@ -2389,6 +2494,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -2406,7 +2514,7 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.works.total.*.completed, 1, 6)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.works.global.queue.*.completed, 1, 7)"
             }
           ],
           "thresholds": [],
@@ -2457,11 +2565,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 26
+            "y": 85
           },
           "id": 55,
           "legend": {
@@ -2477,6 +2586,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -2494,7 +2606,7 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.works.total.*.scheduled, 1, 6)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.works.global.queue.*.scheduled, 1, 7)"
             }
           ],
           "thresholds": [],
@@ -2545,11 +2657,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 34
+            "y": 93
           },
           "id": 57,
           "legend": {
@@ -2565,6 +2678,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -2582,7 +2698,7 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.works.*.*.p50, 1, 5)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.works.queue.*.timer.p50, 1, 6)"
             }
           ],
           "thresholds": [],
@@ -2633,11 +2749,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 34
+            "y": 93
           },
           "id": 58,
           "legend": {
@@ -2653,6 +2770,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -2670,7 +2790,7 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.works.*.*.p98, 1, 5)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.works.queue.*.timer.p98, 1, 6)"
             }
           ],
           "thresholds": [],
@@ -2721,11 +2841,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 42
+            "y": 101
           },
           "id": 56,
           "legend": {
@@ -2741,6 +2862,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -2758,7 +2882,7 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.works.*.*.m1_rate, 1, 5)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.works.queue.*.timer.m1_rate, 1, 6)"
             }
           ],
           "thresholds": [],
@@ -2808,6 +2932,7 @@
     },
     {
       "collapsed": true,
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2826,11 +2951,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 11
+            "y": 110
           },
           "id": 61,
           "legend": {
@@ -2846,6 +2972,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -2930,11 +3059,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 11
+            "y": 110
           },
           "id": 65,
           "legend": {
@@ -2950,6 +3080,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -3030,6 +3163,7 @@
     },
     {
       "collapsed": true,
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3046,11 +3180,12 @@
           "datasource": "Graphite",
           "description": "Nuxeo node with failure needs to be restarted.",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 12
+            "y": 119
           },
           "id": 63,
           "legend": {
@@ -3066,6 +3201,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -3135,11 +3273,12 @@
           "datasource": "Graphite",
           "description": "This count the number of records skipped because the computation policy is configured to continue on failure. This requires some attention to understand why these records have been skipped.",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 12
+            "y": 119
           },
           "id": 70,
           "legend": {
@@ -3155,6 +3294,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -3226,11 +3368,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 20
+            "y": 127
           },
           "id": 67,
           "legend": {
@@ -3246,6 +3389,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -3346,11 +3492,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 20
+            "y": 127
           },
           "id": 66,
           "legend": {
@@ -3366,6 +3513,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -3444,11 +3594,12 @@
           "datasource": "Graphite",
           "description": "The 5 most deviant lag per partition.",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 28
+            "y": 135
           },
           "id": 69,
           "legend": {
@@ -3464,6 +3615,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -3481,14 +3635,14 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(mostDeviant(servers.*.nuxeo.streams.*.*.p*.lag, 5), 5, 6)"
+              "target": "aliasByNode(mostDeviant(servers.*.nuxeo.streams.*.*.all.lag, 5), 5, 6)"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Most deviant Partition Lag",
+          "title": "Most deviant Lag",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -3533,11 +3687,12 @@
           "datasource": "Graphite",
           "description": "The 5 computations that process the most record per minute.",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 28
+            "y": 135
           },
           "id": 71,
           "legend": {
@@ -3553,6 +3708,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -3622,11 +3780,12 @@
           "datasource": "Graphite",
           "description": "The 5 slowest computations when processing record (mean).",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 36
+            "y": 143
           },
           "id": 73,
           "legend": {
@@ -3642,6 +3801,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -3711,11 +3873,12 @@
           "datasource": "Graphite",
           "description": "The 5 slowest computations when processing their timer (mean).",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 36
+            "y": 143
           },
           "id": 72,
           "legend": {
@@ -3731,6 +3894,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -3798,6 +3964,7 @@
     },
     {
       "collapsed": true,
+      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3813,11 +3980,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 13
+            "y": 152
           },
           "id": 50,
           "legend": {
@@ -3833,6 +4001,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -3840,6 +4011,10 @@
           "seriesOverrides": [
             {
               "alias": "strix.requests",
+              "yaxis": 2
+            },
+            {
+              "alias": "nuxeo.requests",
               "yaxis": 2
             }
           ],
@@ -3855,7 +4030,7 @@
             {
               "refCount": 0,
               "refId": "B",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.web.authentication.requests.count.count, 1, 6)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.web.authentication.requests.timer.count, 1, 6)"
             }
           ],
           "thresholds": [],
@@ -3906,11 +4081,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 13
+            "y": 152
           },
           "id": 51,
           "legend": {
@@ -3926,6 +4102,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -3943,7 +4122,7 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.cache.*.read-hit-ratio, 1, 5)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.cache.*.hit.ratio, 1, 5)"
             }
           ],
           "thresholds": [],
@@ -3994,11 +4173,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 21
+            "y": 160
           },
           "id": 59,
           "legend": {
@@ -4014,6 +4194,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -4043,12 +4226,12 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.directories.*.sessions.active.count, 1, 5, 7)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.directories.directory.*.sessions.active.count, 1, 6, 7)"
             },
             {
               "refCount": 0,
               "refId": "B",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.directories.*.sessions.max.count, 1, 5, 7)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.directories.directory.*.sessions.max.count, 1, 6, 7, 8)"
             }
           ],
           "thresholds": [],
@@ -4099,11 +4282,12 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 21
+            "y": 160
           },
           "id": 60,
           "legend": {
@@ -4119,6 +4303,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -4148,7 +4335,7 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.nuxeo.directories.*.cache.size.count, 1, 5)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.directories.directory.*.cache.size.count, 1, 5)"
             }
           ],
           "thresholds": [],
@@ -4198,14 +4385,14 @@
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 16,
+  "schemaVersion": 20,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -4236,5 +4423,5 @@
   "timezone": "",
   "title": "Nuxeo",
   "uid": "UUCf9dYmz",
-  "version": 1
+  "version": 2
 }
