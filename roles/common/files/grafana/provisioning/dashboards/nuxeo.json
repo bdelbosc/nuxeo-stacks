@@ -15,7 +15,6 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 1,
   "links": [],
   "panels": [
     {
@@ -545,7 +544,7 @@
         {
           "hide": false,
           "refId": "A",
-          "target": "sumSeries(servers.*.nuxeo.nuxeo.stream.failure.count)",
+          "target": "sumSeries(servers.*.nuxeo.nuxeo.streams.failure.count)",
           "textEditor": false
         }
       ],
@@ -1542,7 +1541,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 43
+            "y": 8
           },
           "id": 30,
           "legend": {
@@ -1628,7 +1627,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 43
+            "y": 8
           },
           "id": 32,
           "legend": {
@@ -1717,7 +1716,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 51
+            "y": 16
           },
           "id": 33,
           "legend": {
@@ -1804,7 +1803,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 51
+            "y": 16
           },
           "id": 34,
           "legend": {
@@ -1896,7 +1895,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 59
+            "y": 24
           },
           "id": 35,
           "legend": {
@@ -1998,7 +1997,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 59
+            "y": 24
           },
           "id": 36,
           "legend": {
@@ -2956,7 +2955,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 110
+            "y": 11
           },
           "id": 61,
           "legend": {
@@ -3000,12 +2999,12 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "alias(servers.*.nuxeo.streams.AuditLogWriter.audit.all.pos, 'current pos')"
+              "target": "alias(servers.*.nuxeo.nuxeo.streams.global.stream.audit.group.AuditLogWriter.pos, 'current pos')"
             },
             {
               "refCount": 0,
               "refId": "B",
-              "target": "alias(servers.*.nuxeo.streams.AuditLogWriter.audit.all.end, 'end')"
+              "target": "alias(servers.*.nuxeo.nuxeo.streams.global.stream.audit.group.AuditLogWriter.end, 'end')"
             }
           ],
           "thresholds": [],
@@ -3064,7 +3063,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 110
+            "y": 11
           },
           "id": 65,
           "legend": {
@@ -3108,12 +3107,12 @@
             {
               "refCount": 0,
               "refId": "C",
-              "target": "alias(servers.*.nuxeo.streams.AuditLogWriter.audit.all.lag, 'lag')"
+              "target": "alias(servers.*.nuxeo.nuxeo.streams.global.stream.audit.group.AuditLogWriter.lag, 'lag')"
             },
             {
               "refCount": 0,
               "refId": "D",
-              "target": "alias(servers.*.nuxeo.streams.AuditLogWriter.audit.all.latency, 'latency')"
+              "target": "alias(servers.*.nuxeo.nuxeo.streams.global.stream.audit.group.AuditLogWriter.latency, 'latency')"
             }
           ],
           "thresholds": [],
@@ -3185,7 +3184,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 119
+            "y": 12
           },
           "id": 63,
           "legend": {
@@ -3221,7 +3220,7 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(currentAbove(servers.*.nuxeo.nuxeo.stream.computation.*.failure.count, 0), 2, 6)"
+              "target": "aliasByNode(currentAbove(servers.*.nuxeo.nuxeo.streams.computation.*.failure.count, 0), 2, 6)"
             }
           ],
           "thresholds": [],
@@ -3268,6 +3267,7 @@
         {
           "aliasColors": {},
           "bars": false,
+          "cacheTimeout": "",
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
@@ -3278,7 +3278,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 119
+            "y": 12
           },
           "id": 70,
           "legend": {
@@ -3314,7 +3314,7 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(currentAbove(servers.*.nuxeo.nuxeo.stream.computation.*.skippedRecord.count, 0), 2, 6)"
+              "target": "aliasByNode(currentAbove(servers.*.nuxeo.nuxeo.streams.computation.*.skippedRecord.count, 0), 2, 6)"
             }
           ],
           "thresholds": [],
@@ -3373,7 +3373,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 127
+            "y": 20
           },
           "id": 67,
           "legend": {
@@ -3433,19 +3433,14 @@
             {
               "refCount": 0,
               "refId": "C",
-              "target": "aliasByNode(servers.*.nuxeo.streams.*.*.all.lag, 5, 7)"
-            },
-            {
-              "refCount": 0,
-              "refId": "D",
-              "target": "aliasByNode(servers.*.nuxeo.streams.*.*.all.latency, 5, 7)"
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.streams.global.stream.*.group.*.lag, 7, 9)"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Streams Lag and Latency",
+          "title": "Streams Lag",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -3497,7 +3492,219 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 127
+            "y": 20
+          },
+          "id": 74,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "strix.requests",
+              "yaxis": 2
+            },
+            {
+              "alias": "lag",
+              "yaxis": 1
+            },
+            {
+              "alias": "latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "audit.latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "default.latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "elasticSearchIndexing.latency",
+              "yaxis": 2
+            },
+            {
+              "alias": "updateACEStatus.latency",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refCount": 0,
+              "refId": "D",
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.streams.global.stream.*.group.*.latency, 7, 9)"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Streams Latency",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "ms",
+              "label": "Latency",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "description": "The 5 most deviant lag per partition.",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 0,
+            "y": 28
+          },
+          "id": 69,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "strix.requests",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refCount": 0,
+              "refId": "A",
+              "target": "aliasByNode(mostDeviant(servers.*.nuxeo.nuxeo.streams.global.stream.*.group.*.lag, 5), 7, 9)"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Most deviant Lag",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {
+            "end": "#82b5d8",
+            "lag": "#bf1b00"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 10,
+            "y": 28
           },
           "id": 66,
           "legend": {
@@ -3541,7 +3748,7 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(servers.*.nuxeo.streams.*.*.all.{pos,end}, 5, 7)",
+              "target": "aliasByNode(servers.*.nuxeo.nuxeo.streams.global.stream.*.group.*.pos, 7, 9)",
               "textEditor": false
             }
           ],
@@ -3592,192 +3799,6 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
-          "description": "The 5 most deviant lag per partition.",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 10,
-            "x": 0,
-            "y": 135
-          },
-          "id": 69,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "connected",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "strix.requests",
-              "yaxis": 2
-            }
-          ],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refCount": 0,
-              "refId": "A",
-              "target": "aliasByNode(mostDeviant(servers.*.nuxeo.streams.*.*.all.lag, 5), 5, 6)"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Most deviant Lag",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Graphite",
-          "description": "The 5 computations that process the most record per minute.",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 10,
-            "x": 10,
-            "y": 135
-          },
-          "id": 71,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "connected",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "strix.requests",
-              "yaxis": 2
-            }
-          ],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refCount": 0,
-              "refId": "A",
-              "target": "aliasByNode(highestAverage(servers.*.nuxeo.nuxeo.stream.computation.*.processRecord.m1_rate, 5), 2, 6)"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Top throughput records/min",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "opm",
-              "label": "",
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Graphite",
           "description": "The 5 slowest computations when processing record (mean).",
           "fill": 1,
           "fillGradient": 0,
@@ -3785,7 +3806,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 143
+            "y": 36
           },
           "id": 73,
           "legend": {
@@ -3821,7 +3842,7 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(highestAverage(servers.*.nuxeo.nuxeo.stream.computation.*.processRecord.mean, 5), 2, 6)"
+              "target": "aliasByNode(highestAverage(servers.*.nuxeo.nuxeo.streams.computation.*.processRecord.mean, 5), 2, 6)"
             }
           ],
           "thresholds": [],
@@ -3871,6 +3892,99 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
+          "description": "The 5 computations that process the most record per minute.",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 10,
+            "x": 10,
+            "y": 36
+          },
+          "id": 71,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "strix.requests",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refCount": 0,
+              "refId": "A",
+              "target": "aliasByNode(highestAverage(servers.*.nuxeo.nuxeo.streams.computation.*.processRecord.m1_rate, 5), 2, 6)"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Top throughput records/min",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "opm",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
           "description": "The 5 slowest computations when processing their timer (mean).",
           "fill": 1,
           "fillGradient": 0,
@@ -3878,7 +3992,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 143
+            "y": 44
           },
           "id": 72,
           "legend": {
@@ -3914,7 +4028,7 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "aliasByNode(highestAverage(servers.*.nuxeo.nuxeo.stream.computation.*.processTimer.mean, 5), 2, 6)"
+              "target": "aliasByNode(highestAverage(servers.*.nuxeo.nuxeo.streams.computation.*.processTimer.mean, 5), 2, 6)"
             }
           ],
           "thresholds": [],
@@ -3985,7 +4099,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 152
+            "y": 13
           },
           "id": 50,
           "legend": {
@@ -4086,7 +4200,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 152
+            "y": 13
           },
           "id": 51,
           "legend": {
@@ -4178,7 +4292,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 160
+            "y": 21
           },
           "id": 59,
           "legend": {
@@ -4287,7 +4401,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 160
+            "y": 21
           },
           "id": 60,
           "legend": {
@@ -4392,7 +4506,7 @@
     "list": []
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -4423,5 +4537,5 @@
   "timezone": "",
   "title": "Nuxeo",
   "uid": "UUCf9dYmz",
-  "version": 2
+  "version": 3
 }
