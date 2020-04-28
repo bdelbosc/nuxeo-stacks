@@ -177,7 +177,7 @@ services:
     container_name: {{ nuxeo_node }}
     hostname: {{ nuxeo_node }}
     environment:
-      JAVA_OPTS: -Xdebug -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n
+      JAVA_OPTS: -Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8787
 {% if redis %}
       NUXEO_REDIS_HOST: redis
 {% endif %}
