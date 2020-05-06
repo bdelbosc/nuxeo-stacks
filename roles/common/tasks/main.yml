@@ -32,6 +32,12 @@
     state: directory
     recurse: yes
 
+- name: Init profiler directory Nuxeo
+  file:
+    path: "{{ root_path }}/data/profiler"
+    state: directory
+    recurse: yes
+
 - name: Copy the nuxeo instance clid
   copy:
     src: "{{ instance_clid }}"

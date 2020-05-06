@@ -209,6 +209,7 @@ And scripts:
 - `stack-whoami.sh` Return the path of the currently running env
 - `stack-down.sh` Run a `docker-compose down --volume` on the currently running env
 - `esync.sh` Run the [esync](https://github.com/nuxeo/esync) tool to check the discrepancy between repository and elastic, see FAQ below
+- `profiler.sh` Run async profiler and output an SVG Flame Graph 
 ## FAQ
 
 ### Where can I learn to use docker?
@@ -268,6 +269,16 @@ Note that Nuxeo stacks is using a packages cache to avoid downloading packages o
 Inside your env edit the `./nuxeo/nuxeo.conf` file.
 
 The new `nuxeo.conf` will be generated after a `docker-compose down --volume; docker-compose up`
+
+### How can I run a flame graph?
+
+Just run the following command to capture 30s of profiling and get Flame Graph on your browser:
+
+```bash
+./bin/profiler.sh
+```
+
+![Nuxeo Flame Graph](./flame.png)
 
 ### I don't remember which env is running?
 
