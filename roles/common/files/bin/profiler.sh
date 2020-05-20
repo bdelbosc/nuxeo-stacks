@@ -6,7 +6,9 @@ SCRIPT_PATH="$(cd "$(dirname "$0")"; pwd -P)"
 DATA_PATH=$(readlink -f "$SCRIPT_PATH/../data")
 DATA_PROFILER="${DATA_PATH}/profiler"
 TIMESTAMP=`date +%Y%m%d-%H%M%S`
-SVG_FILE=flame-${TIMESTAMP}.svg
+MODE=${MODE:-cpu}
+SVG_FILE=flame-${MODE}-${TIMESTAMP}.svg
+
 
 if [[ ! -e ${DATA_PROFILER} ]]; then
   echo "Data profiler path: $DATA_PROFILER not found"
@@ -31,9 +33,20 @@ function install_profiler() {
 }
 
 function run_profiler() {
-  echo "### Profiling for ${DURATION}s ..."
+  echo "### Profiling ${MODE} for ${DURATION}s ..."
+  option=""
+  if [[ "${MODE}" == "cpu" ]]; then
+    option=""
+  elif [[ "${MODE}" == "off-cpu" ]]; then
+    option="-e wall -t"
+  elif [[ "${MODE}" == "mem" ]]; then
+    option="-e alloc"
+  elif [[ "${MODE}" == "lock" ]]; then
+    option="-e lock"
+  fi
+  title=$'"Nuxeo '${MODE}' '${TIMESTAMP}' '${DURATION}'s"'
   set -x
-  docker exec -ti -u root nuxeo /profiler/profiler.sh -d ${DURATION} --title "nuxeo $TIMESTAMP ${DURATION}s" -f /profiler/${SVG_FILE} jps
+  docker exec -it -u root nuxeo /profiler/profiler.sh ${option} -d ${DURATION} --title "${title}" -f /profiler/${SVG_FILE} jps
   set +x
 }
 
