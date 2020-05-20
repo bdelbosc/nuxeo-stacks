@@ -280,6 +280,20 @@ Just run the following command to capture 30s of profiling and get Flame Graph o
 
 ![Nuxeo Flame Graph](./flame.png)
 
+By default it is a CPU Flame Graph, you can choose different flavors:
+- Wall clock or off-cpu profiling, this includes profiling of waiting threads
+    ```bash
+    MODE=off-cpu ./bin/profiler.sh
+    ```
+- Lock profiling
+   ```bash
+    MODE=lock ./bin/profiler.sh
+    ```
+- Memory allocation profiling
+    ```bash
+    MODE=mem ./bin/profiler.sh
+    ```
+
 ### I don't remember which env is running?
 
 You run your env with `docker-compose up -d`, you have multiple env and don't remember which one is currently running ?
