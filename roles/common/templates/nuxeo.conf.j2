@@ -105,18 +105,19 @@ metrics.graphite.pollInterval=30
 metrics.prometheus.enabled=true
 metrics.prometheus.port=8888
 {% endif %}
-{% if prometheus or jaeger or zipkin %}
-opencensus.enabled=true
-opencensus.zpages.port=8887
+{% if jaeger or zipkin %}
 # trace everything
-opencensus.sampler.probability=1.0
+tracing.sampler.probability=1.0
+tracing.zpage.enabled=true
+tracing.zpage.port=8887
 {% endif %}
 {% if jaeger %}
-opencensus.exporter.jaeger.url=http://jaeger:14268/api/traces
+tracing.jaeger.enabled=true
+tracing.jaeger.url=http://jaeger:14268/api/traces
 {% endif %}
 {% if zipkin %}
-opencensus.exporter.zipkin.url=http://zipkin:9411/api/v2/spans
+tracing.zipkin.enabled=true
+tracing.zipkin.url=http://zipkin:9411/api/v2/spans
 {% endif %}
 # nuxeo.vcs.fulltext.search.disabled=true
 JAVA_OPTS=$JAVA_OPTS -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints
-
