@@ -108,6 +108,8 @@ metrics.prometheus.port=8888
 {% if jaeger or zipkin %}
 # trace everything
 tracing.sampler.probability=1.0
+tracing.attributes.max=256
+tracing.annotations.max=256
 tracing.zpage.enabled=true
 tracing.zpage.port=8887
 {% endif %}
