@@ -38,7 +38,7 @@ function run_profiler() {
   if [[ "${MODE}" == "cpu" ]]; then
     option=""
   elif [[ "${MODE}" == "off-cpu" ]]; then
-    option="-e wall -t"
+    option="-e wall -t -I work/* -I bulk/* -I http-nio-* -I retention/* -I audit/* -I stream/*"
   elif [[ "${MODE}" == "mem" ]]; then
     option="-e alloc"
   elif [[ "${MODE}" == "lock" ]]; then
