@@ -15,9 +15,9 @@ minio_secret_key: minio-secret
 
 # Common option for all Nuxeo version
 traefik_version: maroilles-alpine
-grafana_version: 6.4.1
-kafkahq_version: 0.9.0
-prometheus_version: latest
+grafana_version: 7.0.3
+kafkahq_version: 0.12.0
+prometheus_version: v2.19.0
 jaeger_version: latest
 zipkin_version: latest
 minio_version: latest

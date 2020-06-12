@@ -86,17 +86,17 @@ get_input() {
  redis "Redis" on \
  kafka "Kafka (and Zookeeper)" off \
  kafkaconfluent "Confluent Kafka stack with KSQL" off \
- swm "Use the Nuxeo Stream WorkManager impl.    " off \
- minio "Use a Minio S3 like binarystore" off \
- monitor "Nuxeo monitoring with Grafana" off \
- stream "Nuxeo Stream monitoring for 10.10 only" off \
- kibana "Elasticsearch Kibana" off \
- kafkahq "KafkaHQ a Kafka GUI" off \
- prometheus "Prometheus monitoring" off \
- jaeger "Jaeger distributed tracer" off \
- zipkin "Zipkin distributed tracer" off \
- kafkassl "Kafka in SASL_SSL" off \
+ swm "Use the Nuxeo StreamWorkManager impl.    " off \
+ monitor "Monitoring with Graphite/Grafana" off \
+ prometheus "Expose metrics to Prometheus" off \
+ jaeger "Trace Nuxeo with Jaeger" off \
+ zipkin "Trace Nuxeo with Zipkin" off \
  netdata "Netdata monitoring" off \
+ kafkahq "A GUI for Kafka" off \
+ kibana "Elasticsearch Kibana" off \
+ minio "Use a Minio S3 for binary storage" off \
+ kafkassl "Kafka in SASL_SSL" off \
+ stream "Nuxeo Stream monitoring for 10.10 only" off \
  3>&1 1>&2 2>&3)
   fi
   COMMAND="${0} -i \"${instance_clid}\" -d \"${data_path}\" -c ${nuxeo_cluster} -n ${nuxeo_dist} -b ${backend} -s '"${stacks}"'"
@@ -273,6 +273,8 @@ generate_compose() {
 }
 
 bye() {
+  echo "# This Nuxeo Stack was built on `date`, using the following command:" >> ${data_path}/build.log
+  echo ${COMMAND} >> ${data_path}/build.log
   echo
   echo "---------------------------------------------------------------"
   echo "# This Nuxeo Stack can be rebuilt with the following command:"
