@@ -236,7 +236,7 @@ services:
       - "minio.docker.localhost:192.168.192.60"
 {% endif %}
 {% endfor %}
-{% if stream and kafka %}
+{% if stream and kafka and nuxeo_version is version_compare('11.0', '>') %}
   stream:
     image: {{ nuxeo_image }}
     container_name: stream

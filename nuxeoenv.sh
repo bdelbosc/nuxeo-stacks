@@ -89,7 +89,7 @@ get_input() {
  swm "Use the Nuxeo Stream WorkManager impl.    " off \
  minio "Use a Minio S3 like binarystore" off \
  monitor "Nuxeo monitoring with Grafana" off \
- stream "Nuxeo Stream monitoring" off \
+ stream "Nuxeo Stream monitoring for 10.10 only" off \
  kibana "Elasticsearch Kibana" off \
  kafkahq "KafkaHQ a Kafka GUI" off \
  prometheus "Prometheus monitoring" off \
