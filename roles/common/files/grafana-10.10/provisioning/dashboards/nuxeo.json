@@ -2118,7 +2118,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 33
+            "y": 68
           },
           "id": 46,
           "legend": {
@@ -2204,7 +2204,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 33
+            "y": 68
           },
           "id": 48,
           "legend": {
@@ -2290,7 +2290,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 41
+            "y": 76
           },
           "id": 47,
           "legend": {
@@ -2376,7 +2376,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 41
+            "y": 76
           },
           "id": 49,
           "legend": {
@@ -2477,7 +2477,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 50
+            "y": 85
           },
           "id": 52,
           "legend": {
@@ -2569,7 +2569,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 50
+            "y": 85
           },
           "id": 55,
           "legend": {
@@ -2661,7 +2661,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 58
+            "y": 93
           },
           "id": 57,
           "legend": {
@@ -2753,7 +2753,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 58
+            "y": 93
           },
           "id": 58,
           "legend": {
@@ -2845,7 +2845,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 66
+            "y": 101
           },
           "id": 56,
           "legend": {
@@ -2955,7 +2955,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 75
+            "y": 11
           },
           "id": 61,
           "legend": {
@@ -2999,12 +2999,12 @@
             {
               "refCount": 0,
               "refId": "A",
-              "target": "alias(servers.*.nuxeo.nuxeo.streams.global.stream.audit-audit.group.audit-writer.pos, 'current pos')"
+              "target": "alias(servers.*.nuxeo.nuxeo.streams.global.stream.audit.group.AuditLogWriter.pos, 'current pos')"
             },
             {
               "refCount": 0,
               "refId": "B",
-              "target": "alias(servers.*.nuxeo.nuxeo.streams.global.stream.audit-audit.group.audit-writer.end, 'end')"
+              "target": "alias(servers.*.nuxeo.nuxeo.streams.global.stream.audit.group.AuditLogWriter.end, 'end')"
             }
           ],
           "thresholds": [],
@@ -3063,7 +3063,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 75
+            "y": 11
           },
           "id": 65,
           "legend": {
@@ -3107,12 +3107,12 @@
             {
               "refCount": 0,
               "refId": "C",
-              "target": "alias(servers.*.nuxeo.nuxeo.streams.global.stream.audit-audit.group.audit-writer.lag, 'lag')"
+              "target": "alias(servers.*.nuxeo.nuxeo.streams.global.stream.audit.group.AuditLogWriter.lag, 'lag')"
             },
             {
               "refCount": 0,
               "refId": "D",
-              "target": "alias(servers.*.nuxeo.nuxeo.streams.global.stream.audit-audit.group.audit-writer.latency, 'latency')"
+              "target": "alias(servers.*.nuxeo.nuxeo.streams.global.stream.audit.group.AuditLogWriter.latency, 'latency')"
             }
           ],
           "thresholds": [],
@@ -3184,7 +3184,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 76
+            "y": 12
           },
           "id": 63,
           "legend": {
@@ -3278,7 +3278,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 76
+            "y": 12
           },
           "id": 70,
           "legend": {
@@ -3373,7 +3373,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 84
+            "y": 20
           },
           "id": 67,
           "legend": {
@@ -3492,7 +3492,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 84
+            "y": 20
           },
           "id": 74,
           "legend": {
@@ -3609,7 +3609,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 92
+            "y": 28
           },
           "id": 69,
           "legend": {
@@ -3704,7 +3704,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 92
+            "y": 28
           },
           "id": 66,
           "legend": {
@@ -3806,7 +3806,7 @@
             "h": 8,
             "w": 10,
             "x": 0,
-            "y": 100
+            "y": 36
           },
           "id": 73,
           "legend": {
@@ -3892,14 +3892,14 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
-          "description": "The 5 computations that process the most record per second.",
+          "description": "The 5 computations that process the most record per minute.",
           "fill": 1,
           "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 100
+            "y": 36
           },
           "id": 71,
           "legend": {
@@ -3942,7 +3942,7 @@
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Top record throughput",
+          "title": "Top throughput records/min",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -3958,7 +3958,7 @@
           },
           "yaxes": [
             {
-              "format": "ops",
+              "format": "opm",
               "label": "",
               "logBase": 1,
               "max": null,
@@ -3992,7 +3992,7 @@
             "h": 8,
             "w": 10,
             "x": 10,
-            "y": 108
+            "y": 44
           },
           "id": 72,
           "legend": {
@@ -4506,7 +4506,7 @@
     "list": []
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -4537,5 +4537,5 @@
   "timezone": "",
   "title": "Nuxeo",
   "uid": "UUCf9dYmz",
-  "version": 1
+  "version": 3
 }
