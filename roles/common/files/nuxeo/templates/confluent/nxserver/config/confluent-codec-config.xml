@@ -7,18 +7,12 @@
       <option name="schemaRegistryUrls">http://schema-registry:8081</option>
     </codec>
 
-    <codec name="eventFlat" class="org.nuxeo.runtime.codec.AvroRecordCodecFactory">
-      <option name="messageClass">org.nuxeo.ecm.platform.audit.stream.AuditEvent</option>
-      <option name="schemaRegistryUrls">http://schema-registry:8081</option>
-    </codec>
+<!--    <codec name="eventFlat" class="org.nuxeo.runtime.codec.AvroRecordCodecFactory">-->
+<!--      <option name="messageClass">org.nuxeo.ecm.platform.audit.stream.AuditEvent</option>-->
+<!--      <option name="schemaRegistryUrls">http://schema-registry:8081</option>-->
+<!--    </codec>-->
   </extension>
 
-  <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="eventDomainProducer">
-    <eventDomainProducer name="auditDomain" class="org.nuxeo.ecm.platform.audit.stream.AuditEventDomainProducer">
-      <stream name="src-audit" partitions="1" codec="eventFlat" />
-    </eventDomainProducer>
-
-  </extension>
 
 </component>
 

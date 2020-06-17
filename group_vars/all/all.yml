@@ -21,6 +21,7 @@ prometheus_version: v2.19.0
 jaeger_version: latest
 zipkin_version: latest
 minio_version: latest
+confluent_version: 5.5.0
 
 # Options from nuxeoenv.sh
 nuxeo: "{{ env_nuxeo }}"

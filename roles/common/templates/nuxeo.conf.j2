@@ -54,7 +54,7 @@ kafka.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule r
 # Debug option SSL option
 #JAVA_OPTS=$JAVA_OPTS -Djavax.net.debug=SSL
 {% elif kafkaconfluent %}
-kafka.bootstrap.servers=broker:29092
+kafka.bootstrap.servers=kafka:29092
 {% else %}
 kafka.bootstrap.servers=kafka:9092
 {% endif %}
@@ -106,10 +106,10 @@ metrics.prometheus.enabled=true
 metrics.prometheus.port=8888
 {% endif %}
 {% if jaeger or zipkin %}
-# trace everything
-tracing.sampler.probability=1.0
-tracing.attributes.max=256
-tracing.annotations.max=256
+# Use traceparent header or zPage to activate
+tracing.sampler.probability=0.0
+tracing.attributes.max=512
+tracing.annotations.max=512
 tracing.zpage.enabled=true
 tracing.zpage.port=8887
 {% endif %}

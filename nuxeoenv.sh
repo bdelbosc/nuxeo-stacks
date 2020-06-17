@@ -176,7 +176,6 @@ parse_input() {
     kafkassl=False
     kafka=False
     zookeeper=False
-    kafkahq=False
   else
     kafkaconfluent=False
   fi

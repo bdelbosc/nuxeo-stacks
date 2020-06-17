@@ -158,7 +158,7 @@ services:
       - ./grafana/provisioning/:/etc/grafana/provisioning/:rw
       - {{ root_path }}/data/grafana:/var/lib/grafana:rw
 {% endif %}
-{% if (kafkahq and kafka) %}
+{% if (kafkahq and (kafka or kafkaconfluent)) %}
   kafkahq:
     image: tchiotludo/kafkahq:{{ kafkahq_version }}
     container_name: kafkahq
@@ -190,11 +190,8 @@ services:
 {% if kafka or elastic or mongo or postgres or redis or kafkaconfluent %}
     depends_on:
 {% endif %}
-{% if kafka %}
+{% if kafka or kafkaconfluent %}
       - kafka
-{% endif %}
-{% if kafkaconfluent %}
-      - broker
 {% endif %}
 {% if elastic %}
       - elasticsearch

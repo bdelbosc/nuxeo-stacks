@@ -1,5 +1,5 @@
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.2.2
+    image: confluentinc/cp-zookeeper:{{ confluent_version }}
     hostname: zookeeper
     container_name: zookeeper
     ports:
@@ -7,10 +7,10 @@
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-  broker:
-    image: confluentinc/cp-enterprise-kafka:5.2.2
-    hostname: broker
-    container_name: broker
+  kafka:
+    image: confluentinc/cp-server:{{ confluent_version }}
+    hostname: kafka
+    container_name: kafka
     depends_on:
       - zookeeper
     ports:
@@ -20,55 +20,57 @@
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: broker:29092
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: kafka:29092
       CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: zookeeper:2181
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
       CONFLUENT_METRICS_ENABLE: 'true'
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
   schema-registry:
-    image: confluentinc/cp-schema-registry:5.2.2
+    image: confluentinc/cp-schema-registry:{{ confluent_version }}
     hostname: schema-registry
     container_name: schema-registry
-    ports:
-      - "8081:8081"
     depends_on:
       - zookeeper
-      - broker
-    labels:
-      - "traefik.port=8081"
-      - "traefik.frontend.rule=Host:schema.docker.localhost"
+      - kafka
+    ports:
+      - "8081:8081"
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
-  ksql-server:
-    image: confluentinc/cp-ksql-server:5.2.2
-    hostname: ksql-server
-    container_name: ksql-server
-    depends_on:
-      - broker
     labels:
-      - "traefik.port=8088"
-      - "traefik.frontend.rule=Host:ksql.docker.localhost"
+      - "traefik.port=8081"
+      - "traefik.frontend.rule=Host:schema.docker.localhost"
+  ksqldb-server:
+    image: confluentinc/cp-ksqldb-server:{{ confluent_version }}
+    hostname: ksqldb-server
+    container_name: ksqldb-server
+    depends_on:
+      - kafka
     environment:
       KSQL_CONFIG_DIR: "/etc/ksql"
-      KSQL_LOG4J_OPTS: "-Dlog4j.configuration=file:/etc/ksql/log4j-rolling.properties"
-      KSQL_BOOTSTRAP_SERVERS: "broker:29092"
-      KSQL_HOST_NAME: ksql-server
-      KSQL_APPLICATION_ID: "cp-all-in-one"
+      KSQL_BOOTSTRAP_SERVERS: "kafka:29092"
+      KSQL_HOST_NAME: ksqldb-server
       KSQL_LISTENERS: "http://0.0.0.0:8088"
       KSQL_CACHE_MAX_BYTES_BUFFERING: 0
       KSQL_KSQL_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
       KSQL_PRODUCER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor"
       KSQL_CONSUMER_INTERCEPTOR_CLASSES: "io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor"
-  ksql-cli:
-    image: confluentinc/cp-ksql-cli:5.2.2
-    container_name: ksql-cli
+      KSQL_KSQL_CONNECT_URL: "http://connect:8083"
+    labels:
+      - "traefik.port=8088"
+      - "traefik.frontend.rule=Host:ksql.docker.localhost"
+  ksqldb-cli:
+    image: confluentinc/cp-ksqldb-cli:{{ confluent_version }}
+    container_name: ksqldb-cli
     depends_on:
-      - broker
-      - ksql-server
+      - kafka
+      - ksqldb-server
     entrypoint: /bin/sh
     tty: true
