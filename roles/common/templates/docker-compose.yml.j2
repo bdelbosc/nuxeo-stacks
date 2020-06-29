@@ -1,4 +1,4 @@
-version: "3.5"
+version: "2.4"
 services:
 {% if zookeeper %}
   zookeeper:
@@ -178,8 +178,12 @@ services:
     hostname: {{ nuxeo_node }}
     # required to setup async-profiling
     privileged: true
+    mem_reservation: 1g
+    mem_limit: 3g
     environment:
 {% if nuxeo_version is version_compare('11.0', '>') %}
+      NUXEO_CLID: {{ lookup('file', env_instance_clid) | replace('\n','\\n') }}
+      NUXEO_PACKAGES: {{ nuxeo_packages }}
       JAVA_OPTS: -Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8787
 {% else %}
       JAVA_OPTS: -Xdebug -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n
@@ -216,10 +220,14 @@ services:
       - "traefik.backend.healthcheck.port=8080"
       - "traefik.backend.healthcheck.interval=10s"
     volumes:
+{% if stream and kafka and nuxeo_version is version_compare('11.0', '<') %}
       - ./nuxeo/{{ nuxeo_node }}.conf:/docker-entrypoint-initnuxeo.d/nuxeo.conf:ro
       - ./nuxeo/init-nuxeo.sh:/docker-entrypoint-initnuxeo.d/init-nuxeo.sh:ro
-      - ./nuxeo/templates:/templates:ro
       - ./nuxeo/docker-entrypoint-initnuxeo.d:/docker-entrypoint-initnuxeo.d:rw
+{% else %}
+      - ./nuxeo/{{ nuxeo_node }}.conf:/etc/nuxeo/conf.d/nuxeo-stack.conf:ro
+{% endif %}
+      - ./nuxeo/templates:/templates:ro
       - {{ root_path }}/data/nuxeo-binaries:/var/lib/nuxeo/binaries:rw
       - {{ root_path }}/data/{{ nuxeo_node }}/data:/var/lib/nuxeo/data:rw
       - {{ root_path }}/data/{{ nuxeo_node }}/packages:/opt/nuxeo/server/packages:rw
@@ -233,7 +241,7 @@ services:
       - "minio.docker.localhost:192.168.192.60"
 {% endif %}
 {% endfor %}
-{% if stream and kafka and nuxeo_version is version_compare('11.0', '>') %}
+{% if stream and kafka and nuxeo_version is version_compare('11.0', '<') %}
   stream:
     image: {{ nuxeo_image }}
     container_name: stream
