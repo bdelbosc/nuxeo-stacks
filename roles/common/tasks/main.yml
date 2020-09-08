@@ -63,10 +63,18 @@
     nuxeo_packages: "{{ nuxeo_packages }} amazon-s3-online-storage"
   when: "minio"
 
-- name: Generate the nuxeo init script
+- name: Generate the nuxeo init script legacy docker image
   template:
     src: init-nuxeo.sh.j2
     dest: "{{root_path}}/nuxeo/init-nuxeo.sh"
+  when: "nuxeo_version is version_compare('11.0', '<')"
+
+- name: Generate the nuxeo init script new docker image
+  template:
+    src: nuxeo-stack-entrypoint.sh.j2
+    dest: "{{root_path}}/nuxeo/nuxeo-stack-entrypoint.sh"
+    mode: 0755
+  when: "nuxeo_version is version_compare('11.0', '>=')"
 
 - name: Copy the mongo init
   copy:

@@ -6,11 +6,11 @@ services:
     container_name: zookeeper
     hostname: zookeeper
     volumes:
-      - {{ root_path }}/data/zookeeper/data:/datalog
-      - {{ root_path }}/data/zookeeper/log:/data
+      - ./data/zookeeper/data:/datalog
+      - ./data/zookeeper/log:/data
 {% if kafkassl %}
-      - '{{ root_path }}/kafkassl/kafka-server-jaas.conf:/conf/kafka-server-jaas.conf:rw'
-      - '{{ root_path }}/kafkassl/zoo.cfg:/conf/zoo.cfg:rw'
+      - '${PWD}/kafkassl/kafka-server-jaas.conf:/conf/kafka-server-jaas.conf:rw'
+      - '${PWD}/kafkassl/zoo.cfg:/conf/zoo.cfg:rw'
     environment:
       SERVER_JVMFLAGS: "-Djava.security.auth.login.config=/conf/kafka-server-jaas.conf"
 {% endif %}
@@ -65,11 +65,11 @@ services:
 {% endif %}
     volumes:
 {% if kafkassl %}
-      - '{{ root_path }}/kafkassl/certs:/certs:ro'
-      - '{{ root_path }}/kafkassl/kafka-server-jaas.conf:/opt/kafka/config/kafka-server-jaas.conf:ro'
+      - './kafkassl/certs:/certs:ro'
+      - './kafkassl/kafka-server-jaas.conf:/opt/kafka/config/kafka-server-jaas.conf:ro'
 {% endif %}
-      - {{ root_path }}/data/kafka/data:/kafka:rw
-      - {{ root_path }}/data/kafka/log:/opt/kafka/log:rw
+      - ${PWD}/data/kafka/data:/kafka:rw
+      - ${PWD}/data/kafka/log:/opt/kafka/log:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
 {% endif %}
 {% if mongo %}
@@ -80,8 +80,8 @@ services:
     command: mongod --replSet rs0
     volumes:
       - ./mongo/initRS.js:/docker-entrypoint-initdb.d/initRS.js:ro
-      - {{ root_path }}/data/mongo/configdb:/data/configdb:rw
-      - {{ root_path }}/data/mongo/db:/data/db:rw
+      - ./data/mongo/configdb:/data/configdb:rw
+      - ./data/mongo/db:/data/db:rw
 {% elif postgres %}
   postgres:
     image: postgres:{{ postgres_version }}
@@ -95,7 +95,7 @@ services:
 #      - "5432:5432"
     volumes:
       - ./postgres/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
-      - {{ root_path }}/data/postgres/data:/var/lib/postgresql/data:rw
+      - ./data/postgres/data:/var/lib/postgresql/data:rw
 {% endif %}
 {% if elastic %}
   elasticsearch:
@@ -139,7 +139,7 @@ services:
       - "traefik.port=80"
       - "traefik.frontend.rule=Host:graphite.docker.localhost"
     volumes:
-      - {{ root_path }}/data/graphite:/opt/graphite/storage/whisper:rw
+      - ./data/graphite:/opt/graphite/storage/whisper:rw
 {% endif %}
 {% if grafana %}
   grafana:
@@ -156,7 +156,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
       - ./grafana/provisioning/:/etc/grafana/provisioning/:rw
-      - {{ root_path }}/data/grafana:/var/lib/grafana:rw
+      - ./data/grafana:/var/lib/grafana:rw
 {% endif %}
 {% if (kafkahq and (kafka or kafkaconfluent)) %}
   kafkahq:
@@ -193,6 +193,8 @@ services:
 {% if redis %}
       NUXEO_REDIS_HOST: redis
 {% endif %}
+    entrypoint: /nuxeo-stack-entrypoint.sh
+    command: nuxeoctl console
 {% if kafka or elastic or mongo or postgres or redis or kafkaconfluent %}
     depends_on:
 {% endif %}
@@ -228,14 +230,15 @@ services:
       - ./nuxeo/docker-entrypoint-initnuxeo.d:/docker-entrypoint-initnuxeo.d:rw
 {% else %}
       - ./nuxeo/{{ nuxeo_node }}.conf:/etc/nuxeo/conf.d/nuxeo-stack.conf:ro
+      - ./nuxeo/nuxeo-stack-entrypoint.sh:/nuxeo-stack-entrypoint.sh:ro
 {% endif %}
       - ./nuxeo/templates:/templates:ro
-      - {{ root_path }}/data/nuxeo-binaries:/var/lib/nuxeo/binaries:rw
-      - {{ root_path }}/data/{{ nuxeo_node }}/data:/var/lib/nuxeo/data:rw
-      - {{ root_path }}/data/{{ nuxeo_node }}/packages:/opt/nuxeo/server/packages:rw
-      - {{ root_path }}/data/profiler:/profiler:rw
+      - ./data/nuxeo-binaries:/var/lib/nuxeo/binaries:rw
+      - ./data/{{ nuxeo_node }}/data:/var/lib/nuxeo/data:rw
+      - ./data/{{ nuxeo_node }}/packages:/opt/nuxeo/server/packages:rw
+      - ./data/profiler:/profiler:rw
 {% if kafkassl %}
-      - {{ root_path }}/kafkassl/certs:/certs:ro
+      - ./kafkassl/certs:/certs:ro
 {% endif %}
 {% if kafkassl or minio %}
     extra_hosts:
@@ -262,7 +265,7 @@ services:
     container_name: redis
     hostname: redis
     volumes:
-      - {{ root_path }}/data/redis:/data:rw
+      - ./data/redis:/data:rw
 {% endif %}
 {% if minio %}
   minio:
@@ -273,7 +276,7 @@ services:
       MINIO_ACCESS_KEY: {{ minio_access_key }}
       MINIO_SECRET_KEY: {{ minio_secret_key }}
     volumes:
-      - {{ root_path }}/data/minio/data:/data:rw
+      - ./data/minio/data:/data:rw
     command: server --address "192.168.192.60:80" /data
     labels:
       - "traefik.port=80"
@@ -313,7 +316,7 @@ services:
     user: root
     volumes:
       - ./prometheus/:/etc/prometheus/:ro
-      - {{ root_path }}/data/prometheus:/prometheus:rw
+      - ./data/prometheus:/prometheus:rw
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
@@ -364,7 +367,7 @@ volumes:
   esdata:
     driver_opts:
       type: none
-      device: {{ root_path }}/data/elastic
+      device: ${PWD}/data/elastic
       o: bind
 {% endif %}
 {% if kafkassl or minio %}
