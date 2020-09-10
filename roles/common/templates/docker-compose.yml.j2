@@ -106,8 +106,9 @@ services:
       - "traefik.port=9200"
       - "traefik.frontend.rule=Host:elastic.docker.localhost"
     environment:
-      discovery.type: single-node
-      ES_JAVA_OPTS: -Xms384m -Xmx384m
+      - "discovery.type=single-node"
+      - "cluster.routing.allocation.disk.threshold_enabled=false"
+      - "ES_JAVA_OPTS=-Xms384m -Xmx384m"
 {% if elastic5 %}
       xpack.security.enabled: "false"
 {% endif %}
