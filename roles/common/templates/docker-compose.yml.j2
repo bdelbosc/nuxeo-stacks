@@ -383,4 +383,11 @@ networks:
       config:
       - subnet: 192.168.192.0/24
       - subnet: 2001:3984:3989::/64
+{% else %}
+# Set a MTU so Nuxeo can reach connect server even with a damn VPN
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1400
 {% endif %}
