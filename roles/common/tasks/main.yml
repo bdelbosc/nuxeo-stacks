@@ -52,6 +52,13 @@
     recurse: yes
   when: "elastic"
 
+- name: Init data directory Kafka
+  file:
+    path: "{{ root_path }}/data/kafka/data"
+    state: directory
+    recurse: yes
+  when: "kafka or kafkaconfluent"
+
 - name: Generate the nuxeo.conf file
   template:
     src: nuxeo.conf.j2

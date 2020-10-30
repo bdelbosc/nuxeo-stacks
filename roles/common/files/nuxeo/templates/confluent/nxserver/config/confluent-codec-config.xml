@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="org.nuxeo.runtime.codec.confluent.contrib" version="1.0">
 
+  <require>org.nuxeo.audit.stream.eventSourceProducer.contrib</require>
+
   <extension target="org.nuxeo.runtime.codec.service" point="codec">
     <codec name="avroConfluent" class="org.nuxeo.runtime.codec.AvroCodecFactory">
       <option name="encoding">confluent</option>
       <option name="schemaRegistryUrls">http://schema-registry:8081</option>
     </codec>
 
-<!--    <codec name="eventFlat" class="org.nuxeo.runtime.codec.AvroRecordCodecFactory">-->
-<!--      <option name="messageClass">org.nuxeo.ecm.platform.audit.stream.AuditEvent</option>-->
-<!--      <option name="schemaRegistryUrls">http://schema-registry:8081</option>-->
-<!--    </codec>-->
+    <codec name="auditAvroFlat" class="org.nuxeo.runtime.codec.AvroRecordCodecFactory">
+      <option name="messageClass">org.nuxeo.ecm.platform.audit.stream.AuditDomainEvent</option>
+      <option name="schemaRegistryUrls">http://schema-registry:8081</option>
+    </codec>
   </extension>
 
+  <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="domainEventProducer">
+    <domainEventProducer name="auditDomain" class="org.nuxeo.ecm.platform.audit.stream.AuditDomainEventProducer">
+      <stream name="source/audit" partitions="1" codec="auditAvroFlat" />
+    </domainEventProducer>
+  </extension>
 
 </component>
 
