@@ -194,8 +194,10 @@ services:
 {% if redis %}
       NUXEO_REDIS_HOST: redis
 {% endif %}
+{% if nuxeo_version is version_compare('11.0', '>') %}
     entrypoint: /nuxeo-stack-entrypoint.sh
     command: nuxeoctl console
+{% endif %}
 {% if kafka or elastic or mongo or postgres or redis or kafkaconfluent %}
     depends_on:
 {% endif %}
