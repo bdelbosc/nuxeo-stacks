@@ -186,7 +186,7 @@ services:
       NUXEO_CONNECT_URL: https://nos-preprod-connect.nuxeocloud.com/nuxeo/site/
       # NUXEO_CONNECT_URL: https://connect.nuxeo.com/nuxeo/site/
       NUXEO_CLID: {{ lookup('file', env_instance_clid) | replace('\n','\\n') }}
-      NUXEO_PACKAGES: {{ nuxeo_packages }}
+      NUX_PACKAGES: {{ nuxeo_packages }}
       JAVA_OPTS: -Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8787
 {% else %}
       JAVA_OPTS: -Xdebug -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n
