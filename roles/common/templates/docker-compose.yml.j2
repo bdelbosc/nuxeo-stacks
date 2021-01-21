@@ -227,7 +227,7 @@ services:
       - "traefik.backend.healthcheck.port=8080"
       - "traefik.backend.healthcheck.interval=10s"
     volumes:
-{% if stream and kafka and nuxeo_version is version_compare('11.0', '<') %}
+{% if nuxeo_version is version_compare('11.0', '<') %}
       - ./nuxeo/{{ nuxeo_node }}.conf:/docker-entrypoint-initnuxeo.d/nuxeo.conf:ro
       - ./nuxeo/init-nuxeo.sh:/docker-entrypoint-initnuxeo.d/init-nuxeo.sh:ro
       - ./nuxeo/docker-entrypoint-initnuxeo.d:/docker-entrypoint-initnuxeo.d:rw
