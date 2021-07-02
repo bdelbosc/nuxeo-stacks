@@ -65,8 +65,7 @@ Of course the first time you use nuxeo stacks it will take longer because you ha
 
   - On Ubuntu:
   ```bash
-  sudo apt install python3-pip jq
-  pip3 install virtualenv
+  sudo apt install python3-pip jq python3-virtualenv
   ```
   Note that on Ubuntu, the first time `nuxeoenv.sh` is run it will install `ansible` locally.
 
