@@ -97,6 +97,7 @@ get_input() {
  minio "Use a Minio S3 for binary storage" off \
  kafkassl "Kafka in SASL_SSL" off \
  stream "Nuxeo Stream monitoring for 10.10 only" off \
+ mailhog "Mailhog" off \
  3>&1 1>&2 2>&3)
   fi
   COMMAND="${0} -i \"${instance_clid}\" -d \"${data_path}\" -c ${nuxeo_cluster} -n ${nuxeo_dist} -b ${backend} -s '"${stacks}"'"
@@ -221,6 +222,11 @@ parse_input() {
   else
     minio=False
   fi
+  if [[ ${stacks} == *"mailhog"* ]]; then
+    mailhog=True
+  else
+    mailhog=False
+  fi
   if [[ ${nuxeo_cluster} == *"2"* ]]; then
     nuxeo_cluster_mode=True
     nuxeo_nb_nodes=2
@@ -267,6 +273,7 @@ generate_compose() {
  -e "env_kafka=$kafka env_kafkassl=$kafkassl env_zookeeper=$zookeeper env_kafkahq=$kafkahq env_kafkaconfluent=$kafkaconfluent"\
  -e "env_stream=$stream env_netdata=$netdata env_swm=$swm" \
  -e "env_prometheus=$prometheus  env_jaeger=$jaeger env_zipkin=$zipkin" \
+ -e "env_mailhog=$mailhog" \
  ${PLAYBOOK_OPTS}
   set +x
 }
@@ -310,6 +317,9 @@ bye() {
   if [[ ${stacks} == *"kafkaconfluent"* ]]; then
     echo "http://schema.docker.localhost/ -> Confluent Avro Schema Registry"
     echo "http://ksql.docker.localhost/ -> Confluent KSQL Server"
+  fi
+  if [[ ${stacks} == *"mailhog"* ]]; then
+    echo "http://mailhog.docker.localhost/ -> Mailhog"
   fi
 }
 
