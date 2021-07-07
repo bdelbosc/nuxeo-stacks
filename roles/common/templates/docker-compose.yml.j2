@@ -348,6 +348,14 @@ services:
       - "traefik.port=9411"
       - "traefik.frontend.rule=Host:zipkin.docker.localhost"
 {% endif %}
+{% if mailhog %}
+  mailhog:
+    image: mailhog/mailhog:{{ mailhog_version }}
+    container_name: mailhog
+    labels:
+      - "traefik.port=8025"
+      - "traefik.frontend.rule=Host:mailhog.docker.localhost"
+{% endif %}
   traefik:
     image: traefik:{{ traefik_version }}
     container_name: traefik

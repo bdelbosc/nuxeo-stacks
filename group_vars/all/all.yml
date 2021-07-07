@@ -22,6 +22,7 @@ jaeger_version: latest
 zipkin_version: latest
 minio_version: latest
 confluent_version: 5.5.0
+mailhog_version: v1.0.1
 
 # Options from nuxeoenv.sh
 nuxeo: "{{ env_nuxeo }}"
@@ -49,4 +50,5 @@ prometheus: "{{ env_prometheus }}"
 jaeger: "{{ env_jaeger }}"
 zipkin: "{{ env_zipkin }}"
 minio: "{{ env_minio }}"
+mailhog: "{{ env_mailhog }}"
 
