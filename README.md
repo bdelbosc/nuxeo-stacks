@@ -13,7 +13,7 @@ Again this is for testing a stack, not to do performance testing and **NOT FOR P
 The Nuxeo versions supported are:
 
 - Nuxeo latest
-- (Nuxeo latest JX build by Jenkins X pipeline) broken for now
+- Nuxeo 2021
 - Nuxeo 10.10
 - Nuxeo 9.10
 - Nuxeo 8.10
@@ -44,6 +44,7 @@ In addition of the Nuxeo stack you can add useful tooling:
 - [Prometheus](https://prometheus.io/): an alternative to graphite monitoring
 - [Jaeger](https://www.jaegertracing.io/): a Tracer for distributed tracing
 - [Zipkin](https://zipkin.io/): an alternative Tracer for distributed tracing
+- [MailHog](https://github.com/mailhog/MailHog): email testing tool for developers
 
 # Demo
 
@@ -56,6 +57,7 @@ Of course the first time you use nuxeo stacks it will take longer because you ha
 # Installation
 
 1. Obviously you need to [install docker-compose](https://docs.docker.com/compose/install/).
+   For **MacOS** make sure your docker has enough resources (4CPU, 4GB RAM is a good start).
 
 2. Install other dependencies to generate the env or used by scripts:
   - On Mac OS
@@ -92,6 +94,7 @@ Add theses lines to your `/etc/hosts`
 127.0.0.1 traefik.docker.localhost
 127.0.0.1 schema.docker.localhost
 127.0.0.1 ksql.docker.localhost
+127.0.0.1 mailhog.docker.localhost
 ```
 
 
@@ -154,6 +157,7 @@ All HTTP services are exposed by [traefik](https://traefik.io/) with proper host
 | http://zipkin.docker.localhost |  | Tracer for distributed tracing |
 | http://schema.docker.localhost |  | The Confluent Avro Schema registry |
 | http://ksql.docker.localhost |  | The Confluent KSQL server |
+| http://mailhog.docker.localhost  |  | The Mail Hog server |
 |--- | --- | ---|
 | http://traefik.docker.localhost/ | | Traefik dashboard |
  

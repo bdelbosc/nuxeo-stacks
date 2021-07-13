@@ -1,0 +1,13 @@
+---
+nuxeo_version: "11.5"
+nuxeo_image: "docker-private.packages.nuxeo.com/nuxeo/nuxeo:2021"
+elastic_image: "docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.3"
+elastic5: false
+kibana_version: "kibana-oss:6.5.3"
+mongo_version: 4.0.12
+postgres_version: 11-alpine
+kafka_version: 2.13-2.6.0
+zookeeper_version: 3.5.8
+redis_version: 5.0-alpine
+nuxeo_packages: "nuxeo-web-ui nuxeo-platform-importer"
+confluent_version: 6.0.0
