@@ -276,8 +276,8 @@ services:
     container_name: minio
     hostname: minio
     environment:
-      MINIO_ACCESS_KEY: {{ minio_access_key }}
-      MINIO_SECRET_KEY: {{ minio_secret_key }}
+      MINIO_ROOT_USER: {{ minio_access_key }}
+      MINIO_ROOT_PASSWORD: {{ minio_secret_key }}
     volumes:
       - ./data/minio/data:/data:rw
     command: server --address "192.168.192.60:80" /data
