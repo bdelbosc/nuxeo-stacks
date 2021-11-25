@@ -183,8 +183,8 @@ services:
     mem_limit: 3g
     environment:
 {% if nuxeo_version is version_compare('11.0', '>') %}
-      NUXEO_CONNECT_URL: https://nos-preprod-connect.nuxeocloud.com/nuxeo/site/
-      # NUXEO_CONNECT_URL: https://connect.nuxeo.com/nuxeo/site/
+      # NUXEO_CONNECT_URL: https://nos-preprod-connect.nuxeocloud.com/nuxeo/site/
+      NUXEO_CONNECT_URL: https://connect.nuxeo.com/nuxeo/site/
       NUXEO_CLID: {{ lookup('file', env_instance_clid) | replace('\n','\\n') }}
       NUX_PACKAGES: {{ nuxeo_packages }}
       JAVA_OPTS: -Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8787
