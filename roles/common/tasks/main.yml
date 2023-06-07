@@ -170,6 +170,11 @@
     - test
   when: "kafkassl"
 
+- name: Add a gitignore
+  copy:
+    src: gitignore
+    dest: "{{root_path}}/.gitinore"
+
 - name: Copy scripts
   copy:
     src: bin

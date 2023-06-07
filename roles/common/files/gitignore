@@ -1,0 +1,6 @@
+*~
+*.bak
+.DS_Store
+*.orig
+*.rej
+data/

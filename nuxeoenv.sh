@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -x
 
 # Nuxeo stacks
 #
@@ -85,20 +84,20 @@ get_input() {
   if [[ -z "${stacks}" ]]; then
     stacks=$(whiptail --title "Nuxeo stacks" --checklist "Compose your stack:" 22 72 14 \
  elastic "Elasticsearch (non embedded)" on \
- redis "Redis" on \
- kafka "Kafka (and Zookeeper)" off \
- kafkaconfluent "Confluent Kafka stack with KSQL" off \
- swm "Use the Nuxeo StreamWorkManager impl.    " off \
+ kafka "Kafka (and Zookeeper)" on \
+ swm "Use the Nuxeo StreamWorkManager impl.    " on \
+ kafkahq "A GUI for Kafka" on \
  monitor "Monitoring with Graphite/Grafana" off \
  prometheus "Expose metrics to Prometheus" off \
  jaeger "Trace Nuxeo with Jaeger" off \
  zipkin "Trace Nuxeo with Zipkin" off \
  netdata "Netdata monitoring" off \
- kafkahq "A GUI for Kafka" off \
  kibana "Elasticsearch Kibana" off \
  minio "Use a Minio S3 for binary storage" off \
  kafkassl "Kafka in SASL_SSL" off \
  stream "Nuxeo Stream monitoring for 10.10 only" off \
+ kafkaconfluent "Confluent Kafka stack with KSQL" off \
+ redis "Redis" off \
  mailhog "Mailhog" off \
  3>&1 1>&2 2>&3)
   fi

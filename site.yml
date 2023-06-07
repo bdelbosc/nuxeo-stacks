@@ -4,24 +4,24 @@
   vars_files:
     - [ "group_vars/all/nuxeo-{{ nuxeo_select_version }}.yml" ]
   vars:
-    - nuxeo_templates: ['default']
+    - nuxeo_templates: "default"
     - nuxeo_nodes: []
   pre_tasks:
     - name: Mongo template
       set_fact:
-        nuxeo_templates: "{{ nuxeo_templates }} + ['mongodb']"
+        nuxeo_templates: "{{ nuxeo_templates }},mongodb"
       when: "mongo"
     - name: PostgreSQL template
       set_fact:
-        nuxeo_templates: "{{ nuxeo_templates }} + ['postgresql']"
+        nuxeo_templates: "{{ nuxeo_templates }},postgresql"
       when: "postgres"
     - name: Redis template
       set_fact:
-        nuxeo_templates: "{{ nuxeo_templates }} + ['redis']"
+        nuxeo_templates: "{{ nuxeo_templates }},redis"
       when: "redis and (nuxeo_version is version_compare('9.10', '>'))"
     - name: Kafka Confluent template
       set_fact:
-        nuxeo_templates: "{{ nuxeo_templates }} + ['/templates/confluent']"
+        nuxeo_templates: "{{ nuxeo_templates }},/templates/confluent"
       when: "kafkaconfluent"
     - name: Nuxeo standalone
       set_fact:

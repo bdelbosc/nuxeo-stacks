@@ -1,5 +1,5 @@
 nuxeo.url=http://nuxeo.docker.localhost
-nuxeo.templates={{ nuxeo_templates|join(',') }}
+nuxeo.templates={{ nuxeo_templates }}
 
 {% if nuxeo_version is version_compare('10.2', '>') %}
 {% if kafkaconfluent %}
