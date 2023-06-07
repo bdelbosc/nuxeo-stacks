@@ -59,7 +59,7 @@ get_input() {
   fi
   if [[ -z "${nuxeo_dist}" ]]; then
     nuxeo_dist=$(whiptail --title "Nuxeo stacks" --radiolist "Choose a Nuxeo distribution:" 14 60 6 \
- nuxeolatest "Nuxeo nuxeo/nuxeo:latest            " on \
+ nuxeolatest "Nuxeo nuxeo/nuxeo:latest-lts          " on \
  nuxeo2021 "Nuxeo 2021" off \
  nuxeo1010 "Nuxeo 10.10" off \
  nuxeo910 "Nuxeo 9.10" off \

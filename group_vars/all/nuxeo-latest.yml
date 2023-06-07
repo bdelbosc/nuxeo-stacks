@@ -1,6 +1,6 @@
 ---
-nuxeo_version: "11.1"
-nuxeo_image: "nuxeo/nuxeo:latest"
+nuxeo_version: "11.5"
+nuxeo_image: "nuxeo/nuxeo:latest-lts"
 elastic_image: "docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.3"
 elastic5: false
 kibana_version: "kibana-oss:6.5.3"
