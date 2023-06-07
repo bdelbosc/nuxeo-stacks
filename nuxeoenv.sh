@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -x
 
 # Nuxeo stacks
 #
@@ -268,7 +269,7 @@ generate_compose() {
     ANSIBLE_OPT="--connection=local"
   fi
   set -x
-  ansible-playbook site.yml $ANSIBLE_OPT -i ./hosts -e "env_data_path=$data_path env_instance_clid=$instance_clid" \
+  LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 LC_MESSAGES=en_US.UTF-8 ansible-playbook site.yml $ANSIBLE_OPT -i ./hosts -e "env_data_path=$data_path env_instance_clid=$instance_clid" \
  -e "env_nuxeo=$nuxeo env_nuxeo_version=$nuxeo_version" \
  -e "env_nuxeo_cluster=$nuxeo_cluster_mode env_nuxeo_nb_nodes=$nuxeo_nb_nodes" \
  -e "env_mongo=$mongo env_postgres=$postgres env_redis=$redis env_minio=$minio" \
