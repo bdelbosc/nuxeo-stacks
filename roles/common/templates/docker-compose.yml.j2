@@ -177,6 +177,7 @@ services:
     image: {{ nuxeo_image }}
     container_name: {{ nuxeo_node }}
     hostname: {{ nuxeo_node }}
+    user: root
     # required to setup async-profiling
     privileged: true
     mem_reservation: 1g
