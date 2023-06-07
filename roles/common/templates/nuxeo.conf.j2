@@ -33,6 +33,7 @@ nuxeo.aws.accessKeyId={{ minio_access_key }}
 nuxeo.aws.secretKey={{ minio_secret_key }}
 nuxeo.s3storage.bucket={{ minio_bucket }}
 nuxeo.s3storage.endpoint=http://minio.docker.localhost
+nuxeo.s3storage.region=eu-west-1
 nuxeo.s3storage.pathstyleaccess=true
 nuxeo.s3storage.directdownload=true
 nuxeo.s3storage.directdownload.expire=3600
@@ -121,17 +122,19 @@ tracing.annotations.max=512
 tracing.zpage.enabled=true
 tracing.zpage.port=8887
 {% endif %}
-{% if jaeger %}
-tracing.jaeger.enabled=true
-tracing.jaeger.url=http://jaeger:14268/api/traces
-{% endif %}
-{% if zipkin %}
-tracing.zipkin.enabled=true
-tracing.zipkin.url=http://zipkin:9411/api/v2/spans
-{% endif %}
 {% if mailhog %}
 mail.transport.host=mailhog
 mail.transport.port=1025
 {% endif %}
 # nuxeo.vcs.fulltext.search.disabled=true
 JAVA_OPTS=$JAVA_OPTS -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1089 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints
+{% if jaeger %}
+tracing.jaeger.enabled=true
+tracing.jaeger.url=http://jaeger:14268/api/traces
+#JAVA_OPTS=$JAVA_OPTS  -javaagent:/profiler/opentelemetry-javaagent.jar -Dotel.service.name=nuxeo -Dotel.traces.exporter=jaeger -Dotel.exporter.jaeger.endpoint=http://jaeger:16686
+{% endif %}
+{% if zipkin %}
+tracing.zipkin.enabled=true
+tracing.zipkin.url=http://zipkin:9411/api/v2/spans
+#JAVA_OPTS=$JAVA_OPTS  -javaagent:/profiler/opentelemetry-javaagent.jar -Dotel.service.name=nuxeo -Dotel.traces.exporter=zipkin -Dotel.exporter.zipkin.endpoint=http://zipkin:9411/api/v2/spans
+{% endif %}

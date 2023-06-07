@@ -38,6 +38,15 @@
     state: directory
     recurse: yes
 
+- name: Install opentelemetry agent
+  get_url:
+    url: https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.9.1/opentelemetry-javaagent.jar
+    use_proxy: no
+    validate_certs: no
+    dest: "{{ root_path }}/data/profiler"
+    mode: 0644
+  when: "jaeger or zipkin"
+
 - name: Copy the nuxeo instance clid
   copy:
     src: "{{ instance_clid }}"

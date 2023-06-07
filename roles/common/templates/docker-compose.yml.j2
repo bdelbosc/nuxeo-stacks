@@ -278,9 +278,10 @@ services:
     environment:
       MINIO_ROOT_USER: {{ minio_access_key }}
       MINIO_ROOT_PASSWORD: {{ minio_secret_key }}
+      MINIO_BROWSER_REDIRECT_URL: http://192.168.192.60:8080
     volumes:
       - ./data/minio/data:/data:rw
-    command: server --address "192.168.192.60:80" /data
+    command: server --console-address "192.168.192.60:8080" --address "192.168.192.60:80" /data
     labels:
       - "traefik.port=80"
       - "traefik.frontend.rule=Host:minio.docker.localhost"
