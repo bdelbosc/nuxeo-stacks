@@ -237,9 +237,11 @@ services:
       - ./nuxeo/nuxeo-stack-entrypoint.sh:/nuxeo-stack-entrypoint.sh:ro
 {% endif %}
       - ./nuxeo/templates:/templates:ro
-      - ./data/nuxeo-binaries:/var/lib/nuxeo/binaries:rw
-      - ./data/{{ nuxeo_node }}/data:/var/lib/nuxeo/data:rw
+      - ./data/nuxeo-binaries:/var/lib/nuxeo-shared:rw
+      - ./data/{{ nuxeo_node }}/data:/var/lib/nuxeo:rw
       - ./data/{{ nuxeo_node }}/packages:/opt/nuxeo/server/packages:rw
+      - ./data/{{ nuxeo_node }}/log/tomcat:/opt/nuxeo/server/log:rw
+      - ./data/{{ nuxeo_node }}/log/nuxeo:/var/log/nuxeo:rw
       - ./data/profiler:/profiler:rw
 {% if kafkassl %}
       - ./kafkassl/certs:/certs:ro

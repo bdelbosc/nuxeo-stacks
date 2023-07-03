@@ -25,6 +25,8 @@ sudo rm -rf "$DATA_PATH/nuxeo"*"/packages/.packages"*
 sudo rm -rf "$DATA_PATH/nuxeo"*"/data/"*/
 sudo rm -rf "$DATA_PATH/nuxeo"*"/data/"*.conf
 sudo rm -rf "$DATA_PATH/nuxeo"*"/data/bundles.ids"
+sudo rm -rf "$DATA_PATH/nuxeo"*"/log/tomcat/"*
+sudo rm -rf "$DATA_PATH/nuxeo"*"/log/nuxeo/"*
 sudo rm -rf "$DATA_PATH/nuxeo-binaries/"*
 sudo rm -rf "$DATA_PATH/mongo/"*
 sudo rm -rf "$DATA_PATH/minio/"*
