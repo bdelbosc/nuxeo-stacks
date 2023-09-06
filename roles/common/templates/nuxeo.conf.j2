@@ -17,6 +17,7 @@ nuxeo.stream.pubsub.log.codec=avro
 {% if nuxeo_cluster %}
 {% if nuxeo_version is version_compare('11.0', '>') %}
 nuxeo.cluster.enabled=true
+nuxeo.server.tomcat_access_log.pattern=%h %t %{user_name}s '%r' %s %b %Dms
 {% else %}
 repository.clustering.enabled=true
 {% endif %}
