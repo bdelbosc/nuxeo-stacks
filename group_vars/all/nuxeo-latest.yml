@@ -11,5 +11,5 @@ zookeeper_version: 3.5.8
 redis_version: 5.0-alpine
 # no importer because of NXP-31969
 #nuxeo_packages: "nuxeo-web-ui nuxeo-platform-importer"
-nuxeo_packages: "nuxeo-web-ui nuxeo-platform-importer"
+nuxeo_packages: "nuxeo-web-ui"
 confluent_version: 6.0.0
