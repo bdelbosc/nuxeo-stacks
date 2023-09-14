@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Reindex the repository using the WorkManager
-SERVER_URL=${SERVER_URL:-http://nuxeo.docker.localhost}
+DOMAIN=${DOMAIN:-localhost}
+SERVER_URL=${SERVER_URL:-http://nuxeo.docker.$DOMAIN}
 set -e
 set -x
 curl -X POST "$SERVER_URL/nuxeo/site/automation/Elasticsearch.Index" -u Administrator:Administrator -H 'content-type: application/json+nxrequest' -d '{"params":{},"context":{}}'

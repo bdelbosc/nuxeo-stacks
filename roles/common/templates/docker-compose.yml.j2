@@ -104,7 +104,7 @@ services:
     hostname: elastic
     labels:
       - "traefik.port=9200"
-      - "traefik.frontend.rule=Host:elastic.docker.localhost"
+      - "traefik.frontend.rule=Host:elastic.docker.${DOMAIN:-localhost}"
     environment:
       - "discovery.type=single-node"
       - "cluster.routing.allocation.disk.threshold_enabled=false"
@@ -121,7 +121,7 @@ services:
     hostname: kibana
     labels:
       - "traefik.port=5601"
-      - "traefik.frontend.rule=Host:kibana.docker.localhost"
+      - "traefik.frontend.rule=Host:kibana.docker.${DOMAIN:-localhost}"
     environment:
       SERVER_NAME: kibana
       ELASTICSEARCH_URL: http://elasticsearch:9200
@@ -138,7 +138,7 @@ services:
     user: root
     labels:
       - "traefik.port=80"
-      - "traefik.frontend.rule=Host:graphite.docker.localhost"
+      - "traefik.frontend.rule=Host:graphite.docker.${DOMAIN:-localhost}"
     volumes:
       - ./data/graphite:/opt/graphite/storage/whisper:rw
 {% endif %}
@@ -150,7 +150,7 @@ services:
     user: root
     labels:
       - "traefik.port=3000"
-      - "traefik.frontend.rule=Host:grafana.docker.localhost"
+      - "traefik.frontend.rule=Host:grafana.docker.${DOMAIN:-localhost}"
     links:
       - graphite
     environment:
@@ -166,7 +166,7 @@ services:
     hostname: kafkahq
     labels:
       - "traefik.port=8080"
-      - "traefik.frontend.rule=Host:kafkahq.docker.localhost"
+      - "traefik.frontend.rule=Host:kafkahq.docker.${DOMAIN:-localhost}"
     depends_on:
       - kafka
     volumes:
@@ -221,9 +221,9 @@ services:
 {% endif %}
     labels:
       - "traefik.http.port=8080"
-      - "traefik.http.frontend.rule=Host:nuxeo.docker.localhost"
+      - "traefik.http.frontend.rule=Host:nuxeo.docker.${DOMAIN:-localhost}"
       - "traefik.direct.port=8080"
-      - "traefik.direct.frontend.rule=Host:{{ nuxeo_node }}-node.docker.localhost"
+      - "traefik.direct.frontend.rule=Host:{{ nuxeo_node }}-node.docker.${DOMAIN:-localhost}"
       - "traefik.backend.healthcheck.path=/nuxeo/runningstatus"
       - "traefik.backend.healthcheck.port=8080"
       - "traefik.backend.healthcheck.interval=10s"
@@ -249,7 +249,7 @@ services:
 {% if kafkassl or minio %}
     extra_hosts:
       - "kafka.docker.test:192.168.192.50"
-      - "minio.docker.localhost:192.168.192.60"
+      - "minio.docker.${DOMAIN:-localhost}:192.168.192.60"
 {% endif %}
 {% endfor %}
 {% if stream and kafka and nuxeo_version is version_compare('11.0', '<') %}
@@ -287,14 +287,14 @@ services:
     command: server --console-address "192.168.192.60:8080" --address "192.168.192.60:80" /data
     labels:
       - "traefik.port=80"
-      - "traefik.frontend.rule=Host:minio.docker.localhost"
+      - "traefik.frontend.rule=Host:minio.docker.${DOMAIN:-localhost}"
     networks:
       default:
         ipv4_address: 192.168.192.60
         aliases:
-          - minio.docker.localhost
+          - minio.docker.${DOMAIN:-localhost}
     extra_hosts:
-      - "minio.docker.localhost:192.168.192.60"
+      - "minio.docker.${DOMAIN:-localhost}:192.168.192.60"
 {% endif %}
 {% if netdata %}
   netdata:
@@ -303,7 +303,7 @@ services:
     hostname: netdata
     labels:
       - "traefik.port=19999"
-      - "traefik.frontend.rule=Host:netdata.docker.localhost"
+      - "traefik.frontend.rule=Host:netdata.docker.${DOMAIN:-localhost}"
     environment:
       # must match grep docker /etc/group | cut -d ':' -f 3
       PGID: 999
@@ -331,7 +331,7 @@ services:
       - '--web.console.templates=/usr/share/prometheus/consoles'
     labels:
       - "traefik.port=9090"
-      - "traefik.frontend.rule=Host:prometheus.docker.localhost"
+      - "traefik.frontend.rule=Host:prometheus.docker.${DOMAIN:-localhost}"
 {% endif %}
 {% if jaeger %}
   jaeger:
@@ -340,7 +340,7 @@ services:
     container_name: jaeger
     labels:
       - "traefik.port=16686"
-      - "traefik.frontend.rule=Host:jaeger.docker.localhost"
+      - "traefik.frontend.rule=Host:jaeger.docker.${DOMAIN:-localhost}"
 {% endif %}
 {% if zipkin %}
   zipkin:
@@ -350,7 +350,7 @@ services:
       - STORAGE_TYPE=mem
     labels:
       - "traefik.port=9411"
-      - "traefik.frontend.rule=Host:zipkin.docker.localhost"
+      - "traefik.frontend.rule=Host:zipkin.docker.${DOMAIN:-localhost}"
 {% endif %}
 {% if mailhog %}
   mailhog:
@@ -358,7 +358,7 @@ services:
     container_name: mailhog
     labels:
       - "traefik.port=8025"
-      - "traefik.frontend.rule=Host:mailhog.docker.localhost"
+      - "traefik.frontend.rule=Host:mailhog.docker.${DOMAIN:-localhost}"
 {% endif %}
   traefik:
     image: traefik:{{ traefik_version }}
@@ -368,7 +368,7 @@ services:
       - 80:80
     labels:
       - "traefik.port=8080"
-      - "traefik.frontend.rule=Host:traefik.docker.localhost"
+      - "traefik.frontend.rule=Host:traefik.docker.${DOMAIN:-localhost}"
     depends_on:
       - nuxeo
     volumes:

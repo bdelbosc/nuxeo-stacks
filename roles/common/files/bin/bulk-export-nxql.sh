@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Performs a CSV export of the entire repository
-SERVER_URL=${SERVER_URL:-http://nuxeo.docker.localhost}
+DOMAIN=${DOMAIN:-localhost}
+SERVER_URL=${SERVER_URL:-http://nuxeo.docker.$DOMAIN}
 NXQL=${NXQL:-SELECT * FROM Document WHERE ecm:isProxy = 0 AND ecm:isVersion = 0 AND ecm:isTrashed = 0}
 echo "# $NXQL"
 set -e

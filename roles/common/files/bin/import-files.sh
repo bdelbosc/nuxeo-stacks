@@ -4,7 +4,8 @@
 # https://github.com/nuxeo/nuxeo-platform-importer/tree/master/nuxeo-importer-stream
 set -x
 set -e
-SERVER_URL=${SERVER_URL:-http://nuxeo.docker.localhost}
+DOMAIN=${DOMAIN:-localhost}
+SERVER_URL=${SERVER_URL:-http://nuxeo.docker.$DOMAIN}
 LIST_FILE=$1
 BASE_PATH="$(dirname $1)"
 

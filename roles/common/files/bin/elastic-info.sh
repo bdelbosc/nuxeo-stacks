@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Report elastic information as in reporting problem documentation
-SERVER="http://elastic.docker.localhost"
+DOMAIN=${DOMAIN:-localhost}
+SERVER=${SERVER:-http://elastic.docker.$DOMAIN}
 set -x
 echo "# Elastic -----------"
 curl "${SERVER}"

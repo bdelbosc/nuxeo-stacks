@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-SERVER_URL=${SERVER_URL:-http://nuxeo.docker.localhost}
+DOMAIN=${DOMAIN:-localhost}
+SERVER_URL=${SERVER_URL:-http://nuxeo.docker.$DOMAIN}
 set -e
 set -x
 SCRIPT_PATH="$(cd "$(dirname "$0")"; pwd -P)"
