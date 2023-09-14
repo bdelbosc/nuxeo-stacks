@@ -141,3 +141,4 @@ tracing.zipkin.enabled=true
 tracing.zipkin.url=http://zipkin:9411/api/v2/spans
 #JAVA_OPTS=$JAVA_OPTS  -javaagent:/profiler/opentelemetry-javaagent.jar -Dotel.service.name=nuxeo -Dotel.traces.exporter=zipkin -Dotel.exporter.zipkin.endpoint=http://zipkin:9411/api/v2/spans
 {% endif %}
+JAVA_OPTS=$JAVA_OPTS -Xmx2g -Xms2g

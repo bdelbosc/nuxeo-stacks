@@ -180,7 +180,7 @@ services:
     user: root
     # required to setup async-profiling
     privileged: true
-    mem_reservation: 1g
+    mem_reservation: 3g
     mem_limit: 3g
     environment:
 {% if nuxeo_version is version_compare('11.0', '>') %}
