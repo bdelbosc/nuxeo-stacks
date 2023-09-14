@@ -173,7 +173,7 @@
 - name: Add a gitignore
   copy:
     src: gitignore
-    dest: "{{root_path}}/.gitinore"
+    dest: "{{root_path}}/.gitignore"
 
 - name: Copy scripts
   copy:
