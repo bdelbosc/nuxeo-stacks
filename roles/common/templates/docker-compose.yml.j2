@@ -20,6 +20,7 @@ services:
     image: wurstmeister/kafka:{{ kafka_version }}
     container_name: kafka
     hostname: kafka
+    restart: always
     environment:
       #KAFKA_BROKER_ID: 1
       KAFKA_PORT: 9092
