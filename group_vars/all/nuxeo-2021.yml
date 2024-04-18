@@ -1,6 +1,6 @@
 ---
 nuxeo_version: "11.5"
-nuxeo_image: "docker-private.packages.nuxeo.com/nuxeo/nuxeo:2021"
+nuxeo_image: "docker-private.packages.nuxeo.com/nuxeo/nuxeo:2021.x"
 elastic_image: "docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.3"
 elastic5: false
 kibana_version: "kibana-oss:6.5.3"

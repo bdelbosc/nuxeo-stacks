@@ -220,6 +220,23 @@ And scripts:
 
 - [Docker Cheat Sheet](https://github.com/wsargent/docker-cheat-sheet)
 
+### I cannot run nuxeoenv.sh
+
+`nuxeoenv.sh` returns a message like:
+```bash
+ERROR: Ansible could not initialize the preferred locale: unsupported locale setting
+```
+
+The script expects that you have the `en_US.UTF-8` locale installed.
+
+Check your locale with:
+```bash
+locale
+```
+
+Either install the `en_US.UTF-8` locale, either adapt the `nuxeoenv.sh` script to use your locale.
+
+
 ### I can't start my env!
 
 When running `docker-compose up` I got the following errors:
@@ -240,6 +257,7 @@ ERROR: for nuxeo  Cannot create container for service nuxeo: Conflict. The conta
 This is because another environment has been abruptly stopped. You can try to go to the previous env and 
 perform a `docker-compose down --volume` or you can simply remove each listed containers in conflict 
 using `docker rm <CONTAINER ID>`
+
 
 ### How to debug a specific Nuxeo node?
 
