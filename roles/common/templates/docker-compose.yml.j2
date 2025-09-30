@@ -80,7 +80,6 @@ services:
     hostname: mongo
     command: mongod --replSet rs0
     volumes:
-      - ./mongo/initRS.js:/docker-entrypoint-initdb.d/initRS.js:ro
       - ./data/mongo/configdb:/data/configdb:rw
       - ./data/mongo/db:/data/db:rw
 {% elif postgres %}
@@ -154,8 +153,6 @@ services:
       - "traefik.frontend.rule=Host:grafana.docker.${DOMAIN:-localhost}"
     links:
       - graphite
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
       - ./grafana/provisioning/:/etc/grafana/provisioning/:rw
       - ./data/grafana:/var/lib/grafana:rw

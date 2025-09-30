@@ -3,9 +3,7 @@
   gather_facts: no
   vars_files:
     - [ "group_vars/all/nuxeo-{{ nuxeo_select_version }}.yml" ]
-  vars:
-    - nuxeo_templates: "default"
-    - nuxeo_nodes: []
+  vars: {"nuxeo_templates": "default", "nuxeo_nodes": []}
   pre_tasks:
     - name: Mongo template
       set_fact:

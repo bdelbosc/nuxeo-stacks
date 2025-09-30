@@ -2,5 +2,5 @@
 
 # Run mongo client
 set -x
-docker exec -it mongo mongo localhost/nuxeo
+docker exec -it mongo mongosh localhost/nuxeo
 
